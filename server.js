@@ -632,7 +632,6 @@ window.PRODUCT_ALIASES = {
   window.STORE_PRODUCTS = defaults;
 })();
 `;
-          const productsFilePath = path.join(ROOT_DIR, 'assets', 'js', 'data', 'products.js');
           fs.writeFileSync(productsFilePath, jsContent, 'utf8');
           synced.push(`products (${products.length})`);
         }
