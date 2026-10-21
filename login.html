@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion & Inscription | ATELIER</title>
+  
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
+</head>
+<body style="background-color: var(--color-bg-secondary);">
+
+  <!-- Dynamic Header Container -->
+  <div id="site-header-container"></div>
+
+  <!-- Auth Container -->
+  <main class="container-narrow section-spacing">
+    <div style="max-width: 460px; margin: 0 auto; background: #FFFFFF; padding: clamp(24px, 5vw, 40px); border: 1px solid var(--color-border); box-shadow: var(--shadow-subtle);">
+      
+      <!-- Tab Switcher -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 28px; border-bottom: 2px solid var(--color-border); padding-bottom: 12px;">
+        <button id="tab-btn-login" class="font-heading" style="font-weight: 700; font-size: 1rem; text-align: center; color: var(--color-dark); cursor: pointer;" onclick="switchAuthTab('login')">
+          SE CONNECTER
+        </button>
+        <button id="tab-btn-register" class="font-heading" style="font-weight: 600; font-size: 1rem; text-align: center; color: var(--color-text-muted); cursor: pointer;" onclick="switchAuthTab('register')">
+          CRÉER UN COMPTE
+        </button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="auth-login-form" onsubmit="handleAuthSubmit(event, 'login')">
+        <div class="form-group">
+          <label class="form-label" for="login-email">Adresse Email</label>
+          <input type="email" id="login-email" class="form-input" placeholder="exemple@email.com" required>
+        </div>
+
+        <div class="form-group">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <label class="form-label" for="login-password" style="margin-bottom: 0;">Mot de Passe</label>
+            <a href="#" style="font-size: 0.76rem; text-decoration: underline; color: var(--color-text-muted);" onclick="alert('Un lien de réinitialisation sera envoyé à votre adresse email.')">Mot de passe oublié ?</a>
+          </div>
+          <input type="password" id="login-password" class="form-input" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full" style="margin-top: 12px;">
+          CONNEXION
+        </button>
+      </form>
+
+      <!-- Register Form -->
+      <form id="auth-register-form" style="display: none;" onsubmit="handleAuthSubmit(event, 'register')">
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label" for="reg-first-name">Prénom</label>
+            <input type="text" id="reg-first-name" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="reg-last-name">Nom</label>
+            <input type="text" id="reg-last-name" class="form-input" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-email">Adresse Email</label>
+          <input type="email" id="reg-email" class="form-input" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-phone">Téléphone (Maroc)</label>
+          <input type="tel" id="reg-phone" class="form-input" placeholder="06 12 34 56 78" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-password">Mot de passe</label>
+          <input type="password" id="reg-password" class="form-input" placeholder="Min. 8 caractères" required minlength="6">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full" style="margin-top: 12px;">
+          CRÉER MON COMPTE
+        </button>
+      </form>
+
+      <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--color-border); font-size: 0.78rem; text-align: center; color: var(--color-text-muted);">
+        Structure prête pour connexion à votre base de données / API backend.
+      </div>
+    </div>
+  </main>
+
+  <!-- Dynamic Footer Container -->
+  <div id="site-footer-container"></div>
+
+  <!-- Core Scripts -->
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/data/categories.js"></script>
+  <script src="assets/js/data/collections.js"></script>
+  <script src="assets/js/data/products.js"></script>
+  <script src="assets/js/core/storage.js"></script>
+  <script src="assets/js/core/utils.js"></script>
+  <script src="assets/js/core/cart.js"></script>
+  <script src="assets/js/core/wishlist.js"></script>
+  <script src="assets/js/core/search.js"></script>
+  <script src="assets/js/components/toast.js"></script>
+  <script src="assets/js/components/header.js"></script>
+  <script src="assets/js/components/footer.js"></script>
+  <script src="assets/js/components/cartDrawer.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (window.HeaderComponent) window.HeaderComponent.mount();
+      if (window.FooterComponent) window.FooterComponent.mount();
+    });
+
+    function switchAuthTab(tab) {
+      const loginForm = document.getElementById("auth-login-form");
+      const regForm = document.getElementById("auth-register-form");
+      const loginBtn = document.getElementById("tab-btn-login");
+      const regBtn = document.getElementById("tab-btn-register");
+
+      if (tab === 'login') {
+        loginForm.style.display = "block";
+        regForm.style.display = "none";
+        loginBtn.style.color = "var(--color-dark)";
+        loginBtn.style.fontWeight = "700";
+        regBtn.style.color = "var(--color-text-muted)";
+        regBtn.style.fontWeight = "600";
+      } else {
+        loginForm.style.display = "none";
+        regForm.style.display = "block";
+        regBtn.style.color = "var(--color-dark)";
+        regBtn.style.fontWeight = "700";
+        loginBtn.style.color = "var(--color-text-muted)";
+        loginBtn.style.fontWeight = "600";
+      }
+    }
+
+    function handleAuthSubmit(e, type) {
+      e.preventDefault();
+      StoreUtils.showToast(type === 'login' ? "Connexion réussie !" : "Compte créé avec succès !", "success");
+      setTimeout(() => {
+        window.location.href = "account.html";
+      }, 600);
+    }
+  </script>
+</body>
+</html>

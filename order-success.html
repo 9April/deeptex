@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commande Confirmée | ATELIER</title>
+  
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
+</head>
+<body style="background-color: var(--color-bg-secondary);">
+
+  <!-- Dynamic Header Container -->
+  <div id="site-header-container"></div>
+
+  <!-- Order Receipt Main -->
+  <main class="container-narrow section-spacing" style="padding-top: 40px;">
+    
+    <div style="background-color: #FFFFFF; border: 1px solid var(--color-border); padding: clamp(24px, 5vw, 48px); box-shadow: var(--shadow-subtle);">
+      
+      <!-- Success Icon & Header -->
+      <div class="text-center" style="margin-bottom: 36px;">
+        <div style="width: 64px; height: 64px; background-color: var(--color-success-bg); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <span class="badge badge-new" style="margin-bottom: 8px;">COMMANDE VALIDÉE</span>
+        <h1 style="font-size: clamp(1.8rem, 3.5vw, 2.4rem); font-weight: 700;">MERCI POUR VOTRE COMMANDE !</h1>
+        <p style="margin-top: 8px; font-size: 1rem;">
+          Votre commande <strong id="receipt-order-id">#MA-...</strong> a bien été enregistrée et est en cours de préparation dans notre atelier de Casablanca.
+        </p>
+      </div>
+
+      <!-- Order Status Timeline -->
+      <div style="background-color: var(--color-bg-secondary); padding: 20px; margin-bottom: 32px; border-left: 3px solid var(--color-dark);">
+        <h4 style="margin-bottom: 6px; font-size: 0.92rem;">📦 DÉLAI D'EXPÉDITION EXPRESS MAROC</h4>
+        <p style="font-size: 0.88rem; color: var(--color-text-secondary); line-height: 1.5;">
+          Notre équipe vous contactera sous peu par téléphone / WhatsApp pour confirmer l'horaire de livraison. Votre colis sera livré dans un délai de <strong>24 à 48 heures ouvrables</strong>. Vous règlerez directement en espèces auprès du livreur.
+        </p>
+      </div>
+
+      <!-- Receipt Content Box -->
+      <div id="receipt-details-content">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Actions -->
+      <div style="margin-top: 40px; display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;">
+        <a href="shop.html" class="btn btn-primary">
+          CONTINUER MES ACHATS
+        </a>
+        <button class="btn btn-secondary" onclick="window.print()">
+          🖨️ IMPRIMER LE REÇU
+        </button>
+        <a id="whatsapp-order-link" href="#" target="_blank" class="btn btn-secondary" style="background: #25D366; color: #FFF; border-color: #25D366;">
+          💬 SUIVRE SUR WHATSAPP
+        </a>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Dynamic Footer Container -->
+  <div id="site-footer-container"></div>
+
+  <!-- Core Scripts -->
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/data/categories.js"></script>
+  <script src="assets/js/data/collections.js"></script>
+  <script src="assets/js/data/products.js"></script>
+  <script src="assets/js/core/storage.js"></script>
+  <script src="assets/js/core/utils.js"></script>
+  <script src="assets/js/core/cart.js"></script>
+  <script src="assets/js/core/wishlist.js"></script>
+  <script src="assets/js/core/search.js"></script>
+  <script src="assets/js/components/toast.js"></script>
+  <script src="assets/js/components/header.js"></script>
+  <script src="assets/js/components/footer.js"></script>
+  <script src="assets/js/components/cartDrawer.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (window.HeaderComponent) window.HeaderComponent.mount();
+      if (window.FooterComponent) window.FooterComponent.mount();
+
+      const params = StoreUtils.getUrlParams();
+      const orderNum = params.order || "MA-100001";
+      const idEl = document.getElementById("receipt-order-id");
+      if (idEl) idEl.textContent = `#${orderNum}`;
+
+      // Retrieve saved order from session or history
+      const rawOrder = sessionStorage.getItem("atelier_latest_order");
+      const order = rawOrder ? JSON.parse(rawOrder) : null;
+      const contentEl = document.getElementById("receipt-details-content");
+
+      if (order && contentEl) {
+        contentEl.innerHTML = `
+          <div style="border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); padding: 24px 0; margin-bottom: 24px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 16px; text-transform: uppercase;">Détails des articles commandés</h3>
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              ${order.items.map(item => `
+                <div style="display: grid; grid-template-columns: 56px 1fr auto; gap: 14px; align-items: center;">
+                  <img src="${item.image}" alt="${item.name}" style="width: 56px; height: 72px; object-fit: cover; background: #f5f5f5;">
+                  <div>
+                    <div class="font-heading" style="font-weight: 600;">${item.name}</div>
+                    <div style="font-size: 0.8rem; color: var(--color-text-secondary);">${item.colorName} • Taille: ${item.size} • Qté: ${item.quantity}</div>
+                  </div>
+                  <div class="font-heading" style="font-weight: 600;">${StoreUtils.formatMoney(item.price * item.quantity)}</div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; font-size: 0.9rem;">
+            <div>
+              <h4 style="font-size: 0.82rem; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 6px;">Adresse de livraison :</h4>
+              <p><strong>${order.customer.firstName} ${order.customer.lastName}</strong></p>
+              <p>${order.shippingAddress.address} ${order.shippingAddress.apartment ? `(${order.shippingAddress.apartment})` : ''}</p>
+              <p>${order.shippingAddress.city}, Maroc</p>
+              <p>📞 ${order.customer.phone}</p>
+            </div>
+            <div>
+              <h4 style="font-size: 0.82rem; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 6px;">Paiement & Total :</h4>
+              <p><strong>Mode :</strong> ${order.paymentMethod}</p>
+              <p><strong>Sous-total :</strong> ${StoreUtils.formatMoney(order.subtotal)}</p>
+              ${order.discount > 0 ? `<p style="color: var(--color-sale)"><strong>Réduction :</strong> -${StoreUtils.formatMoney(order.discount)}</p>` : ''}
+              <p><strong>Livraison :</strong> ${order.shipping === 0 ? 'Gratuite' : StoreUtils.formatMoney(order.shipping)}</p>
+              <p style="font-size: 1.15rem; font-family: var(--font-heading); font-weight: 700; margin-top: 6px;">Total : ${StoreUtils.formatMoney(order.total)}</p>
+            </div>
+          </div>
+        `;
+
+        // WhatsApp direct link
+        const waLink = document.getElementById("whatsapp-order-link");
+        if (waLink) {
+          const text = encodeURIComponent(`Bonjour Atelier, j'ai passé la commande #${order.orderNumber} pour un montant de ${StoreUtils.formatMoney(order.total)}.`);
+          waLink.href = `https://wa.me/${window.STORE_CONFIG.contact.whatsapp.replace(/\+/g, '')}?text=${text}`;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

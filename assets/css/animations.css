@@ -1,0 +1,68 @@
+/**
+ * ATELIER / BRAND DESIGN SYSTEM - ANIMATIONS CSS
+ * Elegant, fast, and subtle micro-interactions & transitions
+ */
+
+/* Fade-In Up Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Skeleton Loading Shimmer */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #f0f0ed 25%, #e8e8e4 50%, #f0f0ed 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Ripple Pulse for Low Stock */
+@keyframes pulseDot {
+  0% {
+    box-shadow: 0 0 0 0 rgba(202, 138, 4, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(202, 138, 4, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(202, 138, 4, 0);
+  }
+}
+
+.pulse-warning {
+  animation: pulseDot 2s infinite;
+}
+
+/* Quick Add Button Reveal */
+.has-hover-reveal {
+  transition: transform var(--transition-normal), opacity var(--transition-normal);
+}
+
+/* Reduced Motion for Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

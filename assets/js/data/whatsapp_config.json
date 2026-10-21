@@ -1,0 +1,8 @@
+{
+  "enabled": false,
+  "phone_number_id": "",
+  "access_token": "",
+  "test_recipient": "",
+  "template_name": "hello_world",
+  "language_code": "en_US"
+}

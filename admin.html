@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ATELIER | Admin & Inventory Control Center</title>
+  <meta name="description" content="Tableau de bord de gestion des catégories, coloris, matrice de stock et catalogue produits.">
+
+  <!-- Core & Admin CSS -->
+  <link rel="stylesheet" href="assets/css/base.css?v=10">
+  <link rel="stylesheet" href="assets/css/admin.css?v=10">
+</head>
+<body class="admin-body">
+
+  <div class="admin-layout">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar-header">
+        <a href="admin.html" class="admin-brand">
+          <span class="admin-brand-title">ATELIER</span>
+          <span class="admin-brand-subtitle">CONTROL CENTER</span>
+        </a>
+      </div>
+
+      <nav class="admin-nav" aria-label="Menu administration">
+        <div class="admin-nav-section-title">Catalogue & Stocks</div>
+
+        <button class="admin-nav-btn active" data-tab="overview">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          <span>Vue d'ensemble</span>
+        </button>
+
+        <button class="admin-nav-btn" data-tab="categories">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <span>Catégories</span>
+          <span class="admin-nav-badge" id="badge-categories-count">0</span>
+        </button>
+
+        <button class="admin-nav-btn" data-tab="colors">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 2a10 10 0 0 0 0 20v-2a8 8 0 0 1 0-16V2z"></path>
+          </svg>
+          <span>Couleurs & Swatches</span>
+          <span class="admin-nav-badge" id="badge-colors-count">0</span>
+        </button>
+
+        <button class="admin-nav-btn" data-tab="stock">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+          </svg>
+          <span>Matrice des Stocks</span>
+          <span class="admin-nav-badge" id="badge-stock-alerts" style="background: var(--admin-danger); color: #FFF; display: none;">0</span>
+        </button>
+
+        <button class="admin-nav-btn" data-tab="products">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+          <span>Produits & Modèles</span>
+          <span class="admin-nav-badge" id="badge-products-count">0</span>
+        </button>
+
+        <button class="admin-nav-btn" data-tab="orders">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span>Commandes (Live DB)</span>
+          <span class="admin-nav-badge" id="badge-orders-count" style="background: var(--admin-gold); color: #000; font-weight: 700;">0</span>
+        </button>
+
+        <div class="admin-nav-section-title" style="margin-top: 14px;">Espace B2B & Grossistes</div>
+
+        <button class="admin-nav-btn" data-tab="wholesale-applications">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <span>Demandes Grossistes</span>
+          <span class="admin-nav-badge" id="badge-wholesale-pending" style="background: #EAB308; color: #000; font-weight: 700; display: inline-block;">0</span>
+        </button>
+
+        <button class="admin-nav-btn" data-tab="wholesale-settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <line x1="12" y1="1" x2="12" y2="23"></line>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+          <span>Tarifs & Coûts B2B</span>
+        </button>
+
+        <div class="admin-nav-section-title" style="margin-top: 14px;">Paramètres & Outils</div>
+
+        <button class="admin-nav-btn" data-tab="settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>Sauvegarde & Sync</span>
+        </button>
+      </nav>
+
+      <div class="admin-sidebar-footer">
+        <a href="index.html" class="btn-storefront-link" target="_blank">
+          <span>Voir la Boutique en direct ↗</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <main class="admin-main">
+      
+      <!-- Sticky Topbar -->
+      <header class="admin-topbar">
+        <div class="admin-topbar-left">
+          <button class="admin-btn admin-btn-secondary admin-btn-sm" id="admin-mobile-menu-toggle" style="display: none;">
+            ☰
+          </button>
+          <h1 class="admin-page-title" id="admin-current-page-title">Vue d'Ensemble & Métriques</h1>
+        </div>
+
+        <div class="admin-topbar-right">
+          <div class="admin-sync-pill" title="Synchronisation active avec le stockage local">
+            <span class="admin-sync-dot"></span>
+            <span>Sync Live LocalStorage</span>
+          </div>
+
+          <button class="admin-btn admin-btn-primary admin-btn-sm" id="btn-sync-to-disk" onclick="AdminDashboard.syncToDisk()" title="Synchroniser l'état actuel de LocalStorage directement dans les fichiers sources JS sur le disque">
+            ⚡ Sync vers Code Source
+          </button>
+
+          <a href="shop.html" target="_blank" class="admin-btn admin-btn-secondary admin-btn-sm">
+            Boutique ↗
+          </a>
+        </div>
+      </header>
+
+      <!-- Content Container -->
+      <div class="admin-content-wrap">
+        
+        <!-- ================================================================ -->
+        <!-- TAB 1: OVERVIEW -->
+        <!-- ================================================================ -->
+        <div class="admin-tab-pane active" id="tab-overview">
+          
+          <!-- Metric Stat Cards -->
+          <div class="admin-metrics-grid">
+            <div class="admin-metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Modèles Produits</span>
+                <div class="metric-icon-box">🏷️</div>
+              </div>
+              <div class="metric-value" id="stat-total-products">0</div>
+              <div class="metric-subtitle">Modèles enregistrés au catalogue</div>
+            </div>
+
+            <div class="admin-metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Total Variantes (SKUs)</span>
+                <div class="metric-icon-box">📦</div>
+              </div>
+              <div class="metric-value" id="stat-total-variants">0</div>
+              <div class="metric-subtitle">Combinaisons couleur × taille</div>
+            </div>
+
+            <div class="admin-metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Unités en Stock</span>
+                <div class="metric-icon-box">📊</div>
+              </div>
+              <div class="metric-value" id="stat-total-units">0</div>
+              <div class="metric-subtitle">Pièces prêtes pour expédition</div>
+            </div>
+
+            <div class="admin-metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Valeur Marchande</span>
+                <div class="metric-icon-box">🇲🇦</div>
+              </div>
+              <div class="metric-value" id="stat-inventory-val">0 MAD</div>
+              <div class="metric-subtitle">Valorisation de l'inventaire</div>
+            </div>
+
+            <div class="admin-metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Stock Faible (&lt;5)</span>
+                <div class="metric-icon-box">⚠️</div>
+              </div>
+              <div class="metric-value" id="stat-low-stock" style="color: var(--admin-warning);">0</div>
+              <div class="metric-subtitle">Variantes à réapprovisionner</div>
+            </div>
+
+            <div class="admin-metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Ruptures (0)</span>
+                <div class="metric-icon-box">🛑</div>
+              </div>
+              <div class="metric-value" id="stat-out-stock" style="color: var(--admin-danger);">0</div>
+              <div class="metric-subtitle">Articles épuisés</div>
+            </div>
+          </div>
+
+          <!-- Low Stock Action Table & Category Distribution -->
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
+            
+            <div class="admin-card">
+              <div class="admin-card-header">
+                <h2 class="admin-card-title">⚠️ Alertes de Réapprovisionnement Rapide</h2>
+                <button class="admin-btn admin-btn-secondary admin-btn-sm" onclick="AdminDashboard.switchTab('stock')">
+                  Voir toute la matrice →
+                </button>
+              </div>
+              <div class="admin-table-wrapper">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Produit & SKU</th>
+                      <th>Coloris</th>
+                      <th>Taille</th>
+                      <th>État Stock</th>
+                      <th>Prix</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="overview-lowstock-tbody">
+                    <!-- Dynamic -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="admin-card">
+              <div class="admin-card-header">
+                <h2 class="admin-card-title">📁 Répartition par Catégorie</h2>
+                <span class="admin-badge badge-active" id="stat-active-categories">0 / 0</span>
+              </div>
+              <div class="admin-card-body" id="overview-category-distribution">
+                <!-- Dynamic -->
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- ================================================================ -->
+        <!-- TAB 2: CATEGORIES -->
+        <!-- ================================================================ -->
+        <div class="admin-tab-pane" id="tab-categories">
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <div>
+                <h2 class="admin-card-title">Gestion des Catégories de Vêtements</h2>
+                <p style="font-size: 0.8rem; color: var(--admin-text-muted); margin-top: 4px;">
+                  Activez les rayons du magasin ou passez-les en statut "Bientôt disponible" (Coming Soon).
+                </p>
+              </div>
+              <button class="admin-btn admin-btn-primary" onclick="AdminDashboard.openAddCategoryModal()">
+                + Nouvelle Catégorie
+              </button>
+            </div>
+            <div class="admin-card-body">
+              <div class="category-cards-grid" id="categories-grid-container">
+                <!-- Dynamic -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================================================================ -->
+        <!-- TAB 3: COLORS & SWATCHES -->
+        <!-- ================================================================ -->
+        <div class="admin-tab-pane" id="tab-colors">
+          <div class="admin-card">
+            <div class="admin-card-header" style="flex-wrap: wrap; gap: 14px;">
+              <div>
+                <h2 class="admin-card-title">Palette de Teintures & Coloris</h2>
+                <p style="font-size: 0.8rem; color: var(--admin-text-muted); margin-top: 4px;">
+                  Gérez vos pastilles de nuances, codes HEX et mockups de référence synchronisés avec la boutique.
+                </p>
+              </div>
+              <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                <span class="admin-badge badge-active" id="colors-total-count">0 coloris</span>
+                <span class="admin-badge badge-instock" id="colors-mockups-count">0 avec mockup</span>
+                <span class="admin-badge badge-gold" id="colors-variants-count">0 variantes</span>
+                <button class="admin-btn admin-btn-primary" onclick="AdminDashboard.openAddColorModal()">
+                  + Nouveau Coloris
+                </button>
+              </div>
+            </div>
+
+            <!-- Toolbar: Search & Quick Filter -->
+            <div class="admin-card-body" style="padding-bottom: 0;">
+              <div class="admin-search-bar" style="margin-bottom: 0;">
+                <input type="text" class="admin-search-input" id="colors-search-input" 
+                       placeholder="🔍 Filtrer les coloris par nom, code ou hex (ex: #121212, rose, black)..." 
+                       oninput="AdminDashboard.filterColors(this.value)">
+              </div>
+            </div>
+
+            <div class="admin-card-body">
+              <div class="color-cards-grid" id="colors-cards-container">
+                <!-- Dynamic High-End Color Cards rendered by admin.js -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================================================================ -->
+        <!-- TAB 4: STOCK MATRIX -->
+        <!-- ================================================================ -->
+        <div class="admin-tab-pane" id="tab-stock">
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <div>
+                <h2 class="admin-card-title">Matrice d'Inventaire & Niveaux de Stock</h2>
+                <p style="font-size: 0.8rem; color: var(--admin-text-muted); margin-top: 4px;">
+                  Ajustez les quantités par SKU, taille (S–XL) et coloris en temps réel.
+                </p>
+              </div>
+              <span class="admin-badge badge-active" id="stock-filtered-count">0 variantes</span>
+            </div>
+
+            <div class="admin-card-body" style="padding-bottom: 0;">
+              <div class="admin-search-bar">
+                <input type="text" class="admin-search-input" id="stock-search-input" placeholder="🔍 Rechercher par modèle, SKU, coloris ou taille...">
+                
+                <select class="admin-form-select" id="stock-filter-status" style="width: auto; min-width: 170px;">
+                  <option value="all">Tous les États</option>
+                  <option value="low">⚠️ Stock Faible (&lt; 5)</option>
+                  <option value="out">🛑 Ruptures de Stock (0)</option>
+                  <option value="in">✓ En Stock (&gt;= 5)</option>
+                </select>
+
+                <select class="admin-form-select" id="stock-filter-category" style="width: auto; min-width: 180px;">
+                  <option value="all">Toutes les Catégories</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="admin-table-wrapper">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Produit & SKU</th>
+                    <th>Coloris</th>
+                    <th>Taille</th>
+                    <th>Prix</th>
+                    <th>Statut</th>
+                    <th>Quantité (Ajustement Rapide)</th>
+                    <th>Réappro</th>
+                  </tr>
+                </thead>
+                <tbody id="stock-matrix-tbody">
+                  <!-- Dynamic -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================================================================ -->
+        <!-- TAB 5: PRODUCTS CATALOG -->
+        <!-- ================================================================ -->
+        <div class="admin-tab-pane" id="tab-products">
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <div>
+                <h2 class="admin-card-title">Catalogue des Modèles & Fiches Produits</h2>
+                <p style="font-size: 0.8rem; color: var(--admin-text-muted); margin-top: 4px;">
+                  Créez des pièces, modifiez les tarifs en Dirhams (MAD), les grammages (GSM) et générez les variantes.
+                </p>
+              </div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <button class="admin-btn admin-btn-secondary" onclick="AdminDashboard.restoreFullCatalogMaster()" style="border-color: #3b82f6; color: #60a5fa; font-weight: 600;" title="Vérifier et restaurer l'intégralité du catalogue des 11 produits d'origine">
+                  🔄 Restaurer 11 Produits
+                </button>
+                <button class="admin-btn admin-btn-secondary" onclick="AdminDashboard.openAddBundleModal()" style="border-color: var(--admin-gold); color: var(--admin-gold); font-weight: 700;">
+                  📦 + Nouveau Pack Bundle
+                </button>
+                <button class="admin-btn admin-btn-primary" onclick="AdminDashboard.openAddProductModal()">
+                  + Nouveau Produit
+                </button>
+              </div>
+            </div>
+
+            <div class="admin-card-body" style="padding-bottom: 0;">
+              <div class="admin-search-bar" style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+                <input type="text" class="admin-search-input" id="products-search-input" placeholder="🔍 Rechercher par titre, ID, coloris ou mot-clé..." style="flex: 1; min-width: 220px;">
+                
+                <select class="admin-form-select" id="products-filter-category" style="width: auto; min-width: 170px;">
+                  <option value="all">Toutes les Catégories</option>
+                </select>
+
+                <div class="admin-filter-pills" id="products-view-mode-group">
+                  <button type="button" class="admin-filter-pill active" id="btn-view-mode-separated" onclick="AdminDashboard.setProductViewMode('separated')">
+                    🎨 Vue par Modèle / Déclinaison (Séparée)
+                  </button>
+                  <button type="button" class="admin-filter-pill" id="btn-view-mode-grouped" onclick="AdminDashboard.setProductViewMode('grouped')">
+                    📦 Vue par Fiche Produit Parent
+                  </button>
+                </div>
+
+                <span class="admin-badge badge-active" id="products-filtered-count">0 modèles</span>
+              </div>
+            </div>
+
+            <div class="admin-table-wrapper">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Modèle & Visuels (Face / Survol)</th>
+                    <th>Catégorie</th>
+                    <th>Coloris</th>
+                    <th>Tarif</th>
+                    <th>SKUs & Stock</th>
+                    <th>Badges</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="products-table-tbody">
+                  <!-- Dynamic -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================================================================ -->
+        <!-- TAB: ORDERS & CLIENT PURCHASES (MYSQL LIVE DB) -->
+        <!-- ================================================================ -->
+        <div class="admin-tab-pane" id="tab-orders">
+          <div class="admin-card">
+            <div class="admin-card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+              <div>
+                <h2 class="admin-card-title">📦 Commandes Clients en Direct (Base MySQL)</h2>
+                <div style="font-size: 0.8rem; color: var(--admin-text-muted); margin-top: 4px;">
+                  Synchronisation temps réel avec la table MySQL <code style="color:var(--admin-gold); background:rgba(212,175,55,0.1); padding:2px 6px; border-radius:3px;">orders</code> sur Hostinger.
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                <select class="admin-form-select" id="admin-orders-filter-status" onchange="AdminDashboard.loadOrders()" style="font-size: 0.85rem; padding: 6px 10px;">
+                  <option value="all">Tous les statuts</option>
+                  <option value="pending">⏳ En attente (Pending)</option>
+                  <option value="confirmed">✅ Confirmée</option>
+                  <option value="shipped">🚚 Expédiée</option>
+                  <option value="delivered">🎉 Livrée</option>
+                  <option value="cancelled">❌ Annulée</option>
+                </select>
+
+                <button class="admin-btn admin-btn-secondary admin-btn-sm" onclick="AdminDashboard.loadOrders()">
+                  🔄 Actualiser les Commandes
+                </button>
+              </div>
+            </div>
+
+            <div class="admin-card-body" style="padding: 0;">
+              <div class="admin-table-responsive">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>N° Commande</th>
+                      <th>Date</th>
+                      <th>Client</th>
+                      <th>Téléphone & Ville</th>
+                      <th>Articles</th>
+                      <th>Total</th>
+                      <th>Paiement</th>
+                      <th>Statut</th>
+                      <th style="text-align: right;">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-orders-table-body">
+                    <tr>
+                      <td colspan="9" style="text-align: center; padding: 36px 20px; color: var(--admin-text-muted);">
+                        Chargement des commandes depuis MySQL...
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================================================================ -->
+        <!-- TAB 6: SETTINGS & BACKUP -->
+        <!-- ================================================================ -->
+        <div class="admin-tab-pane" id="tab-settings">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+            
+            <!-- WhatsApp Business Cloud API Configuration Card -->
+            <div class="admin-card" style="grid-column: span 2; border: 1px solid #25D366; box-shadow: 0 4px 14px rgba(37, 211, 102, 0.1);">
+              <div class="admin-card-header" style="display: flex; justify-content: space-between; align-items: center; background: rgba(37, 211, 102, 0.08); border-bottom: 1px solid rgba(37, 211, 102, 0.2);">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <span style="font-size: 1.4rem;">💬</span>
+                  <div>
+                    <h2 class="admin-card-title" style="margin: 0; color: #25D366;">WhatsApp Business Cloud API (Meta)</h2>
+                    <p style="font-size: 0.78rem; color: var(--admin-text-muted); margin: 2px 0 0;">
+                      Notifications automatiques de confirmation de commande envoyées directement sur le smartphone du client.
+                    </p>
+                  </div>
+                </div>
+                <div id="ws-status-badge">
+                  <span class="badge" style="background: rgba(148, 163, 184, 0.2); color: #94A3B8;">Non configuré</span>
+                </div>
+              </div>
+
+              <div class="admin-card-body">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                  
+                  <div>
+                    <label class="admin-form-label" style="font-weight: 600;">Phone Number ID *</label>
+                    <input type="text" id="ws-cfg-phone-id" class="admin-form-input" placeholder="Ex: 109283748291029">
+                    <small style="color: var(--admin-text-muted); font-size: 0.74rem;">Visible dans Meta Developers > WhatsApp > API Setup</small>
+                  </div>
+
+                  <div>
+                    <label class="admin-form-label" style="font-weight: 600;">Access Token (Meta Graph API) *</label>
+                    <input type="password" id="ws-cfg-token" class="admin-form-input" placeholder="EAAB...">
+                    <small style="color: var(--admin-text-muted); font-size: 0.74rem;">Token temporaire 24h ou Token permanent System User</small>
+                  </div>
+
+                  <div>
+                    <label class="admin-form-label" style="font-weight: 600;">Votre Numéro de Test (Destinataire vérifié) *</label>
+                    <input type="text" id="ws-cfg-test-phone" class="admin-form-input" placeholder="Ex: 0612345678 ou +212612345678">
+                    <small style="color: var(--admin-text-muted); font-size: 0.74rem;">Le numéro que vous avez vérifié dans la sandbox Meta</small>
+                  </div>
+
+                  <div>
+                    <label class="admin-form-label" style="font-weight: 600;">Modèle / Template Meta</label>
+                    <div style="display: flex; gap: 8px;">
+                      <input type="text" id="ws-cfg-template" class="admin-form-input" value="hello_world" placeholder="hello_world">
+                      <input type="text" id="ws-cfg-lang" class="admin-form-input" value="en_US" style="width: 90px;" placeholder="en_US">
+                    </div>
+                    <small style="color: var(--admin-text-muted); font-size: 0.74rem;">Modèle pré-approuvé (hello_world / en_US pour les premiers tests)</small>
+                  </div>
+
+                </div>
+
+                <div style="margin-bottom: 16px;">
+                  <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                    <input type="checkbox" id="ws-cfg-enabled">
+                    <span style="font-weight: 600; font-size: 0.88rem; color: #FFF;">
+                      Activer l'envoi automatique des messages WhatsApp lors de chaque nouvelle commande
+                    </span>
+                  </label>
+                </div>
+
+                <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                  <button type="button" class="admin-btn admin-btn-primary" onclick="AdminDashboard.saveWhatsAppSettings()" style="background: #25D366; border-color: #25D366; color: #000; font-weight: 700;">
+                    💾 Sauvegarder la Configuration
+                  </button>
+                  <button type="button" class="admin-btn admin-btn-secondary" onclick="AdminDashboard.testWhatsAppNotification()" id="btn-ws-test" style="font-weight: 600;">
+                    ⚡ Envoyer un WhatsApp de Test Immédiat
+                  </button>
+                </div>
+
+                <div id="ws-test-result" style="margin-top: 14px; display: none;"></div>
+              </div>
+            </div>
+
+            <div class="admin-card">
+              <div class="admin-card-header">
+                <h2 class="admin-card-title">⚡ Synchroniser vers le Code Source (Disque)</h2>
+              </div>
+              <div class="admin-card-body">
+                <p style="font-size: 0.85rem; color: var(--admin-text-muted); margin-bottom: 16px;">
+                  Transfère instantanément l'ensemble des coloris, catégories, stocks et modèles modifiés dans votre navigateur vers les fichiers <code>products.js</code>, <code>categories.js</code> et <code>storeData.js</code> sur le disque.
+                </p>
+                <button class="admin-btn admin-btn-primary" onclick="AdminDashboard.syncToDisk()">
+                  ⚡ Synchroniser vers les fichiers du Code
+                </button>
+              </div>
+            </div>
+
+            <div class="admin-card">
+              <div class="admin-card-header">
+                <h2 class="admin-card-title">💾 Exporter / Sauvegarder le Catalogue</h2>
+              </div>
+              <div class="admin-card-body">
+                <p style="font-size: 0.85rem; color: var(--admin-text-muted); margin-bottom: 16px;">
+                  Téléchargez l'intégralité de vos catégories, coloris, niveaux de stock et fiches produits au format JSON pour les conserver en lieu sûr.
+                </p>
+                <button class="admin-btn admin-btn-secondary" onclick="AdminDashboard.exportData()">
+                  ⬇️ Télécharger le Fichier JSON
+                </button>
+              </div>
+            </div>
+
+            <div class="admin-card">
+              <div class="admin-card-header">
+                <h2 class="admin-card-title">📥 Importer des Données JSON</h2>
+              </div>
+              <div class="admin-card-body">
+                <p style="font-size: 0.85rem; color: var(--admin-text-muted); margin-bottom: 16px;">
+                  Chargez un fichier de sauvegarde pour restaurer votre catalogue ou importer une collection complète.
+                </p>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                  <input type="file" id="import-json-file" accept=".json" class="admin-form-input" style="padding: 6px;">
+                  <button class="admin-btn admin-btn-secondary" onclick="AdminDashboard.importData()">
+                    Importer
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="admin-card" style="grid-column: span 2; border-color: rgba(239, 68, 68, 0.4);">
+              <div class="admin-card-header" style="background: var(--admin-danger-bg);">
+                <h2 class="admin-card-title" style="color: var(--admin-danger);">⚠️ Réinitialisation aux Valeurs d'Usine</h2>
+              </div>
+              <div class="admin-card-body">
+                <p style="font-size: 0.85rem; color: var(--admin-text-muted); margin-bottom: 16px;">
+                  Restaure les 10 modèles permanents et catégories par défaut de la marque ATELIER en effaçant les modifications locales de ce navigateur.
+                </p>
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                  <button class="admin-btn admin-btn-secondary" onclick="AdminDashboard.clearBrowserCacheAndReload()">
+                    🔄 Vider le Cache Local & Recharger le Catalogue
+                  </button>
+                  <button class="admin-btn admin-btn-danger" onclick="AdminDashboard.confirmResetDefaults()">
+                    Réinitialiser le Catalogue aux Données Initiales
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ================================================================ -->
+        <!-- TAB 7: WHOLESALE APPLICATIONS (B2B) -->
+        <!-- ================================================================ -->
+        <div class="admin-tab-pane" id="tab-wholesale-applications">
+          
+          <!-- Metric counters -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px;">
+            <div class="admin-card" style="padding: 16px;">
+              <div style="font-size: 0.78rem; color: var(--admin-text-muted); text-transform: uppercase;">Total Dossiers</div>
+              <div style="font-size: 1.8rem; font-weight: 700; color: #FFF; margin-top: 4px;" id="ws-stat-total">0</div>
+            </div>
+            <div class="admin-card" style="padding: 16px; border-left: 3px solid #EAB308;">
+              <div style="font-size: 0.78rem; color: #EAB308; text-transform: uppercase;">En Attente (Revue)</div>
+              <div style="font-size: 1.8rem; font-weight: 700; color: #EAB308; margin-top: 4px;" id="ws-stat-pending">0</div>
+            </div>
+            <div class="admin-card" style="padding: 16px; border-left: 3px solid #0284C7;">
+              <div style="font-size: 0.78rem; color: #38BDF8; text-transform: uppercase;">Complément Requis</div>
+              <div style="font-size: 1.8rem; font-weight: 700; color: #38BDF8; margin-top: 4px;" id="ws-stat-info">0</div>
+            </div>
+            <div class="admin-card" style="padding: 16px; border-left: 3px solid #22C55E;">
+              <div style="font-size: 0.78rem; color: #4ADE80; text-transform: uppercase;">Comptes Approuvés</div>
+              <div style="font-size: 1.8rem; font-weight: 700; color: #4ADE80; margin-top: 4px;" id="ws-stat-approved">0</div>
+            </div>
+            <div class="admin-card" style="padding: 16px; border-left: 3px solid #EF4444;">
+              <div style="font-size: 0.78rem; color: #F87171; text-transform: uppercase;">Refusés / Suspendus</div>
+              <div style="font-size: 1.8rem; font-weight: 700; color: #F87171; margin-top: 4px;" id="ws-stat-rejected">0</div>
+            </div>
+          </div>
+
+          <!-- Filters bar -->
+          <div class="admin-card" style="margin-bottom: 24px;">
+            <div class="admin-card-body" style="padding: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <button class="admin-filter-pill active" data-ws-filter="all" onclick="AdminDashboard.filterWholesaleApps('all')">Tous</button>
+                <button class="admin-filter-pill" data-ws-filter="pending" onclick="AdminDashboard.filterWholesaleApps('pending')">En Attente ⏳</button>
+                <button class="admin-filter-pill" data-ws-filter="more_info_required" onclick="AdminDashboard.filterWholesaleApps('more_info_required')">Complément Requis ℹ️</button>
+                <button class="admin-filter-pill" data-ws-filter="approved" onclick="AdminDashboard.filterWholesaleApps('approved')">Approuvés ✓</button>
+                <button class="admin-filter-pill" data-ws-filter="rejected" onclick="AdminDashboard.filterWholesaleApps('rejected')">Refusés ✕</button>
+                <button class="admin-filter-pill" data-ws-filter="suspended" onclick="AdminDashboard.filterWholesaleApps('suspended')">Suspendus ⚠️</button>
+              </div>
+
+              <div style="min-width: 240px;">
+                <input type="text" id="ws-search-input" class="admin-form-input" placeholder="Rechercher par nom, ville, email..." oninput="AdminDashboard.searchWholesaleApps(this.value)">
+              </div>
+            </div>
+          </div>
+
+          <!-- Applications Container -->
+          <div id="wholesale-applications-container">
+            <div style="text-align: center; padding: 40px; color: var(--admin-text-muted);">
+              Chargement des candidatures grossistes...
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ================================================================ -->
+        <!-- TAB 8: WHOLESALE SETTINGS & PRODUCTION COSTS -->
+        <!-- ================================================================ -->
+        <div class="admin-tab-pane" id="tab-wholesale-settings">
+          <div style="display: flex; flex-direction: column; gap: 24px;">
+            
+            <!-- Global Wholesale Parameters -->
+            <div class="admin-card">
+              <div class="admin-card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 class="admin-card-title">⚙️ Paramètres Généraux du Programme Grossiste</h2>
+                <span class="badge" style="background: rgba(212,175,55,0.15); color: #D4AF37;">Marge Plancher 20% Active</span>
+              </div>
+              <div class="admin-card-body">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 16px;">
+                  <div class="admin-form-group">
+                    <label class="admin-form-label">Politique MOQ (Par Produit)</label>
+                    <input type="text" id="ws-cfg-moq-info" class="admin-form-input" value="Spécifique par Produit" readonly style="background: rgba(255,255,255,0.05); color: #4ADE80; font-weight: 700;">
+                    <span style="font-size: 0.74rem; color: var(--admin-text-muted);">Le MOQ est défini individuellement par produit dans la grille ci-dessous.</span>
+                  </div>
+
+                  <div class="admin-form-group">
+                    <label class="admin-form-label">Palier 1 : Marge Cible (MOQ)</label>
+                    <input type="number" id="ws-cfg-m1" class="admin-form-input" min="20" max="60" value="35" step="1">
+                    <span style="font-size: 0.74rem; color: var(--admin-text-muted);">Marge brute cible (défaut : 35%). Formule : Coût / (1 - Marge).</span>
+                  </div>
+
+                  <div class="admin-form-group">
+                    <label class="admin-form-label">Palier 2 : Marge Cible (MOQ-49 pcs)</label>
+                    <input type="number" id="ws-cfg-m2" class="admin-form-input" min="20" max="60" value="30" step="1">
+                    <span style="font-size: 0.74rem; color: var(--admin-text-muted);">Marge brute cible (défaut : 30%).</span>
+                  </div>
+
+                  <div class="admin-form-group">
+                    <label class="admin-form-label">Palier 3 : Marge Cible (50+ pcs)</label>
+                    <input type="number" id="ws-cfg-m3" class="admin-form-input" min="20" max="60" value="25" step="1">
+                    <span style="font-size: 0.74rem; color: var(--admin-text-muted);">Marge brute cible (défaut : 25%). Plancher absolu : 20%.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product Production Costs & Calculated Wholesale Prices Table -->
+            <div class="admin-card">
+              <div class="admin-card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                <div>
+                  <h2 class="admin-card-title">🏷️ Grille des Coûts de Revient & MOQ par Produit</h2>
+                  <p style="font-size: 0.82rem; color: var(--admin-text-muted); margin-top: 4px;">
+                    Le MOQ est basé sur le <strong>Pack Starter (1 pc / taille × tous les coloris)</strong>, avec possibilité de modifier manuellement la valeur de chaque modèle.
+                  </p>
+                </div>
+                <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                  <button type="button" class="admin-btn admin-btn-secondary" onclick="AdminDashboard.applyGridFormulaToAllMoqs()" title="Recalcule et applique le MOQ selon la formule Pack Starter (Tailles × Couleurs) à tous les produits">
+                    ⚡ Appliquer Pack Starter (T × C)
+                  </button>
+                  <button class="admin-btn admin-btn-primary" onclick="AdminDashboard.saveWholesaleSettings()">
+                    💾 Enregistrer la Grille B2B
+                  </button>
+                </div>
+              </div>
+
+              <div class="admin-card-body" style="padding: 0; overflow-x: auto;">
+                <table class="admin-table" id="wholesale-costs-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 230px;">Modèle / Produit</th>
+                      <th>Prix Public</th>
+                      <th>Coût Revient (MAD) *</th>
+                      <th style="min-width: 140px;">Pack Starter (T × C)</th>
+                      <th style="min-width: 170px;">MOQ Spécifique (pcs) *</th>
+                      <th>Palier 1 (35%)</th>
+                      <th>Palier 2 (30%)</th>
+                      <th>Palier 3 (25%)</th>
+                      <th>Statut Wholesale</th>
+                    </tr>
+                  </thead>
+                  <tbody id="ws-costs-table-body">
+                    <!-- Populated dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Modal: Request More Info from Wholesale Applicant -->
+  <div class="admin-modal-backdrop" id="modal-ws-request-info">
+    <div class="admin-modal-box" style="max-width: 500px;">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title">Demander des Précisions au Candidat</h3>
+        <button class="admin-modal-close" onclick="AdminDashboard.closeWsInfoModal()">✕</button>
+      </div>
+      <div class="admin-modal-body">
+        <p style="font-size: 0.85rem; color: var(--admin-text-muted); margin-bottom: 12px;">
+          Le statut du candidat passera à <strong>Complément Requis</strong>. Il verra ce message sur son tableau de bord et pourra y répondre directement.
+        </p>
+        <input type="hidden" id="ws-info-userid">
+        <div class="admin-form-group">
+          <label class="admin-form-label">Message explicatif pour le candidat *</label>
+          <textarea id="ws-info-message" class="admin-form-input" rows="4" placeholder="Ex: Merci pour votre candidature. Pourriez-vous nous préciser l'adresse physique exacte de votre boutique ou nous envoyer le lien de vos réseaux sociaux ?"></textarea>
+        </div>
+      </div>
+      <div class="admin-modal-footer">
+        <button class="admin-btn admin-btn-secondary" onclick="AdminDashboard.closeWsInfoModal()">Annuler</button>
+        <button class="admin-btn admin-btn-primary" onclick="AdminDashboard.confirmRequestWsInfo()">Transmettre la Demande</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Private Internal Notes for Applicant -->
+  <div class="admin-modal-backdrop" id="modal-ws-notes">
+    <div class="admin-modal-box" style="max-width: 500px;">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title">Notes Internes d'Évaluation (Privé)</h3>
+        <button class="admin-modal-close" onclick="AdminDashboard.closeWsNotesModal()">✕</button>
+      </div>
+      <div class="admin-modal-body">
+        <p style="font-size: 0.85rem; color: var(--admin-text-muted); margin-bottom: 12px;">
+          Ces notes restent strictement confidentielles entre administrateurs et ne sont jamais visibles par le candidat.
+        </p>
+        <input type="hidden" id="ws-notes-userid">
+        <div class="admin-form-group">
+          <label class="admin-form-label">Notes d'audit & antécédents</label>
+          <textarea id="ws-notes-text" class="admin-form-input" rows="5" placeholder="Ex: Contact téléphonique effectué. Bon feeling commercial, boutique située dans un axe passant."></textarea>
+        </div>
+      </div>
+      <div class="admin-modal-footer">
+        <button class="admin-btn admin-btn-secondary" onclick="AdminDashboard.closeWsNotesModal()">Fermer</button>
+        <button class="admin-btn admin-btn-primary" onclick="AdminDashboard.saveWsNotes()">Enregistrer les Notes</button>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+  <!-- ==================================================================== -->
+  <!-- MODAL: ADD / EDIT CATEGORY -->
+  <!-- ==================================================================== -->
+  <div class="admin-modal-backdrop" id="modal-category">
+    <div class="admin-modal-box">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title" id="category-modal-title">Ajouter une Catégorie</h3>
+        <button class="admin-modal-close" data-modal-close>✕</button>
+      </div>
+      <form onsubmit="AdminDashboard.saveCategoryFromForm(event)">
+        <div class="admin-modal-body">
+          <input type="hidden" id="cat-form-id">
+          
+          <div class="admin-form-row-2">
+            <div class="admin-form-group">
+              <label class="admin-form-label">Nom de la Catégorie *</label>
+              <input type="text" class="admin-form-input" id="cat-form-name" placeholder="ex: Sweats à Capuche" required>
+            </div>
+            <div class="admin-form-group">
+              <label class="admin-form-label">Identifiant URL / Slug</label>
+              <input type="text" class="admin-form-input" id="cat-form-slug" placeholder="ex: hoodies (auto si vide)">
+            </div>
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label">Description Courte</label>
+            <textarea class="admin-form-textarea" id="cat-form-desc" rows="3" placeholder="Description affichée sur la boutique..."></textarea>
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label">Image de Couverture</label>
+            <div style="display: flex; gap: 8px;">
+              <input type="text" class="admin-form-input" id="cat-form-image" placeholder="assets/images/categories/...">
+              <button type="button" class="admin-btn admin-btn-secondary" onclick="AdminDashboard.openImagePicker('cat-form-image')">
+                Choisir Image
+              </button>
+            </div>
+          </div>
+
+          <div class="admin-form-group" style="margin-top: 10px;">
+            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+              <input type="checkbox" id="cat-form-active" style="width: 18px; height: 18px;">
+              <span style="font-size: 0.88rem; font-weight: 600;">Catégorie Active (décocher pour afficher "Bientôt disponible")</span>
+            </label>
+          </div>
+        </div>
+        <div class="admin-modal-footer">
+          <button type="button" class="admin-btn admin-btn-secondary" data-modal-close>Annuler</button>
+          <button type="submit" class="admin-btn admin-btn-primary">Enregistrer la Catégorie</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================================================================== -->
+  <!-- MODAL: ADD / EDIT COLOR -->
+  <!-- ==================================================================== -->
+  <div class="admin-modal-backdrop" id="modal-color">
+    <div class="admin-modal-box admin-modal-box-md">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title" id="color-modal-title">Ajouter un Coloris</h3>
+        <button class="admin-modal-close" data-modal-close>✕</button>
+      </div>
+      <form onsubmit="AdminDashboard.saveColorFromForm(event)">
+        <div class="admin-modal-body">
+
+          <!-- Live Swatch Preview Showcase Banner -->
+          <div class="admin-color-live-preview-box" id="color-form-live-box">
+            <div class="admin-color-live-swatch" id="color-live-swatch-circle" style="background-color: #121212;"></div>
+            <div class="admin-color-live-mockup-wrap" id="color-live-mockup-wrap">
+              <img id="color-form-preview-img" src="" alt="Mockup Preview" style="display: none;">
+              <span id="color-form-preview-empty" style="font-size: 1.2rem; color: var(--admin-text-muted);">📷</span>
+            </div>
+            <div class="admin-color-live-info">
+              <div class="admin-color-live-name" id="color-live-name-text">Noir Onyx</div>
+              <div class="admin-color-live-hex" id="color-live-hex-text">#121212 • slug: black</div>
+              <div style="font-size: 0.72rem; color: var(--admin-gold); margin-top: 3px;">Aperçu instantané de la pastille & du mockup</div>
+            </div>
+          </div>
+
+          <div class="admin-form-row-2">
+            <div class="admin-form-group">
+              <label class="admin-form-label">Nom du Coloris *</label>
+              <input type="text" class="admin-form-input" id="color-form-name" placeholder="ex: Vert Sauge, Noir Onyx" required oninput="AdminDashboard.syncColorLivePreview()">
+            </div>
+            <div class="admin-form-group">
+              <label class="admin-form-label">Code / Slug Identifiant *</label>
+              <input type="text" class="admin-form-input" id="color-form-code" placeholder="ex: sage-green, black" required oninput="AdminDashboard.syncColorLivePreview()">
+            </div>
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label">Code Couleur Hexadécimal (Pastille) *</label>
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <input type="color" id="color-form-hex-picker" value="#121212" style="width: 48px; height: 44px; border: none; background: transparent; cursor: pointer; border-radius: 6px;" oninput="AdminDashboard.syncColorPickerToInput(this.value)">
+              <input type="text" class="admin-form-input" id="color-form-hex" value="#121212" placeholder="#121212" required style="font-family: var(--font-mono); font-weight: 700; letter-spacing: 0.05em;" oninput="AdminDashboard.syncColorInputToPicker(this.value)">
+            </div>
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label">Mockup par défaut pour cette couleur</label>
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <input type="text" class="admin-form-input" id="color-form-image" placeholder="assets/images/products/..." style="flex: 1;" oninput="AdminDashboard.updateColorMockupPreview(this.value)">
+              <button type="button" class="admin-btn admin-btn-secondary" onclick="AdminDashboard.openImagePicker('color-form-image')">
+                🖼️ Choisir Mockup
+              </button>
+              <button type="button" class="admin-btn admin-btn-secondary" onclick="document.getElementById('color-form-file-upload').click()" title="Téléverser un nouveau fichier image">
+                📁 Téléverser
+              </button>
+              <input type="file" id="color-form-file-upload" accept="image/*" style="display: none;" onchange="AdminDashboard.handleColorImageUpload(event)">
+            </div>
+            <p style="font-size: 0.72rem; color: var(--admin-text-muted); margin-top: 5px;">
+              Ex: <code>assets/images/products/tshirt-pink-front.png</code> — Ce visuel servira de modèle de base pour cette teinte.
+            </p>
+          </div>
+        </div>
+        <div class="admin-modal-footer">
+          <button type="button" class="admin-btn admin-btn-secondary" data-modal-close>Annuler</button>
+          <button type="submit" class="admin-btn admin-btn-primary">Enregistrer le Coloris</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================================================================== -->
+  <!-- MODAL: ADD / EDIT PRODUCT -->
+  <!-- ==================================================================== -->
+  <div class="admin-modal-backdrop" id="modal-product">
+    <div class="admin-modal-box admin-modal-box-lg">
+      <div class="admin-modal-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+        <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+          <h3 class="admin-modal-title" id="product-modal-title" style="margin: 0;">Créer un Nouveau Produit</h3>
+          <div class="admin-filter-pills" id="modal-product-type-switch" style="margin: 0;">
+            <button type="button" class="admin-filter-pill active" id="tab-btn-mode-single" onclick="AdminDashboard.switchProductModalMode(false)">👕 Produit Standard</button>
+            <button type="button" class="admin-filter-pill" id="tab-btn-mode-bundle" onclick="AdminDashboard.switchProductModalMode(true)">📦 Offre Pack / Bundle</button>
+          </div>
+        </div>
+        <button class="admin-modal-close" data-modal-close>✕</button>
+      </div>
+      <form onsubmit="AdminDashboard.saveProductFromForm(event)">
+        <div class="admin-modal-body">
+          <input type="hidden" id="prod-form-id">
+
+          <!-- ========================================================== -->
+          <!-- DEDICATED VIEW: PACK / BUNDLE PERSONNALISABLE              -->
+          <!-- ========================================================== -->
+          <div id="prod-form-bundle-view" style="display: none;">
+            <!-- Top Box: Pack Overview & Pricing -->
+            <div style="background: var(--admin-surface-2); border: 1.5px solid var(--admin-border); border-radius: 10px; padding: 20px; margin-bottom: 20px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--admin-border); padding-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+                <div>
+                  <h4 style="margin: 0; font-size: 1.05rem; color: #FFFFFF; display: flex; align-items: center; gap: 8px;">
+                    <span>📦</span> Paramètres de l'Offre Pack / Bundle
+                  </h4>
+                  <p style="margin: 4px 0 0; font-size: 0.78rem; color: var(--admin-text-muted);">
+                    Définissez les détails commerciaux du pack (titre, tarif préférentiel, visuel coffret).
+                  </p>
+                </div>
+                <div style="display: flex; gap: 12px; align-items: center;">
+                  <label style="display: flex; align-items: center; gap: 6px; font-size: 0.82rem; cursor: pointer;">
+                    <input type="checkbox" id="bundle-form-isnew" checked>
+                    <span class="admin-badge badge-instock">Badge NOUVEAU</span>
+                  </label>
+                  <label style="display: flex; align-items: center; gap: 6px; font-size: 0.82rem; cursor: pointer;">
+                    <input type="checkbox" id="bundle-form-isfeatured" checked>
+                    <span class="admin-badge badge-active">Vedette Accueil</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="admin-form-row-2">
+                <div class="admin-form-group">
+                  <label class="admin-form-label">Titre Commercial du Pack *</label>
+                  <input type="text" class="admin-form-input" id="bundle-form-name" placeholder="ex: Pack 3 T-Shirts Personnalisable">
+                </div>
+                <div class="admin-form-group">
+                  <label class="admin-form-label">Nombre de Pièces dans le Pack (Slots de choix) *</label>
+                  <input type="number" class="admin-form-input" id="bundle-form-slots" value="3" min="2" max="10" placeholder="3">
+                </div>
+              </div>
+
+              <div class="admin-form-row-2">
+                <div class="admin-form-group">
+                  <label class="admin-form-label">Prix du Pack (MAD) *</label>
+                  <input type="number" class="admin-form-input" id="bundle-form-price" placeholder="599" min="1">
+                </div>
+                <div class="admin-form-group">
+                  <label class="admin-form-label">Prix Initial / Valeur Réelle (MAD) <span style="font-weight:normal; color:var(--admin-text-muted);">(optionnel)</span></label>
+                  <input type="number" class="admin-form-input" id="bundle-form-compare" placeholder="747">
+                </div>
+              </div>
+
+              <div class="admin-form-row-2">
+                <div class="admin-form-group">
+                  <label class="admin-form-label">Image d'Aperçu / Mockup Coffret Pack</label>
+                  <div style="display: flex; gap: 10px; align-items: center;">
+                    <div class="admin-bundle-preview-wrap" style="width: 50px; height: 50px; border-radius: 6px; background: #0A0A0A; border: 1.5px solid var(--admin-gold); display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 2px; box-sizing: border-box;">
+                      <img id="bundle-form-image-preview" src="assets/images/products/t-shirts/tshirt-Pack-3.jpg" 
+                           alt="Pack Preview" 
+                           style="width: 100%; height: 100%; object-fit: contain; border-radius: 4px;"
+                           onerror="this.src='assets/images/products/tshirt-white-front.jpg'">
+                    </div>
+                    <input type="text" class="admin-form-input" id="bundle-form-image" value="assets/images/products/t-shirts/tshirt-Pack-3.jpg" placeholder="assets/images/..." style="flex: 1; min-width: 0;" oninput="AdminDashboard.updateBundleMockupPreview(this.value)">
+                    <button type="button" class="admin-btn admin-btn-secondary" onclick="AdminDashboard.openImagePicker('bundle-form-image')">
+                      🖼️ Choisir
+                    </button>
+                  </div>
+                </div>
+                <div class="admin-form-group">
+                  <label class="admin-form-label">Description Courte de l'Offre</label>
+                  <input type="text" class="admin-form-input" id="bundle-form-shortdesc" placeholder="Composez votre vestiaire idéal avec 3 t-shirts d'exception au choix.">
+                </div>
+              </div>
+
+              <div class="admin-form-group" style="margin-bottom: 0;">
+                <label class="admin-form-label">Description Détaillée / Présentation de l'Offre</label>
+                <textarea class="admin-form-textarea" id="bundle-form-desc" rows="2" placeholder="Le Pack Studio vous offre la liberté de composer votre coffret sur-mesure..."></textarea>
+              </div>
+            </div>
+
+            <!-- Bottom Box: Imported Products Selector (Selected List with Mockup Preview Wraps) -->
+            <div style="background: var(--admin-surface-2); border: 1.5px solid var(--admin-gold); border-radius: 10px; padding: 20px;">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+                <div>
+                  <h4 style="margin: 0; font-size: 1.05rem; color: #FFFFFF; display: flex; align-items: center; gap: 8px;">
+                    <span>👕</span> Modèles de T-Shirts Inclus dans le Pack
+                  </h4>
+                  <p style="margin: 4px 0 0; font-size: 0.78rem; color: var(--admin-text-muted);">
+                    Sélectionnez les t-shirts à inclure. Leurs visuels, coloris et tailles sont <b>automatiquement synchronisés</b>.
+                  </p>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                  <button type="button" class="admin-btn admin-btn-secondary admin-btn-sm" onclick="AdminDashboard.addAllBundleProducts()">
+                    + Tout Inclure
+                  </button>
+                  <button type="button" class="admin-btn admin-btn-secondary admin-btn-sm" onclick="AdminDashboard.clearAllBundleProducts()">
+                    ✕ Vider la Sélection
+                  </button>
+                </div>
+              </div>
+
+              <!-- Container for Selected T-Shirts with identical preview wrap & Choisir button -->
+              <div id="prod-form-bundle-selected-container"></div>
+
+              <!-- Action Bar to Add More -->
+              <div style="display: flex; gap: 10px; margin-top: 14px; align-items: center; flex-wrap: wrap;">
+                <button type="button" class="admin-btn admin-btn-primary admin-btn-sm" onclick="AdminDashboard.openBundleProductPickerModal()" style="display: flex; align-items: center; gap: 6px;">
+                  <span>🖼️</span> + Choisir un T-Shirt
+                </button>
+                <select id="bundle-add-prod-select" class="admin-form-select" style="flex: 1; min-width: 220px; height: 34px; font-size: 0.8rem;" onchange="AdminDashboard.handleSelectAddBundleProduct(this.value)">
+                  <option value="">(ou sélection rapide dans la liste...)</option>
+                </select>
+              </div>
+
+              <!-- Live Summary -->
+              <div id="prod-form-bundle-products-summary" style="margin-top: 14px; font-size: 0.84rem; color: var(--admin-gold); font-weight: 600; padding: 10px 14px; background: rgba(212, 175, 55, 0.08); border-radius: 8px; border: 1px dashed var(--admin-gold);"></div>
+            </div>
+          </div>
+
+          <!-- ========================================================== -->
+          <!-- DEDICATED VIEW: SINGLE PRODUCT (PRODUIT STANDARD)          -->
+          <!-- ========================================================== -->
+          <div id="prod-form-single-view">
+            <!-- Section: Basic Info -->
+            <div class="admin-form-row-2">
+              <div class="admin-form-group">
+                <label class="admin-form-label">Titre du Produit *</label>
+                <input type="text" class="admin-form-input" id="prod-form-name" placeholder="ex: T-Shirt Boxy Heavyweight Big">
+              </div>
+              <div class="admin-form-group">
+                <label class="admin-form-label">Identifiant Unique / Slug</label>
+                <input type="text" class="admin-form-input" id="prod-form-slug" placeholder="ex: heavy-boxy-tee (auto si vide)">
+              </div>
+            </div>
+
+            <div class="admin-form-row-2">
+              <div class="admin-form-group">
+                <label class="admin-form-label">Catégorie *</label>
+                <select class="admin-form-select" id="prod-form-category"></select>
+              </div>
+              <div class="admin-form-group" id="prod-form-group-wrapper">
+                <label class="admin-form-label">
+                  Famille de Style / Groupe de Variantes
+                  <span style="font-size: 0.72rem; color: var(--admin-gold); font-weight: normal;">(Lie les couleurs entre elles)</span>
+                </label>
+                <input type="text" class="admin-form-input" id="prod-form-group" list="style-groups-datalist" placeholder="ex: minimal-essential, oversized-monogram, etc.">
+                <datalist id="style-groups-datalist">
+                  <option value="minimal-essential">T-Shirt Minimal Essential (5 coloris)</option>
+                  <option value="oversized-monogram">T-Shirt Oversized Monogramme Big (3 coloris)</option>
+                  <option value="graphic-colored">T-Shirt Graphic Colored Edition (2 coloris)</option>
+                </datalist>
+              </div>
+            </div>
+
+            <div class="admin-form-row-2">
+              <div class="admin-form-group">
+                <label class="admin-form-label">Prix de Vente (MAD) *</label>
+                <input type="number" class="admin-form-input" id="prod-form-price" placeholder="249" min="1">
+              </div>
+              <div class="admin-form-group">
+                <label class="admin-form-label">Prix Barré / Initial (MAD)</label>
+                <input type="number" class="admin-form-input" id="prod-form-compare" placeholder="299 (optionnel)">
+              </div>
+            </div>
+
+            <!-- Section: Status Badges -->
+            <div class="admin-form-group" style="background: var(--admin-surface-2); padding: 14px 18px; border-radius: 8px; border: 1px solid var(--admin-border); display: flex; gap: 20px; flex-wrap: wrap; align-items: center;">
+              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.84rem;">
+                <input type="checkbox" id="prod-form-isnew">
+                <span class="admin-badge badge-instock">Nouveau (Badge NEW)</span>
+              </label>
+              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.84rem;">
+                <input type="checkbox" id="prod-form-issale">
+                <span class="admin-badge badge-outstock">En Solde (Badge SALE)</span>
+              </label>
+              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.84rem;">
+                <input type="checkbox" id="prod-form-isfeatured">
+                <span class="admin-badge badge-active">Pièce Vedette (Accueil)</span>
+              </label>
+            </div>
+
+            <!-- Section: Colorways & Linked Product Pages -->
+            <div class="admin-form-group" style="background: var(--admin-surface-2); padding: 18px; border-radius: 8px; border: 1px solid var(--admin-border); width: 100%; box-sizing: border-box;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+                <div>
+                  <label class="admin-form-label" style="margin-bottom: 2px; font-weight: 700;">
+                    🎨 Coloris Disponibles & Liaison vers les Pages Dédiées
+                  </label>
+                  <p style="font-size: 0.78rem; color: var(--admin-text-muted); margin: 0;">
+                    Cochez les couleurs à proposer sur cette pièce. Pour chaque couleur, associez la fiche correspondante si applicable.
+                  </p>
+                </div>
+              </div>
+
+              <div id="prod-form-color-checkboxes" class="admin-color-link-grid"></div>
+            </div>
+
+            <!-- Section: Available Sizes Selector (Multi-select) -->
+            <div class="admin-form-group" style="background: var(--admin-surface-2); padding: 18px; border-radius: 8px; border: 1px solid var(--admin-border); width: 100%; box-sizing: border-box;">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+                <div>
+                  <label class="admin-form-label" style="margin-bottom: 2px; font-weight: 700;">
+                    📏 Tailles Disponibles pour cette Pièce *
+                  </label>
+                  <p style="font-size: 0.78rem; color: var(--admin-text-muted); margin: 0;">
+                    Choisissez les tailles à produire. Les stocks et sélecteurs de taille client seront générés sur mesure.
+                  </p>
+                </div>
+                <!-- Presets -->
+                <div class="admin-size-presets-row" style="display: flex; gap: 6px; flex-wrap: wrap;">
+                  <button type="button" class="admin-btn admin-btn-secondary admin-btn-sm" onclick="AdminDashboard.setSizePreset(['S', 'M', 'L', 'XL'])">S à XL (T-Shirts)</button>
+                  <button type="button" class="admin-btn admin-btn-secondary admin-btn-sm" onclick="AdminDashboard.setSizePreset(['XS', 'S', 'M', 'L', 'XL', 'XXL'])">XS à XXL</button>
+                  <button type="button" class="admin-btn admin-btn-secondary admin-btn-sm" onclick="AdminDashboard.setSizePreset(['S', 'M', 'L', 'XL', 'XXL', '3XL'])">S à 3XL</button>
+                  <button type="button" class="admin-btn admin-btn-secondary admin-btn-sm" onclick="AdminDashboard.setSizePreset(['Unique'])">Taille Unique</button>
+                  <button type="button" class="admin-btn admin-btn-secondary admin-btn-sm" onclick="AdminDashboard.toggleAllSizes(true)">Tout cocher</button>
+                  <button type="button" class="admin-btn admin-btn-secondary admin-btn-sm" onclick="AdminDashboard.toggleAllSizes(false)">Décocher</button>
+                </div>
+              </div>
+
+              <!-- Sizes Interactive Grid -->
+              <div id="prod-form-sizes-container" class="admin-sizes-selector-grid"></div>
+
+              <div id="prod-form-sizes-summary" style="font-size: 0.82rem; color: var(--admin-gold); margin-top: 10px; font-weight: 600;"></div>
+            </div>
+
+            <!-- Section: Visual Gallery & Multi-Image Management Suite -->
+            <div class="gallery-manager-wrap" style="width: 100%; box-sizing: border-box;">
+              <div class="gallery-manager-header">
+                <div class="gallery-manager-title">
+                  <span>🖼️ Gestionnaire des Visuels & Galerie Mockups</span>
+                </div>
+                <div style="font-size: 0.75rem; color: var(--admin-text-muted);">
+                  🥇 <b>Image 1</b> = Visuel Principal (Face) • 🥈 <b>Image 2</b> = Visuel au Survol (Hover) • 🥉 <b>Images 3+</b> = Galerie
+                </div>
+              </div>
+
+              <!-- Color Tab Switcher for Gallery Images -->
+              <div id="product-gallery-color-tabs" class="gallery-color-tabs" style="display: none;"></div>
+
+              <!-- Upload & Add Toolbar -->
+              <div class="gallery-toolbar" style="width: 100%; box-sizing: border-box;">
+                <div class="gallery-upload-btn-wrap">
+                  <button type="button" class="admin-btn admin-btn-primary admin-btn-sm" title="Importe un fichier et le place en tant qu'image principale de face (1)">
+                    👑 Remplacer Visuel Principal (Face)
+                  </button>
+                  <input type="file" id="prod-file-uploader-main" accept="image/*" onchange="AdminDashboard.handleImageFileUpload(event, true)">
+                </div>
+
+                <div class="gallery-upload-btn-wrap">
+                  <button type="button" class="admin-btn admin-btn-secondary admin-btn-sm" title="Ajoute des photos supplémentaires à la galerie">
+                    📁 + Ajouter à la Galerie
+                  </button>
+                  <input type="file" id="prod-file-uploader" multiple accept="image/*" onchange="AdminDashboard.handleImageFileUpload(event, false)">
+                </div>
+
+                <button type="button" class="admin-btn admin-btn-secondary admin-btn-sm" onclick="AdminDashboard.openImagePickerForGallery()">
+                  🖼️ Choisir depuis les Mockups
+                </button>
+
+                <div style="display: flex; gap: 6px; flex: 1; min-width: 200px;">
+                  <input type="text" class="admin-form-input" id="prod-custom-img-url" placeholder="Coller une URL ou chemin (ex: assets/images/...)" style="padding: 6px 10px; font-size: 0.8rem; flex: 1; min-width: 0;">
+                  <button type="button" class="admin-btn admin-btn-secondary admin-btn-sm" onclick="AdminDashboard.addImageUrlToGallery()">
+                    + Ajouter
+                  </button>
+                </div>
+              </div>
+
+              <!-- Interactive Images Grid -->
+              <div class="gallery-cards-grid" id="product-gallery-cards-container" style="width: 100%; box-sizing: border-box;"></div>
+            </div>
+
+            <!-- Section: Descriptions & Specs -->
+            <div class="admin-form-group">
+              <label class="admin-form-label">Description Courte</label>
+              <input type="text" class="admin-form-input" id="prod-form-shortdesc" placeholder="Résumé 1 phrase...">
+            </div>
+
+            <div class="admin-form-group">
+              <label class="admin-form-label">Description Détaillée / Manifeste</label>
+              <textarea class="admin-form-textarea" id="prod-form-desc" rows="3" placeholder="Texte éditorial de présentation..."></textarea>
+            </div>
+
+            <div class="admin-form-row-3">
+              <div class="admin-form-group">
+                <label class="admin-form-label">Matières & GSM</label>
+                <input type="text" class="admin-form-input" id="prod-form-materials" placeholder="100% Coton peigné 240 GSM">
+              </div>
+              <div class="admin-form-group">
+                <label class="admin-form-label">Conseil de Coupe (Fit)</label>
+                <input type="text" class="admin-form-input" id="prod-form-fit" placeholder="Coupe oversize prononcée">
+              </div>
+              <div class="admin-form-group">
+                <label class="admin-form-label">Entretien</label>
+                <input type="text" class="admin-form-input" id="prod-form-care" placeholder="Lavage à 30°C sur l'envers">
+              </div>
+            </div>
+
+            <div class="admin-form-group">
+              <label class="admin-form-label">Points Clés / Spécifications Techniques (1 par ligne)</label>
+              <textarea class="admin-form-textarea" id="prod-form-details" rows="3" placeholder="Jersey lourd 240 GSM&#10;Col côtelé 3 cm renforcé&#10;Coutures double aiguille"></textarea>
+            </div>
+
+            <div class="admin-form-group">
+              <label class="admin-form-label">Mots-clés / Tags (séparés par des virgules)</label>
+              <input type="text" class="admin-form-input" id="prod-form-tags" placeholder="oversized, coton lourd, streetwear, noir, 240 gsm">
+            </div>
+          </div>
+
+        </div>
+        <div class="admin-modal-footer">
+          <button type="button" class="admin-btn admin-btn-secondary" data-modal-close>Annuler</button>
+          <button type="submit" class="admin-btn admin-btn-primary" id="prod-form-submit-btn">Enregistrer le Produit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================================================================== -->
+  <!-- MODAL: IMAGE PRESET SELECTOR -->
+  <!-- ==================================================================== -->
+  <div class="admin-modal-backdrop" id="modal-image-picker">
+    <div class="admin-modal-box admin-modal-box-lg">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title">Bibliothèque de Visuels & Mockups Synchronisés</h3>
+        <button class="admin-modal-close" data-modal-close>✕</button>
+      </div>
+      <div class="admin-modal-body">
+        <div style="display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; align-items: center;">
+          <input type="text" class="admin-form-input" id="image-preset-search" placeholder="🔍 Rechercher un visuel (ex: pink, rose, white, face, back)..." style="flex: 1; min-width: 220px;" oninput="AdminDashboard.filterImagePresets(this.value)">
+          <div class="admin-filter-pills" id="image-preset-color-filters">
+            <button type="button" class="admin-filter-pill active" onclick="AdminDashboard.filterImagePresetsByColor('all', this)">Tous</button>
+            <button type="button" class="admin-filter-pill" onclick="AdminDashboard.filterImagePresetsByColor('pink', this)">🌸 Rose / Pink</button>
+            <button type="button" class="admin-filter-pill" onclick="AdminDashboard.filterImagePresetsByColor('white', this)">⚪ Blanc</button>
+            <button type="button" class="admin-filter-pill" onclick="AdminDashboard.filterImagePresetsByColor('black', this)">⚫ Noir</button>
+            <button type="button" class="admin-filter-pill" onclick="AdminDashboard.filterImagePresetsByColor('navy', this)">🔵 Marine</button>
+          </div>
+        </div>
+        <p style="font-size: 0.8rem; color: var(--admin-text-muted); margin-bottom: 14px;">
+          Cliquez sur un mockup pour l'associer directement au champ sélectionné. Tous les fichiers de <code>assets/images/</code> sont synchronisés.
+        </p>
+        <div class="preset-grid" id="image-preset-picker-grid">
+          <!-- Dynamic -->
+        </div>
+      </div>
+      <div class="admin-modal-footer">
+        <button type="button" class="admin-btn admin-btn-secondary" data-modal-close>Fermer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================================================================== -->
+  <!-- MODAL: BUNDLE PRODUCT PICKER (VISUAL SELECTOR) -->
+  <!-- ==================================================================== -->
+  <div class="admin-modal-backdrop" id="modal-bundle-product-picker">
+    <div class="admin-modal-box admin-modal-box-lg">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title" id="bundle-picker-modal-title">Choisir un Modèle & Déclinaison de T-Shirt pour le Pack</h3>
+        <button class="admin-modal-close" data-modal-close>✕</button>
+      </div>
+      <div class="admin-modal-body">
+        <div style="display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; align-items: center;">
+          <input type="text" class="admin-form-input" id="bundle-picker-search" placeholder="🔍 Rechercher par modèle, coloris, coupe..." style="flex: 1; min-width: 220px;" oninput="AdminDashboard.filterBundlePickerModal(this.value)">
+          <div class="admin-filter-pills" id="bundle-picker-color-filters">
+            <button type="button" class="admin-filter-pill active" onclick="AdminDashboard.filterBundlePickerByColor('all', this)">Tous</button>
+            <button type="button" class="admin-filter-pill" onclick="AdminDashboard.filterBundlePickerByColor('black', this)">⚫ Noir</button>
+            <button type="button" class="admin-filter-pill" onclick="AdminDashboard.filterBundlePickerByColor('white', this)">⚪ Blanc</button>
+            <button type="button" class="admin-filter-pill" onclick="AdminDashboard.filterBundlePickerByColor('pink', this)">🌸 Rose</button>
+            <button type="button" class="admin-filter-pill" onclick="AdminDashboard.filterBundlePickerByColor('navy', this)">🔵 Marine</button>
+            <button type="button" class="admin-filter-pill" onclick="AdminDashboard.filterBundlePickerByColor('sage', this)">🌿 Vert Sauge</button>
+            <button type="button" class="admin-filter-pill" onclick="AdminDashboard.filterBundlePickerByColor('camel', this)">🟤 Camel</button>
+          </div>
+        </div>
+        <p style="font-size: 0.8rem; color: var(--admin-text-muted); margin-bottom: 14px;">
+          Cliquez sur une déclinaison pour l'assigner directement au pack. Le visuel correspondant et les options de taille seront synchronisés.
+        </p>
+        <div class="preset-grid" id="bundle-modal-product-grid" style="grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));">
+          <!-- Dynamic -->
+        </div>
+      </div>
+      <div class="admin-modal-footer">
+        <button type="button" class="admin-btn admin-btn-secondary" data-modal-close>Fermer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Core Scripts -->
+  <script src="assets/js/config.js?v=12"></script>
+  <script src="assets/js/i18n.js?v=12"></script>
+  <script src="assets/js/data/categories.js?v=12"></script>
+  <script src="assets/js/data/collections.js?v=12"></script>
+  <script src="assets/js/data/products.js?v=12"></script>
+  <script src="assets/js/core/storeData.js?v=12"></script>
+  <script src="assets/js/core/storage.js?v=12"></script>
+  <script src="assets/js/core/utils.js?v=12"></script>
+  <script src="assets/js/pages/admin.js?v=12"></script>
+</body>
+</html>

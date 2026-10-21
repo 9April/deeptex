@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact & Service Client | ATELIER</title>
+  <meta name="description" content="Contactez notre équipe de support client à Casablanca par email, téléphone ou WhatsApp direct.">
+  
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
+</head>
+<body>
+
+  <!-- Dynamic Header Container -->
+  <div id="site-header-container"></div>
+
+  <!-- Main Content -->
+  <main id="main-content">
+    <div class="container section-spacing">
+      
+      <div style="margin-bottom: 40px; text-align: center;">
+        <span class="badge badge-new" style="margin-bottom: 10px;">ASSISTANCE DÉDIÉE</span>
+        <h1 style="font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 700;">NOUS CONTACTER</h1>
+        <p style="margin-top: 8px; color: var(--color-text-secondary); max-width: 580px; margin-left: auto; margin-right: auto;">
+          Une question sur une taille, une commande ou nos expéditions au Maroc ? Notre équipe basée à Casablanca vous répond avec plaisir.
+        </p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 64px); align-items: start; max-width: 1080px; margin: 0 auto;">
+        
+        <!-- Contact Information & Quick Channels -->
+        <div>
+          <h2 style="font-size: 1.4rem; margin-bottom: 24px; text-transform: uppercase;">Coordonnées Directes</h2>
+
+          <!-- WhatsApp Direct Card -->
+          <div style="background-color: #F0FDF4; border: 1px solid #BBF7D0; padding: 24px; margin-bottom: 24px;">
+            <div style="display: flex; gap: 14px; align-items: center;">
+              <span style="font-size: 2.2rem;">💬</span>
+              <div>
+                <h3 style="font-size: 1.15rem; color: #166534;">Support WhatsApp Direct</h3>
+                <p style="font-size: 0.85rem; color: #15803D; margin-top: 2px;">
+                  Réponse rapide en moins de 30 minutes (Lun - Sam : 9h-19h)
+                </p>
+                <a id="contact-wa-link" href="#" target="_blank" class="btn btn-sm" style="margin-top: 12px; background-color: #25D366; color: #FFFFFF; border-color: #25D366;">
+                  OUVRIR WHATSAPP →
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 18px; font-size: 0.95rem;">
+            <div>
+              <div style="font-weight: 700; text-transform: uppercase; font-size: 0.82rem; color: var(--color-text-muted);">📍 Atelier & Siège</div>
+              <p style="margin-top: 2px;">Boulevard d'Anfa, Casablanca, Maroc</p>
+            </div>
+
+            <div>
+              <div style="font-weight: 700; text-transform: uppercase; font-size: 0.82rem; color: var(--color-text-muted);">📞 Téléphone</div>
+              <p style="margin-top: 2px;">+212 6 12 34 56 78</p>
+            </div>
+
+            <div>
+              <div style="font-weight: 700; text-transform: uppercase; font-size: 0.82rem; color: var(--color-text-muted);">✉️ Email</div>
+              <p style="margin-top: 2px;">contact@atelier-brand.ma</p>
+            </div>
+
+            <div>
+              <div style="font-weight: 700; text-transform: uppercase; font-size: 0.82rem; color: var(--color-text-muted);">🕒 Horaires de Support</div>
+              <p style="margin-top: 2px;">Du Lundi au Samedi : 09h00 - 19h00</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div style="background-color: var(--color-bg-secondary); padding: clamp(24px, 4vw, 40px); border: 1px solid var(--color-border);">
+          <h2 style="font-size: 1.3rem; margin-bottom: 20px; text-transform: uppercase;">Envoyez-nous un Message</h2>
+
+          <form id="contact-form" onsubmit="handleContactSubmit(event)">
+            <div class="form-group">
+              <label class="form-label" for="c-name">Nom complet *</label>
+              <input type="text" id="c-name" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="c-phone">Numéro de Téléphone (Maroc)</label>
+              <input type="tel" id="c-phone" class="form-input" placeholder="06 12 34 56 78">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="c-email">Adresse Email *</label>
+              <input type="email" id="c-email" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="c-subject">Sujet</label>
+              <select id="c-subject" class="form-select">
+                <option value="order">Suivi de commande</option>
+                <option value="sizing">Conseil taille & coupe</option>
+                <option value="returns">Échange ou retour</option>
+                <option value="collab">Partenariat / B2B</option>
+                <option value="other">Autre demande</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="c-message">Votre message *</label>
+              <textarea id="c-message" class="form-textarea" rows="4" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full">
+              ENVOYER LE MESSAGE
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Dynamic Footer Container -->
+  <div id="site-footer-container"></div>
+
+  <!-- Core Scripts -->
+  <script src="assets/js/config.js?v=6"></script>
+  <script src="assets/js/i18n.js?v=6"></script>
+  <script src="assets/js/data/categories.js?v=6"></script>
+  <script src="assets/js/data/collections.js?v=6"></script>
+  <script src="assets/js/data/products.js?v=6"></script>
+  <script src="assets/js/core/storage.js?v=6"></script>
+  <script src="assets/js/core/utils.js?v=6"></script>
+  <script src="assets/js/core/cart.js?v=6"></script>
+  <script src="assets/js/core/wishlist.js?v=6"></script>
+  <script src="assets/js/core/search.js?v=6"></script>
+  <script src="assets/js/components/toast.js?v=6"></script>
+  <script src="assets/js/components/header.js?v=6"></script>
+  <script src="assets/js/components/footer.js?v=6"></script>
+  <script src="assets/js/components/cartDrawer.js?v=6"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (window.HeaderComponent) window.HeaderComponent.mount();
+      if (window.FooterComponent) window.FooterComponent.mount();
+
+      const waLink = document.getElementById("contact-wa-link");
+      if (waLink) {
+        waLink.href = `https://wa.me/${window.STORE_CONFIG.contact.whatsapp.replace(/\+/g, '')}?text=${encodeURIComponent(window.STORE_CONFIG.contact.whatsappMessage)}`;
+      }
+    });
+
+    async function handleContactSubmit(e) {
+      e.preventDefault();
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "ENVOI EN COURS...";
+      }
+
+      const name = document.getElementById("c-name") ? document.getElementById("c-name").value.trim() : "";
+      const phone = document.getElementById("c-phone") ? document.getElementById("c-phone").value.trim() : "";
+      const email = document.getElementById("c-email") ? document.getElementById("c-email").value.trim() : "";
+      const subject = document.getElementById("c-subject") ? document.getElementById("c-subject").value : "";
+      const message = document.getElementById("c-message") ? document.getElementById("c-message").value.trim() : "";
+
+      try {
+        await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, phone, email, subject, message })
+        });
+      } catch (err) {
+        console.warn("Contact API error:", err);
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "ENVOYER LE MESSAGE";
+        }
+      }
+
+      if (window.StoreUtils && typeof window.StoreUtils.showToast === "function") {
+        StoreUtils.showToast("Merci ! Votre message a été transmis à notre équipe.", "success");
+      } else {
+        alert("Merci ! Votre message a été transmis à notre équipe.");
+      }
+      e.target.reset();
+    }
+  </script>
+</body>
+</html>

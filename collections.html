@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collections Drops | ATELIER</title>
+  <meta name="description" content="Découvrez nos séries et collections exclusives de t-shirts haut de gamme. Conçu à Casablanca, livré partout au Maroc.">
+  
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
+</head>
+<body>
+
+  <!-- Dynamic Header Container -->
+  <div id="site-header-container"></div>
+
+  <!-- Main Content -->
+  <main id="main-content">
+    <div class="container section-spacing">
+      
+      <!-- Dynamic Collections Header -->
+      <div id="collection-header-area" style="margin-bottom: 40px;">
+        <div class="pdp-breadcrumbs" style="margin-bottom: 12px;">
+          <a href="index.html">Accueil</a>
+          <span>/</span>
+          <span>Collections</span>
+        </div>
+        <h1 id="collection-main-title" style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 700;">COLLECTIONS & SÉRIES</h1>
+        <p id="collection-main-subtitle" style="margin-top: 6px; max-width: 650px;">
+          Chaque série explore une approche spécifique de la matière, du grammage et de la silhouette.
+        </p>
+      </div>
+
+      <!-- Single Collection Products View or All Collections Overview -->
+      <div id="collection-view-container">
+        <!-- Rendered dynamically -->
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Dynamic Footer Container -->
+  <div id="site-footer-container"></div>
+
+  <!-- Core Scripts -->
+  <script src="assets/js/config.js?v=12"></script>
+  <script src="assets/js/i18n.js?v=12"></script>
+  <script src="assets/js/data/categories.js?v=12"></script>
+  <script src="assets/js/data/collections.js?v=12"></script>
+  <script src="assets/js/data/products.js?v=12"></script>
+  <script src="assets/js/core/storage.js?v=12"></script>
+  <script src="assets/js/core/utils.js?v=12"></script>
+  <script src="assets/js/core/cart.js?v=12"></script>
+  <script src="assets/js/core/wishlist.js?v=12"></script>
+  <script src="assets/js/core/search.js?v=12"></script>
+  <script src="assets/js/components/toast.js?v=12"></script>
+  <script src="assets/js/components/header.js?v=12"></script>
+  <script src="assets/js/components/footer.js?v=12"></script>
+  <script src="assets/js/components/productCard.js?v=12"></script>
+  <script src="assets/js/components/cartDrawer.js?v=12"></script>
+  <script src="assets/js/components/quickAddModal.js?v=12"></script>
+  <script src="assets/js/components/sizeGuideModal.js?v=12"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (window.HeaderComponent) window.HeaderComponent.mount();
+      if (window.FooterComponent) window.FooterComponent.mount();
+
+      const params = StoreUtils.getUrlParams();
+      const collectionSlug = params.c || params.collection;
+      const container = document.getElementById("collection-view-container");
+      const titleEl = document.getElementById("collection-main-title");
+      const subEl = document.getElementById("collection-main-subtitle");
+      const breadcrumbsEl = document.querySelector(".pdp-breadcrumbs");
+
+      if (collectionSlug) {
+        // Single Collection View
+        const collection = window.STORE_COLLECTIONS.find(c => c.slug === collectionSlug);
+        const products = window.STORE_PRODUCTS.filter(p => {
+          if (collectionSlug === 'packs-bundles') {
+            return (p.collections && p.collections.includes('packs-bundles')) || p.isBundle || p.id === 'pack-trio-tshirts';
+          }
+          return p.collections && p.collections.includes(collectionSlug);
+        });
+
+        if (collection) {
+          titleEl.textContent = collection.title.toUpperCase();
+          subEl.textContent = collection.subtitle;
+          document.title = `${collection.title} | ${window.STORE_CONFIG.brandName}`;
+          if (breadcrumbsEl) {
+            breadcrumbsEl.innerHTML = `
+              <a href="index.html">Accueil</a>
+              <span>/</span>
+              <a href="collections.html">Collections</a>
+              <span>/</span>
+              <span>${collection.title}</span>
+            `;
+          }
+        }
+
+        if (products.length === 0) {
+          container.innerHTML = `
+            <div style="padding: 48px 20px; text-align: center; background: var(--color-bg-secondary); border-radius: 4px;">
+              <p style="font-size: 1.05rem; color: var(--color-text-secondary); margin-bottom: 16px;">Aucun produit dans cette collection pour le moment.</p>
+              <a href="shop.html" class="btn btn-primary btn-sm">Voir toute la boutique</a>
+            </div>
+          `;
+        } else {
+          container.innerHTML = `
+            <div class="product-grid-4col">
+              ${products.map(p => window.ProductCardComponent.render(p)).join('')}
+            </div>
+          `;
+        }
+      } else {
+        // All Collections Overview Grid
+        container.innerHTML = `
+          <div class="lookbook-split-grid">
+            ${window.STORE_COLLECTIONS.map(col => {
+              const count = window.STORE_PRODUCTS.filter(p => {
+                if (col.slug === 'packs-bundles') {
+                  return (p.collections && p.collections.includes('packs-bundles')) || p.isBundle || p.id === 'pack-trio-tshirts';
+                }
+                return p.collections && p.collections.includes(col.slug);
+              }).length;
+              const isPack = col.slug === 'packs-bundles';
+              const countLabel = isPack ? `${count} ${count > 1 ? 'OFFRES' : 'OFFRE'}` : `${count} ${count > 1 ? 'PIÈCES' : 'PIÈCE'}`;
+              return `
+                <a href="collections.html?c=${col.slug}" class="lookbook-split-card" style="aspect-ratio: 16 / 9; border-radius: 4px;">
+                  <img src="${col.banner}" alt="${col.title}">
+                  <div class="lookbook-split-overlay"></div>
+                  <div class="lookbook-split-content">
+                    <span class="badge" style="background: rgba(255,255,255,0.25); backdrop-filter: blur(4px); color: #FFF; margin-bottom: 8px;">${countLabel}</span>
+                    <h3 style="font-size: 1.6rem; color: #FFF; margin-bottom: 6px;">${col.title}</h3>
+                    <p style="color: #E0E0E0; font-size: 0.88rem; margin-bottom: 12px; max-width: 500px;">${col.subtitle}</p>
+                    <span style="font-size: 0.82rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #FFF; display: inline-flex; align-items: center; gap: 6px;">
+                      Découvrir la collection <span style="transition: transform 0.2s;">→</span>
+                    </span>
+                  </div>
+                </a>
+              `;
+            }).join('')}
+          </div>
+        `;
+      }
+    });
+  </script>
+</body>
+</html>

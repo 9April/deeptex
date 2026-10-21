@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mes Favoris | ATELIER</title>
+  <meta name="description" content="Retrouvez vos articles et t-shirts sauvegardés dans votre liste de souhaits.">
+  
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
+</head>
+<body>
+
+  <!-- Dynamic Header Container -->
+  <div id="site-header-container"></div>
+
+  <!-- Wishlist Main Content -->
+  <main id="main-content">
+    <div class="container section-spacing">
+      
+      <div style="margin-bottom: 36px;">
+        <div class="pdp-breadcrumbs" style="margin-bottom: 12px;">
+          <a href="index.html">Accueil</a>
+          <span>/</span>
+          <span>Favoris</span>
+        </div>
+        <h1 style="font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 700;">MES ARTICLES FAVORIS</h1>
+        <p id="wishlist-count-display" style="margin-top: 6px; color: var(--color-text-secondary);">
+          Chargement de vos favoris...
+        </p>
+      </div>
+
+      <!-- Wishlist Product Grid -->
+      <div class="product-grid-4col" id="wishlist-grid-container">
+        <!-- Rendered dynamically by wishlistPage.js -->
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Dynamic Footer Container -->
+  <div id="site-footer-container"></div>
+
+  <!-- Core Scripts -->
+  <script src="assets/js/config.js?v=6"></script>
+  <script src="assets/js/i18n.js?v=6"></script>
+  <script src="assets/js/data/categories.js?v=6"></script>
+  <script src="assets/js/data/collections.js?v=6"></script>
+  <script src="assets/js/data/products.js?v=6"></script>
+  <script src="assets/js/core/storage.js?v=6"></script>
+  <script src="assets/js/core/utils.js?v=6"></script>
+  <script src="assets/js/core/cart.js?v=6"></script>
+  <script src="assets/js/core/wishlist.js?v=6"></script>
+  <script src="assets/js/core/search.js?v=6"></script>
+  <script src="assets/js/components/toast.js?v=6"></script>
+  <script src="assets/js/components/header.js?v=6"></script>
+  <script src="assets/js/components/footer.js?v=6"></script>
+  <script src="assets/js/components/productCard.js?v=6"></script>
+  <script src="assets/js/components/cartDrawer.js?v=6"></script>
+  <script src="assets/js/components/quickAddModal.js?v=6"></script>
+  <script src="assets/js/components/sizeGuideModal.js?v=6"></script>
+  <script src="assets/js/pages/wishlistPage.js?v=6"></script>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ATELIER | Vêtements Essentiels & Streetwear Minimaliste</title>
+  <meta name="description" content="Découvrez notre collection de T-shirts oversized haut de gamme en coton lourd 240 à 300 GSM. Conçu pour le quotidien. Livraison express 24/48h au Maroc.">
+  <meta property="og:title" content="ATELIER | Vêtements Essentiels & Streetwear Minimaliste">
+  <meta property="og:description" content="T-shirts oversized en coton lourd 240-300 GSM. Livraison express partout au Maroc.">
+  <meta property="og:image" content="assets/images/hero/hero-banner.jpg">
+  <meta property="og:type" content="website">
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
+</head>
+<body>
+
+  <!-- Dynamic Header Container -->
+  <div id="site-header-container"></div>
+
+  <!-- Main Content -->
+  <main id="main-content">
+    
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-background">
+        <img src="assets/images/hero/hero-banner.jpg" alt="Collection Atelier T-Shirts" class="hero-bg-img">
+        <div class="hero-overlay"></div>
+      </div>
+      <div class="hero-content container">
+        <span class="hero-tagline">DROP 01 — COLLECTION PERMANENTE</span>
+        <h1 class="hero-title">ESSENTIAL T-SHIRTS</h1>
+        <p class="hero-description">
+          Silhouettes oversized contemporaines, cotons lourds peignés 240 à 300 GSM et confection artisanale d'exception.
+        </p>
+        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+          <a href="shop.html?category=t-shirts" class="btn btn-white btn-lg">
+            DÉCOUVRIR LES T-SHIRTS
+          </a>
+          <a href="collections.html" class="btn btn-secondary btn-lg" style="color: #FFFFFF; border-color: rgba(255,255,255,0.6);">
+            VOIR LES DROPS
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Drop Collection -->
+    <section class="section-spacing">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="badge badge-new" style="margin-bottom: 12px;">SÉLECTION EXCLUSIVE</span>
+          <h2>LA COLLECTION T-SHIRT</h2>
+          <p class="section-subtitle">
+            Les pièces maîtresses de notre vestiaire, pensées pour être portées sans compromis saison après saison.
+          </p>
+        </div>
+
+        <div class="product-grid-4col" id="featured-products-grid">
+          <!-- Rendered dynamically by home.js -->
+        </div>
+
+        <div style="text-align: center; margin-top: 48px;">
+          <a href="shop.html" class="btn btn-secondary btn-lg" id="home-view-all-btn">
+            VOIR TOUTE LA BOUTIQUE →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Brand Statement Editorial Section -->
+    <section class="brand-statement-section">
+      <div class="statement-wrapper">
+        <div class="statement-tag">NOTRE MANIFESTE</div>
+        <h2 class="statement-title">BUILT FOR EVERYDAY WEAR.</h2>
+        <p class="statement-text">
+          Nous rejetons la fast-fashion et les coupes éphémères. Chaque pièce Atelier est conçue comme un objet de design : un grammage dense qui conserve son aplomb, un col renforcé anti-déformation et des coloris neutres intemporels. Confectionné avec fierté pour le vestiaire marocain contemporain.
+        </p>
+        <div style="margin-top: 32px;">
+          <a href="about.html" class="btn btn-primary btn-sm">
+            NOTRE ATELIER & MATIÈRES →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Category Showcase Grid (Expandable Platform) -->
+    <section class="section-spacing" style="background-color: #FFFFFF;">
+      <div class="container">
+        <div class="section-header text-center">
+          <h2>EXPLORER L'UNIVERS</h2>
+          <p class="section-subtitle">
+            Notre plateforme s'étend progressivement. Découvrez notre première ligne de T-shirts et préparez-vous pour les prochains lancements.
+          </p>
+        </div>
+
+        <div class="category-grid" id="category-grid-container">
+          <!-- Dynamically populated from STORE_CATEGORIES -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Upcoming Pack Bundles Editorial Slider -->
+    <section class="bundle-slider-section" id="bundle-slider-section">
+      <div class="bundle-slider-track" id="bundle-slider-track">
+        <!-- Slide 1: Pack 3 T-Shirts & Bundles -->
+        <div class="bundle-slide active" data-slide-index="0">
+          <img src="assets/images/products/t-shirts/tshirt-Pack-3.jpg" alt="Offres Packs & Bundles" class="bundle-slide-bg" loading="lazy">
+          <div class="bundle-slide-overlay"></div>
+          <div class="bundle-slide-content">
+            <div class="bundle-slide-tag">✨ SÉLECTION COFFRETS & ÉCONOMIES</div>
+            <h2 class="bundle-slide-title">OFFRES PACKS & BUNDLES</h2>
+            <p class="bundle-slide-text">
+              Composez votre vestiaire idéal avec nos coffrets signature sur-mesure. Choisissez librement vos coupes, coloris et tailles tout en bénéficiant de tarifs préférentiels exclusifs.
+            </p>
+            <div class="bundle-slide-actions">
+              <a href="collections.html?c=packs-bundles" class="btn btn-white btn-lg" style="letter-spacing: 0.05em; font-weight: 700;">
+                DÉCOUVRIR LES OFFRES PACKS →
+              </a>
+              <a href="product.html?id=pack-trio-tshirts" class="btn btn-secondary btn-lg" style="color: #FFFFFF; border-color: rgba(255,255,255,0.45); backdrop-filter: blur(4px);">
+                COMPOSER LE PACK 3 T-SHIRTS ⚡
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slider Navigation Controls (Pre-configured for future additional slides) -->
+      <button class="bundle-slider-nav-btn bundle-slider-prev" id="bundle-slider-prev" aria-label="Slide précédent" style="display: none;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <button class="bundle-slider-nav-btn bundle-slider-next" id="bundle-slider-next" aria-label="Slide suivant" style="display: none;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+
+      <!-- Pagination Dots -->
+      <div class="bundle-slider-dots" id="bundle-slider-dots" style="display: none;">
+        <button class="bundle-slider-dot active" data-slide="0" aria-label="Slide 1"></button>
+      </div>
+    </section>
+
+    <!-- Editorial Lookbook Split Banner -->
+    <section class="section-spacing" style="padding-top: 0;">
+      <div class="container">
+        <div class="lookbook-split-grid">
+          <div class="lookbook-split-card">
+            <img src="assets/images/lookbook/lookbook-male.jpg" alt="Lookbook Homme Atelier" loading="lazy">
+            <div class="lookbook-split-overlay"></div>
+            <div class="lookbook-split-content">
+              <span class="badge" style="background: rgba(255,255,255,0.2); color: #FFF; margin-bottom: 8px;">COUPE BOXY</span>
+              <h3>HEAVYWEIGHT 300 GSM</h3>
+              <p style="color: #E0E0E0; font-size: 0.92rem; margin-bottom: 20px;">
+                Un tissu sculptural ultra-dense qui ne colle jamais au corps.
+              </p>
+              <a href="product.html?id=essential-oversized-tee&color=navy" class="btn btn-white btn-sm">
+                DÉCOUVRIR LE 300 GSM
+              </a>
+            </div>
+          </div>
+
+          <div class="lookbook-split-card">
+            <img src="assets/images/lookbook/lookbook-female.jpg" alt="Lookbook Femme Atelier" loading="lazy">
+            <div class="lookbook-split-overlay"></div>
+            <div class="lookbook-split-content">
+              <span class="badge" style="background: rgba(255,255,255,0.2); color: #FFF; margin-bottom: 8px;">COUPE OVERSIZED</span>
+              <h3>ESSENTIAL SERIES</h3>
+              <p style="color: #E0E0E0; font-size: 0.92rem; margin-bottom: 20px;">
+                Coton peigné bio 240 GSM à la fluidité et au confort incomparables.
+              </p>
+              <a href="product.html?id=essential-oversized-tee" class="btn btn-white btn-sm">
+                DÉCOUVRIR L'ESSENTIEL
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- New Arrivals Section -->
+    <section class="section-spacing" style="background-color: var(--color-bg-secondary); border-top: 1px solid var(--color-border);">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="badge badge-new" style="margin-bottom: 10px;">DERNIERS DROPS</span>
+          <h2>NOUVEAUTÉS & ÉDITIONS LIMITÉES</h2>
+          <p class="section-subtitle">
+            Pièces fraîchement sorties de nos ateliers de confection.
+          </p>
+        </div>
+
+        <div class="product-grid-4col" id="new-arrivals-grid">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter Subscription Section -->
+    <section class="newsletter-section">
+      <div class="container">
+        <div class="newsletter-box">
+          <span style="font-size: 0.8rem; letter-spacing: 0.2em; font-weight: 700; color: #888888; text-transform: uppercase;">NEWSLETTER PRIVÉE</span>
+          <h2 style="font-size: 2.2rem; margin-top: 8px;">REJOIGNEZ L'ATELIER</h2>
+          <p>
+            Inscrivez-vous pour recevoir en avant-première l'accès aux futurs drops (Hoodies, Cargos) et profitez de <strong>10% de réduction</strong> immédiate avec le code <strong>WELCOME10</strong>.
+          </p>
+
+          <form class="newsletter-form">
+            <input type="email" class="form-input" placeholder="Votre adresse email (ex: contact@domaine.ma)" required>
+            <button type="submit" class="btn btn-white">S'INSCRIRE</button>
+          </form>
+
+          <div style="font-size: 0.75rem; color: #777777; margin-top: 14px;">
+            🔒 Aucun spam. Désinscription possible en un clic.
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Dynamic Footer Container -->
+  <div id="site-footer-container"></div>
+
+  <!-- Core Scripts -->
+  <script src="assets/js/config.js?v=12"></script>
+  <script src="assets/js/i18n.js?v=12"></script>
+  <script src="assets/js/data/categories.js?v=12"></script>
+  <script src="assets/js/data/collections.js?v=12"></script>
+  <script src="assets/js/data/products.js?v=12"></script>
+  <script src="assets/js/core/storage.js?v=12"></script>
+  <script src="assets/js/core/utils.js?v=12"></script>
+  <script src="assets/js/core/cart.js?v=12"></script>
+  <script src="assets/js/core/wishlist.js?v=12"></script>
+  <script src="assets/js/core/search.js?v=12"></script>
+  <script src="assets/js/components/toast.js?v=12"></script>
+  <script src="assets/js/components/header.js?v=12"></script>
+  <script src="assets/js/components/footer.js?v=12"></script>
+  <script src="assets/js/components/productCard.js?v=12"></script>
+  <script src="assets/js/components/cartDrawer.js?v=12"></script>
+  <script src="assets/js/components/quickAddModal.js?v=12"></script>
+  <script src="assets/js/components/sizeGuideModal.js?v=12"></script>
+  <script src="assets/js/pages/home.js?v=12"></script>
+</body>
+</html>

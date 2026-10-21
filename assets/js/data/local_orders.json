@@ -1,0 +1,120 @@
+[
+  {
+    "id": 1792421716249,
+    "order_number": "MA-TEST-1792421716249",
+    "created_at": "2026-10-19 14:55:16",
+    "customer_first_name": "Retail",
+    "customer_last_name": "Customer",
+    "customer_email": "retail@client.ma",
+    "customer_phone": "0612345678",
+    "shipping_address": "Anfa",
+    "shipping_apartment": "",
+    "shipping_city": "Casablanca",
+    "shipping_postal": "",
+    "shipping_country": "Maroc",
+    "payment_method": "Paiement à la livraison (COD)",
+    "subtotal": 249,
+    "discount": 0,
+    "shipping_cost": 0,
+    "total": 249,
+    "order_note": "",
+    "status": "pending",
+    "items": [
+      {
+        "productId": "heritage-regular-tshirt-heather-grey",
+        "quantity": 1,
+        "price": 249
+      }
+    ]
+  },
+  {
+    "id": 1792419885641,
+    "order_number": "MA-TEST-1792419885640",
+    "created_at": "2026-10-19 14:24:45",
+    "customer_first_name": "Retail",
+    "customer_last_name": "Customer",
+    "customer_email": "retail@client.ma",
+    "customer_phone": "0612345678",
+    "shipping_address": "Anfa",
+    "shipping_apartment": "",
+    "shipping_city": "Casablanca",
+    "shipping_postal": "",
+    "shipping_country": "Maroc",
+    "payment_method": "Paiement à la livraison (COD)",
+    "subtotal": 249,
+    "discount": 0,
+    "shipping_cost": 0,
+    "total": 249,
+    "order_note": "",
+    "status": "pending",
+    "items": [
+      {
+        "productId": "heritage-regular-tshirt-heather-grey",
+        "quantity": 1,
+        "price": 249
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "order_number": "MA-449102",
+    "created_at": "2026-10-17 18:26:49",
+    "customer_first_name": "Salma",
+    "customer_last_name": "Alami",
+    "customer_email": "salma@gmail.com",
+    "customer_phone": "0678901234",
+    "shipping_address": "Avenue Mohammed V, Résidence Al Manar",
+    "shipping_apartment": "Appt 12",
+    "shipping_city": "Rabat",
+    "shipping_postal": "10000",
+    "shipping_country": "Maroc",
+    "payment_method": "Paiement à la livraison (COD)",
+    "subtotal": "290.00",
+    "discount": "29.00",
+    "shipping_cost": "0.00",
+    "total": "261.00",
+    "order_note": "Sonner à l interphone SVP",
+    "status": "pending",
+    "items": [
+      {
+        "id": "essential-oversized-tee",
+        "name": "T-Shirt Oversized Essentiel",
+        "color": "white",
+        "size": "M",
+        "quantity": 1,
+        "price": 290
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "order_number": "AT-984712",
+    "created_at": "2026-10-17 18:19:18",
+    "customer_first_name": "Mohamed",
+    "customer_last_name": "Amine",
+    "customer_email": "amine@atelier.ma",
+    "customer_phone": "0661234567",
+    "shipping_address": "120 Boulevard Zerktouni",
+    "shipping_apartment": "",
+    "shipping_city": "Casablanca",
+    "shipping_postal": "20000",
+    "shipping_country": "Maroc",
+    "payment_method": "Paiement à la livraison (COD)",
+    "subtotal": "350.00",
+    "discount": "0.00",
+    "shipping_cost": "35.00",
+    "total": "385.00",
+    "order_note": "",
+    "status": "confirmed",
+    "items": [
+      {
+        "id": "graphic-tee-colored",
+        "name": "T-Shirt Graphic Colored",
+        "color": "black",
+        "size": "L",
+        "quantity": 1,
+        "price": 350
+      }
+    ]
+  }
+]

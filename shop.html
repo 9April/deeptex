@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boutique & Catalogue | ATELIER</title>
+  <meta name="description" content="Explorez toute notre collection de T-shirts streetwear haut de gamme. Filtrez par taille, couleur, grammage et prix. Livraison 24/48h au Maroc.">
+  
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
+</head>
+<body>
+
+  <!-- Dynamic Header Container -->
+  <div id="site-header-container"></div>
+
+  <!-- Main Content -->
+  <main id="main-content">
+    <div class="container section-spacing">
+      
+      <!-- Page Header -->
+      <div style="margin-bottom: 36px;">
+        <div class="pdp-breadcrumbs" style="margin-bottom: 12px;">
+          <a href="index.html">Accueil</a>
+          <span>/</span>
+          <span>Boutique</span>
+        </div>
+        <h1 style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 700;">CATALOGUE ATELIER</h1>
+        <p style="margin-top: 6px; max-width: 600px;">
+          Des silhouettes minimalistes en coton lourd peigné 240 à 300 GSM, confectionnées avec une exigence de longévité absolue.
+        </p>
+      </div>
+
+      <!-- Shop Layout: Sidebar + Product Grid -->
+      <div class="shop-layout">
+        
+        <!-- Sidebar Filters -->
+        <aside class="filter-sidebar" id="shop-filter-sidebar">
+          <!-- Rendered dynamically by shop.js -->
+        </aside>
+
+        <!-- Right Content Area -->
+        <section class="shop-content-area">
+          
+          <!-- Shop Toolbar -->
+          <div class="shop-toolbar">
+            <div style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 600;" id="shop-products-count">
+              Chargement des pièces...
+            </div>
+
+            <!-- Sort Dropdown -->
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <label for="shop-sort-select" style="font-size: 0.84rem; font-weight: 600; text-transform: uppercase;">Trier :</label>
+              <select id="shop-sort-select" class="form-select" style="padding: 8px 36px 8px 12px; font-size: 0.85rem; width: auto; min-width: 200px;">
+                <option value="featured">Sélection Atelier</option>
+                <option value="newest">Nouveautés Drops</option>
+                <option value="price-asc">Prix : Croissant</option>
+                <option value="price-desc">Prix : Décroissant</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Active Filter Pills Container -->
+          <div class="active-filter-pills" id="active-filter-pills-container" style="display: none;"></div>
+
+          <!-- Product Grid -->
+          <div class="product-grid" id="shop-products-grid">
+            <!-- Rendered dynamically by shop.js -->
+          </div>
+        </section>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Dynamic Footer Container -->
+  <div id="site-footer-container"></div>
+
+  <!-- Core Scripts -->
+  <script src="assets/js/config.js?v=12"></script>
+  <script src="assets/js/i18n.js?v=12"></script>
+  <script src="assets/js/data/categories.js?v=12"></script>
+  <script src="assets/js/data/collections.js?v=12"></script>
+  <script src="assets/js/data/products.js?v=12"></script>
+  <script src="assets/js/core/storage.js?v=12"></script>
+  <script src="assets/js/core/utils.js?v=12"></script>
+  <script src="assets/js/core/cart.js?v=12"></script>
+  <script src="assets/js/core/wishlist.js?v=12"></script>
+  <script src="assets/js/core/search.js?v=12"></script>
+  <script src="assets/js/components/toast.js?v=12"></script>
+  <script src="assets/js/components/header.js?v=12"></script>
+  <script src="assets/js/components/footer.js?v=12"></script>
+  <script src="assets/js/components/productCard.js?v=12"></script>
+  <script src="assets/js/components/cartDrawer.js?v=12"></script>
+  <script src="assets/js/components/quickAddModal.js?v=12"></script>
+  <script src="assets/js/components/sizeGuideModal.js?v=12"></script>
+  <script src="assets/js/pages/shop.js?v=12"></script>
+</body>
+</html>

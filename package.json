@@ -1,0 +1,13 @@
+{
+  "name": "atelier-ecommerce",
+  "version": "1.0.0",
+  "description": "ATELIER - Plateforme E-Commerce Vêtements Essentiels & Streetwear Minimaliste",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["ecommerce", "streetwear", "apparel", "catalog"],
+  "author": "ATELIER",
+  "license": "ISC"
+}
