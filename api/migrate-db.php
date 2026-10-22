@@ -11,9 +11,6 @@ header('Access-Control-Allow-Origin: *');
 require_once __DIR__ . '/db.php';
 
 $rootDir = dirname(__DIR__);
-$usersFile = $rootDir . '/assets/js/data/wholesale_users.json';
-$configFile = $rootDir . '/assets/js/data/wholesale_config.json';
-$ordersFile = $rootDir . '/assets/js/data/wholesale_orders.json';
 $productsFile = $rootDir . '/assets/js/data/products_canonical.json';
 $fallbackProducts = $rootDir . '/assets/js/data/products.js';
 $localOrdersFile = $rootDir . '/assets/js/data/local_orders.json';
@@ -31,139 +28,11 @@ try {
 }
 
 $results = [
-    'users_migrated' => 0,
-    'config_migrated' => false,
-    'wholesale_orders_migrated' => 0,
     'catalog_products_migrated' => 0,
     'retail_orders_migrated' => 0
 ];
 
-// 1. Migrate Wholesale Users
-if (file_exists($usersFile)) {
-    $users = json_decode(file_get_contents($usersFile), true) ?: [];
-    $stmt = $pdo->prepare("
-        INSERT INTO `wholesale_users` (
-            `id`, `email`, `password_hash`, `salt`, `full_name`, `phone`, `role`,
-            `application_status`, `business_name`, `country`, `city`, `business_type`,
-            `sales_channel`, `website_social_url`, `estimated_initial_order`,
-            `expected_reorder_freq`, `selling_status`, `additional_info`, `admin_notes`,
-            `info_request_message`, `applicant_response`, `created_at`, `updated_at`, `approved_at`
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ON DUPLICATE KEY UPDATE
-            `full_name` = VALUES(`full_name`),
-            `phone` = VALUES(`phone`),
-            `role` = VALUES(`role`),
-            `application_status` = VALUES(`application_status`),
-            `business_name` = VALUES(`business_name`),
-            `country` = VALUES(`country`),
-            `city` = VALUES(`city`),
-            `business_type` = VALUES(`business_type`),
-            `sales_channel` = VALUES(`sales_channel`),
-            `website_social_url` = VALUES(`website_social_url`),
-            `estimated_initial_order` = VALUES(`estimated_initial_order`),
-            `expected_reorder_freq` = VALUES(`expected_reorder_freq`),
-            `selling_status` = VALUES(`selling_status`),
-            `additional_info` = VALUES(`additional_info`),
-            `admin_notes` = VALUES(`admin_notes`),
-            `info_request_message` = VALUES(`info_request_message`),
-            `applicant_response` = VALUES(`applicant_response`),
-            `updated_at` = VALUES(`updated_at`),
-            `approved_at` = VALUES(`approved_at`)
-    ");
-
-    foreach ($users as $u) {
-        $stmt->execute([
-            $u['id'] ?? null,
-            strtolower(trim($u['email'])),
-            $u['password_hash'] ?? '',
-            $u['salt'] ?? '',
-            $u['full_name'] ?? '',
-            $u['phone'] ?? '',
-            $u['role'] ?? 'wholesale_applicant',
-            $u['application_status'] ?? 'pending',
-            $u['business_name'] ?? '',
-            $u['country'] ?? 'Maroc',
-            $u['city'] ?? '',
-            $u['business_type'] ?? 'other',
-            $u['sales_channel'] ?? '',
-            $u['website_social_url'] ?? '',
-            $u['estimated_initial_order'] ?? '10-25',
-            $u['expected_reorder_freq'] ?? 'monthly',
-            $u['selling_status'] ?? 'already_selling',
-            $u['additional_info'] ?? '',
-            $u['admin_notes'] ?? '',
-            $u['info_request_message'] ?? null,
-            $u['applicant_response'] ?? null,
-            $u['created_at'] ?? gmdate('Y-m-d H:i:s'),
-            $u['updated_at'] ?? gmdate('Y-m-d H:i:s'),
-            $u['approved_at'] ?? null
-        ]);
-        $results['users_migrated']++;
-    }
-}
-
-// 2. Migrate Wholesale Config / Settings
-if (file_exists($configFile)) {
-    $configContent = file_get_contents($configFile);
-    $stmt = $pdo->prepare("
-        INSERT INTO `wholesale_settings` (`key_name`, `data_json`, `updated_at`)
-        VALUES ('wholesale_config', ?, NOW())
-        ON DUPLICATE KEY UPDATE `data_json` = VALUES(`data_json`), `updated_at` = NOW()
-    ");
-    $stmt->execute([$configContent]);
-    $results['config_migrated'] = true;
-}
-
-// 3. Migrate Wholesale Orders
-if (file_exists($ordersFile)) {
-    $wholesaleOrders = json_decode(file_get_contents($ordersFile), true) ?: [];
-    $stmt = $pdo->prepare("
-        INSERT INTO `wholesale_orders` (
-            `id`, `order_number`, `user_id`, `business_name`, `contact_name`,
-            `contact_email`, `contact_phone`, `shipping_address`, `shipping_city`,
-            `shipping_country`, `tier_applied`, `total_units`, `subtotal`,
-            `discount`, `total`, `payment_method`, `order_note`, `status`,
-            `items_json`, `created_at`
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ON DUPLICATE KEY UPDATE
-            `status` = VALUES(`status`),
-            `items_json` = VALUES(`items_json`)
-    ");
-
-    foreach ($wholesaleOrders as $o) {
-        $shipping = is_array($o['shipping_address'] ?? null) ? $o['shipping_address'] : [];
-        $shippingStr = is_string($o['shipping_address'] ?? '') ? $o['shipping_address'] : json_encode($shipping, JSON_UNESCAPED_UNICODE);
-        $city = $shipping['city'] ?? ($o['shipping_city'] ?? '');
-        $country = $shipping['country'] ?? ($o['shipping_country'] ?? 'Maroc');
-        $itemsStr = json_encode($o['items'] ?? [], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-
-        $stmt->execute([
-            $o['id'] ?? null,
-            $o['order_number'],
-            $o['user_id'],
-            $o['business_name'] ?? '',
-            $o['contact_name'] ?? '',
-            $o['contact_email'] ?? '',
-            $o['contact_phone'] ?? '',
-            $shippingStr,
-            $city,
-            $country,
-            $o['tier_applied'] ?? '',
-            (int)($o['total_units'] ?? 0),
-            (float)($o['subtotal'] ?? 0),
-            (float)($o['discount'] ?? 0),
-            (float)($o['total'] ?? 0),
-            $o['payment_method'] ?? 'Virement Bancaire (B2B)',
-            $o['order_note'] ?? '',
-            $o['status'] ?? 'pending',
-            $itemsStr,
-            $o['created_at'] ?? gmdate('Y-m-d H:i:s')
-        ]);
-        $results['wholesale_orders_migrated']++;
-    }
-}
-
-// 4. Migrate Catalog Products
+// 1. Migrate Catalog Products
 $products = [];
 if (file_exists($productsFile)) {
     $products = json_decode(file_get_contents($productsFile), true) ?: [];
@@ -194,7 +63,7 @@ if (!empty($products)) {
     }
 }
 
-// 5. Migrate Local Retail Orders (if any)
+// 2. Migrate Local Retail Orders (if any)
 if (file_exists($localOrdersFile)) {
     $localOrders = json_decode(file_get_contents($localOrdersFile), true) ?: [];
     $stmt = $pdo->prepare("
@@ -235,14 +104,10 @@ if (file_exists($localOrdersFile)) {
     }
 }
 
-// 6. Audit Live Row Counts in Database
+// 3. Audit Live Row Counts in Database
 $counts = [];
 $tables = [
-    'wholesale_users',
-    'wholesale_settings',
-    'wholesale_orders',
     'catalog_products',
-    'wholesale_sessions',
     'orders',
     'newsletter_subscribers',
     'contact_messages'

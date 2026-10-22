@@ -35,7 +35,6 @@ window.FooterComponent = {
               <h4 class="footer-heading">Boutique</h4>
               <div class="footer-links">
                 <a href="shop.html">Tous les Produits</a>
-                <a href="wholesale.html" style="color: #D4AF37; font-weight: 600;">Programme Grossistes (B2B)</a>
                 <a href="collections.html?c=packs-bundles">Offres Packs & Bundles</a>
                 <a href="collections.html?c=essential-collection">Collection Essentielle</a>
                 <a href="collections.html?c=heavyweight-300">Heavyweight 300 GSM</a>

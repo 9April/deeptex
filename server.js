@@ -23,7 +23,6 @@ const MIME_TYPES = {
 };
 
 const https = require('https');
-const wholesaleServer = require('./wholesale-server');
 
 // ----------------------------------------------------------------------------
 // WHATSAPP BUSINESS CLOUD API HELPERS
@@ -145,7 +144,7 @@ const server = http.createServer((req, res) => {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Wholesale-Token, X-Admin-Key');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Admin-Key');
 
   if (req.method === 'OPTIONS') {
     res.writeHead(204);
@@ -155,15 +154,6 @@ const server = http.createServer((req, res) => {
 
   const parsedUrl = url.parse(req.url, true);
   let pathname = decodeURIComponent(parsedUrl.pathname);
-
-  // --------------------------------------------------------------------------
-  // B2B & WHOLESALE API DISPATCHER
-  // --------------------------------------------------------------------------
-  if (pathname.startsWith('/api/wholesale')) {
-    if (wholesaleServer.handleWholesaleRequest(req, res, pathname, parsedUrl)) {
-      return;
-    }
-  }
 
   // --------------------------------------------------------------------------
   // API ENDPOINT: POST /api/upload-image

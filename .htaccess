@@ -17,7 +17,6 @@ AddDefaultCharset UTF-8
     RewriteRule ^api/contact/?$ api/contact.php [L,QSA]
     RewriteRule ^api/newsletter/?$ api/newsletter.php [L,QSA]
     RewriteRule ^api/whatsapp/?(.*)$ api/whatsapp.php?action=$1 [L,QSA]
-    RewriteRule ^api/wholesale/?(.*)$ api/wholesale.php?route=$1 [L,QSA]
 
     # If requested URI with .html exists, serve it
     RewriteCond %{REQUEST_FILENAME} !-f

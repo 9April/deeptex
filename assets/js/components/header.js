@@ -42,7 +42,6 @@ window.HeaderComponent = {
             <nav class="main-nav" aria-label="Navigation principale">
               <a href="shop.html" class="nav-link">Boutique</a>
               <a href="collections.html" class="nav-link">Collections</a>
-              <a href="wholesale.html" class="nav-link" style="font-weight: 600; letter-spacing: 0.04em;">Wholesale (B2B)</a>
               <a href="about.html" class="nav-link">À Propos</a>
               <a href="contact.html" class="nav-link">Contact</a>
             </nav>
@@ -110,7 +109,6 @@ window.HeaderComponent = {
           <div class="mobile-drawer-nav">
             <a href="shop.html" class="mobile-nav-link">Boutique <span>→</span></a>
             <a href="collections.html" class="mobile-nav-link">Collections Drops <span>→</span></a>
-            <a href="wholesale.html" class="mobile-nav-link" style="font-weight: 600;">Espace Wholesale (B2B) <span>→</span></a>
             <a href="shop.html?filter=sale" class="mobile-nav-link" style="color: var(--color-sale);">Soldes <span>→</span></a>
             <a href="about.html" class="mobile-nav-link">Notre Atelier <span>→</span></a>
             <a href="shipping-returns.html" class="mobile-nav-link">Livraison & Retours Maroc <span>→</span></a>

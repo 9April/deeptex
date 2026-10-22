@@ -1,6 +1,6 @@
-# ATELIER — Modern E-Commerce & Private B2B Wholesale Template
+# ATELIER — Modern Luxury Apparel E-Commerce Platform
 
-A turnkey, production-ready **Apparel E-Commerce & Private B2B Wholesale Platform** built with high-performance vanilla web technologies. Designed for streetwear brands, fashion labels, and apparel manufacturers who need both a luxury retail storefront and a private, gated wholesale portal with MOQ enforcement and margin protection.
+A turnkey, production-ready **Apparel E-Commerce Platform** built with high-performance vanilla web technologies. Designed for streetwear brands, fashion labels, and apparel studios who need a high-converting retail storefront and an inventory management and order control dashboard.
 
 ---
 
@@ -12,43 +12,16 @@ A turnkey, production-ready **Apparel E-Commerce & Private B2B Wholesale Platfor
 - **Order Checkout:** Multi-step checkout supporting Cash on Delivery (COD) and bank transfer.
 - **WhatsApp Cloud API:** Automated order confirmation messages sent directly to customers.
 
-## 2. Private B2B Wholesale Portal (`/wholesale.html`)
+## 2. Admin Management Dashboard (`/admin.html`)
 
-- **Gated Access & Authentication:** Multi-step reseller application form with an admin approval workflow.
-- **Role-Based Server Authorization:** Strict access control (`wholesale_customer`, `wholesale_applicant`, `admin`).
-- **Starter Pack & MOQ Enforcement:** Requires a complete size breakdown (`S`, `M`, `L`, `XL`) across all colorways before order validation.
-- **Dynamic Three-Tier Volume Pricing Engine:**
-  - **MOQ:** Initial pricing tier activated when the starter pack requirement is met, targeting a 35% margin.
-  - **Tier 2 (25–49 units):** Mid-volume pricing targeting a 30% margin.
-  - **Tier 3 (50+ units):** High-volume wholesale pricing targeting a 25% margin.
-- **Cost-Based Pricing & Margin Protection:** Enforces a minimum margin of 20%.
-
-  Wholesale pricing formula:
-
-  \[
-  P = \max\left(
-  \left\lceil\frac{C}{1-M}\right\rceil,
-  \left\lceil\frac{C}{1-0.20}\right\rceil
-  \right)
-  \]
-
-  Where:
-  - \(P\) = Wholesale unit price
-  - \(C\) = Unit production cost
-  - \(M\) = Target margin
-
-- **Dual Floating Order Bars:** Bulk order bar positioned below the pricing tiers and a sticky bottom bar for convenient checkout.
-
-## 3. Admin Management Dashboard (`/admin.html`)
-
-- **Product & Catalog Manager:** Product creation, variant management, pricing, and file/database synchronization.
-- **B2B Configuration Grid:** Unit production cost control, manual MOQ overrides, and margin targets.
-- **Wholesale CRM:** Review reseller applications, update application status (`approved`, `more_info_required`, `rejected`, `suspended`), and attach internal notes.
-- **Order Tracking:** Combined overview of retail orders and wholesale bulk orders.
+- **Product & Catalog Manager:** Product creation, variant management, pricing, customizable bundles/packs, and file/database synchronization.
+- **Inventory & Stock Matrix:** Real-time stock status across all SKUs, colors, and sizes with low-stock alerts.
+- **Order Tracking (MySQL Live DB):** Live order status management, customer details, and items fulfillment.
+- **WhatsApp Meta Integration:** Automated order confirmations configuration and instant testing.
 
 ---
 
-## 4. Repository Structure
+## 3. Repository Structure
 
 ```text
 ├── .htaccess                   # Apache URL rewriting, clean URLs, Gzip and caching
@@ -57,13 +30,11 @@ A turnkey, production-ready **Apparel E-Commerce & Private B2B Wholesale Platfor
 ├── README.md                   # Project documentation
 ├── package.json                # Node.js development server configuration
 ├── server.js                   # Local Node.js development server
-├── wholesale-server.js         # Local Node.js wholesale API handler
 │
 ├── api/                        # PHP RESTful backend
 │   ├── config.example.php      # Database credentials template
 │   ├── db.php                  # PDO MySQL connection and table creation
 │   ├── migrate-db.php          # Database migration and seed endpoint
-│   ├── wholesale.php           # B2B authentication, pricing, orders and catalog API
 │   ├── orders.php              # Retail checkout and order management API
 │   ├── sync-all.php            # Catalog synchronization endpoint
 │   ├── contact.php             # Contact form submission API
@@ -72,21 +43,21 @@ A turnkey, production-ready **Apparel E-Commerce & Private B2B Wholesale Platfor
 │   └── whatsapp.php            # WhatsApp Business API integration
 │
 ├── assets/
-│   ├── css/                    # Modular stylesheets
+│   ├── css/                    # Modular stylesheets (base, components, admin, pages)
 │   ├── js/
 │   │   ├── config.js           # API endpoints and brand configuration
 │   │   ├── core/               # Utilities, cart engine, wishlist and storage
 │   │   ├── components/         # Header, footer, cart drawer and notifications
-│   │   ├── pages/              # Wholesale controller, admin dashboard and product logic
-│   │   └── data/               # JSON datasets for users, products, configuration and orders
+│   │   ├── pages/              # Admin dashboard and product logic
+│   │   └── data/               # JSON datasets for products, categories, collections and orders
 │   └── images/                 # Product photography, lookbook and branding assets
 │
-└── *.html                      # HTML pages: storefront, shop, wholesale, admin and cart
+└── *.html                      # HTML pages: storefront, shop, product, admin and cart
 ```
 
 ---
 
-## 5. Quick Start Guide
+## 4. Quick Start Guide
 
 The project can run locally using either PHP and MySQL or the Node.js development server.
 
@@ -94,14 +65,7 @@ The project can run locally using either PHP and MySQL or the Node.js developmen
 
 Recommended for production deployments and local PHP development.
 
-**Step 1: Clone or download the repository**
-
-```bash
-git clone https://github.com/your-username/atelier-ecommerce-template.git
-cd atelier-ecommerce-template
-```
-
-**Step 2: Configure the database**
+**Step 1: Configure the database**
 
 Copy the database configuration template:
 
@@ -118,13 +82,13 @@ define('DB_USER', 'your_database_user');
 define('DB_PASS', 'your_database_password');
 ```
 
-**Step 3: Start the PHP development server**
+**Step 2: Start the PHP development server**
 
 ```bash
 php -S localhost:8000
 ```
 
-**Step 4: Initialize database tables and seed data**
+**Step 3: Initialize database tables and seed data**
 
 Open the following URL in your browser:
 
@@ -132,11 +96,11 @@ Open the following URL in your browser:
 http://localhost:8000/api/migrate-db.php
 ```
 
-This endpoint initializes the database tables and populates the initial wholesale users, starter pack configurations, and catalog data.
+This endpoint initializes the database tables and populates the catalog data.
 
 ### Option B: Node.js Development Server
 
-Use this option to test the storefront without immediately configuring PHP and MySQL.
+Use this option to test the storefront and admin without configuring PHP and MySQL.
 
 **Step 1: Start the server**
 
@@ -153,23 +117,17 @@ http://localhost:5500
 **Step 2: Open the application**
 
 - Storefront: `http://localhost:5500`
-- Wholesale Portal: `http://localhost:5500/wholesale.html`
+- Shop: `http://localhost:5500/shop.html`
 - Admin Dashboard: `http://localhost:5500/admin.html`
-
-Note: The Node.js development server does not necessarily provide the same functionality as the PHP/MySQL production backend.
 
 ---
 
-## 6. Database Schema (`MySQL`)
+## 5. Database Schema (`MySQL`)
 
 The platform includes automated table provisioning through `api/db.php`.
 
 | Table Name | Description |
 |---|---|
-| `wholesale_users` | Wholesale accounts, hashed credentials, business information, and approval status |
-| `wholesale_settings` | Wholesale margins, volume thresholds, and unit production costs |
-| `wholesale_orders` | Bulk orders, line items, tiered pricing, and shipping addresses |
-| `wholesale_sessions` | Authorization tokens with expiration timestamps |
 | `catalog_products` | Apparel catalog items, variants, colorways, and retail prices |
 | `orders` | Retail checkout orders |
 | `newsletter_subscribers` | Newsletter subscriber records |
@@ -177,47 +135,24 @@ The platform includes automated table provisioning through `api/db.php`.
 
 ---
 
-## 7. Production Deployment — Hostinger, cPanel, or Shared Hosting
+## 6. Production Deployment — Hostinger, cPanel, or Shared Hosting
 
 1. Upload the project files to your hosting document root, such as `public_html/`.
 2. Create a MySQL database and database user through your hosting control panel.
-3. Create `api/config.php` with the correct database credentials, or configure the supported environment variables.
-4. Configure the production environment and verify that the PHP backend can connect to the database.
-5. Initialize the database using a secured migration procedure.
-6. Test storefront browsing, customer checkout, wholesale authentication, pricing calculations, and administrative access.
-7. Verify that all sensitive configuration files and administrative endpoints are protected before making the website publicly accessible.
-
-The application is ready for production only after the backend, database, authentication, and deployment security have been tested.
+3. Create `api/config.php` with the correct database credentials.
+4. Run `http://your-domain.com/api/migrate-db.php` to initialize tables and catalog data.
+5. Test storefront browsing, checkout, order notifications, and administrative access.
 
 ---
 
-## 8. Default Accounts — Demo Configuration
+## 7. Customization & Branding
 
-The following accounts are intended for initial development or seeded demo data.
-
-**Administrator**
-- Email: `admin@atelier.ma`
-- Access: Admin dashboard and wholesale configuration.
-
-**Approved Wholesale Customer**
-- Email: `buyer@conceptstore.ma`
-- Access: Restricted wholesale catalog.
-
-These are example account identifiers. Configure secure credentials before deployment. Never publish default passwords or expose administrative accounts in a live environment.
+- **Store Name & Metadata:** Update brand configuration in `assets/js/config.js`.
+- **Styling & Color Palette:** Modify design tokens in `assets/css/base.css`.
+- **Product Catalog:** Manage products and stocks dynamically through the admin dashboard (`admin.html`).
 
 ---
 
-## 9. Customization & Branding
+## 8. License
 
-- **Store Name & Metadata:** Update the title tags in the HTML files and brand configuration in `assets/js/config.js`.
-- **Styling & Color Palette:** Modify design tokens in `assets/css/base.css`, including `--color-primary` and `--color-accent`.
-- **Product Catalog:** Manage products through the admin dashboard or update the relevant product data files.
-- **Wholesale Configuration:** Adjust production costs, minimum order quantities, pricing tiers, and target margins through the appropriate configuration settings.
-
----
-
-## 10. License
-
-Distributed under the **MIT License**. See [`LICENSE`](LICENSE) for details.
-
-Free for personal and commercial use, subject to the terms of the license.
+Distributed under the **MIT License**.
