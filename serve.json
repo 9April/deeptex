@@ -12,6 +12,7 @@
     { "source": "/about", "destination": "/about.html" },
     { "source": "/contact", "destination": "/contact.html" },
     { "source": "/shipping-returns", "destination": "/shipping-returns.html" },
-    { "source": "/order-success", "destination": "/order-success.html" }
+    { "source": "/order-success", "destination": "/order-success.html" },
+    { "source": "/wholesale", "destination": "/wholesale.html" }
   ]
 }

@@ -23,6 +23,7 @@ const MIME_TYPES = {
 };
 
 const https = require('https');
+const wholesaleServer = require('./wholesale-server');
 
 // ----------------------------------------------------------------------------
 // WHATSAPP BUSINESS CLOUD API HELPERS
@@ -144,7 +145,7 @@ const server = http.createServer((req, res) => {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Admin-Key');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Wholesale-Token, X-Admin-Key');
 
   if (req.method === 'OPTIONS') {
     res.writeHead(204);
@@ -154,6 +155,15 @@ const server = http.createServer((req, res) => {
 
   const parsedUrl = url.parse(req.url, true);
   let pathname = decodeURIComponent(parsedUrl.pathname);
+
+  // --------------------------------------------------------------------------
+  // B2B & WHOLESALE API DISPATCHER
+  // --------------------------------------------------------------------------
+  if (pathname.startsWith('/api/wholesale')) {
+    if (wholesaleServer.handleWholesaleRequest(req, res, pathname, parsedUrl)) {
+      return;
+    }
+  }
 
   // --------------------------------------------------------------------------
   // API ENDPOINT: POST /api/upload-image
@@ -347,7 +357,8 @@ window.PRODUCT_ALIASES = {
 
   try {
     if (typeof localStorage !== 'undefined') {
-      const saved = localStorage.getItem("atelier_products_v1");
+      try { localStorage.removeItem("atelier_products_v1"); localStorage.removeItem("atelier_products_v2"); localStorage.removeItem("atelier_products_v3"); } catch (e) {}
+      const saved = localStorage.getItem("atelier_products_v4");
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
@@ -389,6 +400,13 @@ window.PRODUCT_ALIASES = {
               }
             });
 
+            // Synchronize colorway primary thumbnail with gallery image 1
+            mergedColors.forEach(c => {
+              if (merged.images && merged.images[c.code] && merged.images[c.code].length > 0) {
+                c.image = merged.images[c.code][0];
+              }
+            });
+
             // Merge variants
             const existingVarKeys = new Set((item.variants || []).map(v => (v.color + '-' + v.size)));
             const mergedVariants = [...(item.variants || [])];
@@ -412,7 +430,7 @@ window.PRODUCT_ALIASES = {
             }
           });
 
-          localStorage.setItem("atelier_products_v1", JSON.stringify(finalProducts));
+          localStorage.setItem("atelier_products_v4", JSON.stringify(finalProducts));
           window.STORE_PRODUCTS = finalProducts;
           return;
         }
@@ -544,7 +562,8 @@ window.PRODUCT_ALIASES = {
 
   try {
     if (typeof localStorage !== 'undefined') {
-      const saved = localStorage.getItem("atelier_products_v1");
+      try { localStorage.removeItem("atelier_products_v1"); localStorage.removeItem("atelier_products_v2"); localStorage.removeItem("atelier_products_v3"); } catch (e) {}
+      const saved = localStorage.getItem("atelier_products_v4");
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
@@ -586,6 +605,13 @@ window.PRODUCT_ALIASES = {
               }
             });
 
+            // Synchronize colorway primary thumbnail with gallery image 1
+            mergedColors.forEach(c => {
+              if (merged.images && merged.images[c.code] && merged.images[c.code].length > 0) {
+                c.image = merged.images[c.code][0];
+              }
+            });
+
             // Merge variants
             const existingVarKeys = new Set((item.variants || []).map(v => (v.color + '-' + v.size)));
             const mergedVariants = [...(item.variants || [])];
@@ -609,7 +635,7 @@ window.PRODUCT_ALIASES = {
             }
           });
 
-          localStorage.setItem("atelier_products_v1", JSON.stringify(finalProducts));
+          localStorage.setItem("atelier_products_v4", JSON.stringify(finalProducts));
           window.STORE_PRODUCTS = finalProducts;
           return;
         }

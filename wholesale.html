@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wholesale & B2B | Programme Revendeurs Officiel | ATELIER</title>
+  <meta name="description" content="Devenez revendeur officiel ATELIER. T-shirts streetwear 240-320 GSM en coton peigné confectionnés au Maroc. Tarifs grossistes dégressifs avec quantités minimales adaptées par produit et livraison express 24/48h.">
+
+  <!-- Core & Wholesale Stylesheets -->
+  <link rel="stylesheet" href="assets/css/base.css?v=16">
+  <link rel="stylesheet" href="assets/css/components.css?v=16">
+  <link rel="stylesheet" href="assets/css/pages.css?v=16">
+  <link rel="stylesheet" href="assets/css/wholesale.css?v=17">
+  <link rel="stylesheet" href="assets/css/animations.css?v=17">
+</head>
+<body>
+
+  <!-- Dynamic Header Container -->
+  <div id="site-header-container"></div>
+
+  <!-- Dynamic Wholesale Portal Root (Public Landing, Status Dashboard, or Approved Catalog) -->
+  <main id="wholesale-app-root">
+    <div style="min-height: 70vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 60px 20px;">
+      <div style="font-family: var(--font-heading); font-weight: 700; font-size: 1.2rem; color: var(--color-text-secondary);">
+        Chargement de l'espace B2B ATELIER...
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal: Wholesale Registration & Application -->
+  <div class="wholesale-modal-backdrop" id="wholesale-apply-modal">
+    <div class="wholesale-modal-content">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border); padding-bottom: 16px; margin-bottom: 24px;">
+        <div>
+          <span class="badge" style="background: var(--color-bg-secondary); color: var(--color-dark); margin-bottom: 4px;">ESPACE CANDIDATURE</span>
+          <h2 style="font-size: 1.4rem; font-weight: 700; text-transform: uppercase;">Demande d'Accès Grossiste</h2>
+        </div>
+        <button class="action-btn" onclick="window.WholesaleController.closeApplyModal()" aria-label="Fermer" style="font-size: 1.3rem;">✕</button>
+      </div>
+
+      <form id="wholesale-application-form" onsubmit="window.WholesaleController.handleApplySubmit(event)">
+        
+        <!-- Personal & Auth Info -->
+        <h3 style="font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted); margin-bottom: 14px;">1. Responsable & Identifiants de Connexion</h3>
+        
+        <div class="form-group">
+          <label class="form-label" for="apply-fullname">Nom et Prénom *</label>
+          <input type="text" id="apply-fullname" class="form-input" placeholder="Ex: Karim Bennani" required>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label" for="apply-email">Adresse Email Professionnelle *</label>
+            <input type="email" id="apply-email" class="form-input" placeholder="contact@maboutique.ma" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="apply-phone">Téléphone / WhatsApp (Maroc) *</label>
+            <input type="tel" id="apply-phone" class="form-input" placeholder="06 12 34 56 78" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="apply-password">Mot de Passe pour votre Accès *</label>
+          <input type="password" id="apply-password" class="form-input" placeholder="Min. 8 caractères sécurisés" required minlength="8">
+          <div style="font-size: 0.74rem; color: var(--color-text-muted); margin-top: 4px;">Ce mot de passe vous permettra de suivre l'état de votre dossier et de commander après validation.</div>
+        </div>
+
+        <!-- Business & Sales Channel Info -->
+        <h3 style="font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted); margin: 24px 0 14px;">2. Votre Activité Commerciale</h3>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label" for="apply-bizname">Nom de la Boutique / Enseigne</label>
+            <input type="text" id="apply-bizname" class="form-input" placeholder="Ex: Casa Street Concept">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="apply-city">Ville Principale *</label>
+            <input type="text" id="apply-city" class="form-input" placeholder="Ex: Casablanca, Rabat, Marrakech..." required>
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label" for="apply-country">Pays *</label>
+            <input type="text" id="apply-country" class="form-input" value="Maroc" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="apply-biztype">Type de Structure *</label>
+            <select id="apply-biztype" class="form-select" required>
+              <option value="physical_shop">Boutique physique / Concept Store</option>
+              <option value="online_store">Boutique en ligne (E-Commerce)</option>
+              <option value="social_media">Vente Réseaux Sociaux (Instagram / TikTok)</option>
+              <option value="independent_reseller">Revendeur Indépendant / Pop-up</option>
+              <option value="other">Autre structure</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="apply-channel">Canal de Vente Détaillé</label>
+          <input type="text" id="apply-channel" class="form-input" placeholder="Ex: Boutique quartier Maarif + Vente via Instagram Stories">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="apply-url">Lien Site Web ou Profil Instagram / TikTok</label>
+          <input type="url" id="apply-url" class="form-input" placeholder="https://instagram.com/mon_shop">
+        </div>
+
+        <!-- Order Projections -->
+        <h3 style="font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted); margin: 24px 0 14px;">3. Prévisions de Commandes</h3>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label" for="apply-initialqty">Volume Initial Estimé *</label>
+            <select id="apply-initialqty" class="form-select" required>
+              <option value="10-24">10 à 24 pièces (Palier MOQ 35% marge)</option>
+              <option value="25-49">25 à 49 pièces (Palier MOQ-49 30% marge)</option>
+              <option value="50-100">50 à 100 pièces (Palier Grand Volume 25% marge)</option>
+              <option value="100+">Plus de 100 pièces (Grandes commandes distributeur)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="apply-reorderfreq">Fréquence de Réassort</label>
+            <select id="apply-reorderfreq" class="form-select">
+              <option value="weekly">Hebdomadaire</option>
+              <option value="biweekly">Toutes les 2 semaines</option>
+              <option value="monthly" selected>Mensuelle</option>
+              <option value="quarterly">Trimestrielle</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="apply-sellingstatus">État Actuel de votre Activité *</label>
+          <select id="apply-sellingstatus" class="form-select" required>
+            <option value="already_selling">Je vends déjà des vêtements actuellement</option>
+            <option value="launching_soon">Je prépare le lancement de mon activité / boutique</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="apply-moreinfo">Remarques ou Informations Complémentaires</label>
+          <textarea id="apply-moreinfo" class="form-textarea" rows="3" placeholder="Marques déjà distribuées, attentes particulières, personnalisation..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full" id="btn-submit-apply" style="margin-top: 16px; padding: 14px;">
+          TRANSMETTRE MA CANDIDATURE GROSSISTE
+        </button>
+
+        <div style="font-size: 0.76rem; color: var(--color-text-muted); text-align: center; margin-top: 12px;">
+          Conformément à nos conditions de distribution, vos informations restent strictement confidentielles et ne sont jamais divulguées à des tiers.
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Wholesale Login -->
+  <div class="wholesale-modal-backdrop" id="wholesale-login-modal">
+    <div class="wholesale-modal-content" style="max-width: 440px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border); padding-bottom: 16px; margin-bottom: 24px;">
+        <div>
+          <span class="badge" style="background: var(--color-bg-secondary); color: var(--color-dark); margin-bottom: 4px;">ESPACE B2B</span>
+          <h2 style="font-size: 1.3rem; font-weight: 700; text-transform: uppercase;">Connexion Grossiste</h2>
+        </div>
+        <button class="action-btn" onclick="window.WholesaleController.closeLoginModal()" aria-label="Fermer" style="font-size: 1.3rem;">✕</button>
+      </div>
+
+      <form onsubmit="window.WholesaleController.handleLoginSubmit(event)">
+        <div class="form-group">
+          <label class="form-label" for="login-ws-email">Adresse Email Grossiste</label>
+          <input type="email" id="login-ws-email" class="form-input" placeholder="exemple@maboutique.ma" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="login-ws-password">Mot de Passe</label>
+          <input type="password" id="login-ws-password" class="form-input" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full" id="btn-submit-login" style="margin-top: 16px; padding: 12px;">
+          SE CONNECTER
+        </button>
+
+        <div style="margin-top: 18px; text-align: center; font-size: 0.84rem;">
+          <span style="color: var(--color-text-muted);">Pas encore candidat ?</span>
+          <a href="#" style="font-weight: 700; text-decoration: underline; margin-left: 4px;" onclick="window.WholesaleController.closeLoginModal(); window.WholesaleController.openApplyModal();">
+            Postuler au programme
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Wholesale B2B Checkout -->
+  <div class="wholesale-modal-backdrop" id="wholesale-checkout-modal">
+    <div class="wholesale-modal-content" style="max-width: 600px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border); padding-bottom: 16px; margin-bottom: 20px;">
+        <div>
+          <span class="badge" style="background: #E8F5E9; color: #2E7D32; margin-bottom: 4px;">COMMANDE GROSSISTE B2B</span>
+          <h2 style="font-size: 1.35rem; font-weight: 700;">Validation de Commande</h2>
+        </div>
+        <button class="action-btn" onclick="window.WholesaleController.closeCheckoutModal()" aria-label="Fermer" style="font-size: 1.3rem;">✕</button>
+      </div>
+
+      <!-- Selected items summary -->
+      <div style="max-height: 180px; overflow-y: auto; margin-bottom: 16px;" id="checkout-matrix-list">
+        <!-- populated dynamically -->
+      </div>
+
+      <div style="background: var(--color-bg-secondary); border: 1px solid var(--color-border); padding: 14px; margin-bottom: 20px; font-size: 0.88rem; display: flex; justify-content: space-between;">
+        <div>
+          <span>Volume : <strong id="modal-summary-units">0 pcs</strong></span>
+        </div>
+        <div>
+          <span>Montant Total : <strong id="modal-summary-total" style="font-size: 1.05rem; font-family: var(--font-heading); color: var(--color-dark);">0 MAD</strong></span>
+        </div>
+      </div>
+
+      <form onsubmit="window.WholesaleController.handleOrderSubmit(event)">
+        <h4 style="font-size: 0.88rem; font-weight: 700; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 12px;">Adresse de Livraison au Maroc</h4>
+
+        <div class="form-group">
+          <label class="form-label" for="b2b-address">Adresse de la Boutique / Entrepôt *</label>
+          <input type="text" id="b2b-address" class="form-input" placeholder="Boulevard d'Anfa, Quartier..." required>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label" for="b2b-city">Ville de Livraison *</label>
+            <input type="text" id="b2b-city" class="form-input" placeholder="Casablanca" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="b2b-postal">Code Postal (Optionnel)</label>
+            <input type="text" id="b2b-postal" class="form-input" placeholder="20000">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="b2b-payment">Mode de Règlement B2B *</label>
+          <select id="b2b-payment" class="form-select">
+            <option value="Virement Bancaire (B2B)">Virement Bancaire Société (Recommandé)</option>
+            <option value="Paiement à la livraison B2B (COD)">Paiement à la livraison (Chèque ou Espèces)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="b2b-note">Instructions Spéciales / Mention Facturation</label>
+          <textarea id="b2b-note" class="form-textarea" rows="2" placeholder="Mention ICE société pour facture, instructions horaires de livraison..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full" id="btn-submit-wholesale-order" style="padding: 14px; margin-top: 10px;">
+          VALIDER MA COMMANDE GROSSISTE
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Dynamic Footer Container -->
+  <div id="site-footer-container"></div>
+
+  <!-- Core Scripts -->
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/core/storage.js"></script>
+  <script src="assets/js/core/utils.js"></script>
+  <script src="assets/js/core/cart.js?v=12"></script>
+  <script src="assets/js/core/wishlist.js?v=12"></script>
+  <script src="assets/js/core/search.js?v=12"></script>
+  <script src="assets/js/components/toast.js?v=12"></script>
+  <script src="assets/js/components/header.js?v=12"></script>
+  <script src="assets/js/components/footer.js?v=12"></script>
+  <script src="assets/js/components/cartDrawer.js?v=12"></script>
+  <script src="assets/js/data/products.js?v=12"></script>
+
+  <!-- Wholesale Controller -->
+  <script src="assets/js/pages/wholesale.js?v=17"></script>
+</body>
+</html>

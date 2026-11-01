@@ -6,10 +6,10 @@
 
 window.StoreDataManager = {
   KEYS: {
-    PRODUCTS: "atelier_products_v1",
+    PRODUCTS: "atelier_products_v4",
     CATEGORIES: "atelier_categories_v1",
     COLORS: "atelier_colors_v1",
-    LAST_UPDATED: "atelier_catalog_updated_at_v1"
+    LAST_UPDATED: "atelier_catalog_updated_at_v4"
   },
 
   // Default color palette presets
@@ -139,7 +139,7 @@ window.StoreDataManager = {
     { label: "T-Shirt Blanc - Dos (Mockup)", url: "assets/images/products/tshirt-white-back.jpg", color: "white" },
     { label: "T-Shirt Noir - Face (Mockup)", url: "assets/images/products/tshirt-black-front.jpg", color: "black" },
     { label: "T-Shirt Noir - Dos (Mockup)", url: "assets/images/products/tshirt-black-back.jpg", color: "black" },
-    { label: "T-Shirt Charcoal - Face (Mockup)", url: "assets/images/products/tshirt-charcoal-front.jpg", color: "charcoal" },
+    { label: "T-Shirt Charcoal - Face (Mockup)", url: "assets/images/products/t-shirts/vintage-washed-charcoal-tee/front-main.png", color: "charcoal" },
     { label: "T-Shirt Vert Olive - Face (Mockup)", url: "assets/images/products/tshirt-olive-front.jpg", color: "olive" },
     { label: "T-Shirt Terre Cuite - Face (Mockup)", url: "assets/images/products/tshirt-terracotta-front.jpg", color: "terracotta" },
     { label: "Vintage Graphic - Noir Face", url: "assets/images/products/t-shirts/vintage-washed-charcoal-tee/front-main.png", color: "black" },
@@ -245,6 +245,7 @@ window.StoreDataManager = {
   // --------------------------------------------------------------------------
   getProducts() {
     try {
+      try { localStorage.removeItem("atelier_products_v1"); localStorage.removeItem("atelier_products_v2"); localStorage.removeItem("atelier_products_v3"); } catch (e) {}
       const stored = localStorage.getItem(this.KEYS.PRODUCTS);
       if (stored) {
         const parsed = JSON.parse(stored);
@@ -735,6 +736,7 @@ window.StoreDataManager = {
 
   resetToDefaults() {
     try {
+      try { localStorage.removeItem("atelier_products_v1"); localStorage.removeItem("atelier_products_v2"); localStorage.removeItem("atelier_products_v3"); } catch (e) {}
       localStorage.removeItem(this.KEYS.PRODUCTS);
       localStorage.removeItem(this.KEYS.CATEGORIES);
       localStorage.removeItem(this.KEYS.COLORS);
