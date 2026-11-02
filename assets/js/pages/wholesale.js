@@ -614,21 +614,13 @@ window.WholesaleController = {
     const master = masterProds.find(m => m.id === p.id);
     if (!master) return p;
 
-    // Merge colors
+    // Master is the canonical ground truth for verified images and colorways
     if (Array.isArray(master.colors) && master.colors.length > 0) {
-      const existingCodes = new Set((p.colors || []).map(c => c.code));
-      const mergedColors = [...(p.colors || [])];
-      master.colors.forEach(mc => {
-        if (!existingCodes.has(mc.code)) {
-          mergedColors.push(mc);
-          existingCodes.add(mc.code);
-        }
-      });
-      p.colors = mergedColors;
+      p.colors = master.colors;
     }
 
-    // Merge images
-    p.images = { ...(master.images || {}), ...(p.images || {}) };
+    // Master images take precedence over stale server state
+    p.images = { ...(p.images || {}), ...(master.images || {}) };
 
     // Guarantee colorway swatch image
     if (Array.isArray(p.colors)) {
@@ -877,7 +869,7 @@ window.WholesaleController = {
     return `
       <div class="wholesale-product-card" id="product-card-${p.id}">
         <div class="wholesale-card-media">
-          <img src="${imgUrl}" alt="${p.name}" class="wholesale-product-img" id="img-${p.id}">
+          <img src="${imgUrl}" alt="${p.name}" class="wholesale-product-img" id="img-${p.id}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='assets/images/categories/category-tshirts.jpg';}">
           ${isPackSelected ? `
             <div class="wholesale-card-badge-added">
               ✓ Pack Starter Ajouté

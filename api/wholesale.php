@@ -364,13 +364,18 @@ function dbGetProducts($pdo, $rootDir, $productsFile) {
                 foreach ($rows as $r) {
                     $item = json_decode($r['data_json'], true);
                     if ($item && !empty($item['id'])) {
-                        // Merge with master if master has newer or more complete colors/images
+                        // Master holds canonical, verified files and colorways
                         $m = $masterById[$item['id']] ?? null;
                         if ($m) {
-                            if (!empty($m['colors']) && (empty($item['colors']) || count($m['colors']) > count($item['colors']))) {
+                            if (!empty($m['colors'])) {
                                 $item['colors'] = $m['colors'];
                             }
-                            $item['images'] = array_merge($m['images'] ?? [], $item['images'] ?? []);
+                            if (!empty($m['images'])) {
+                                $item['images'] = $m['images'];
+                            }
+                            if (!empty($m['sizes'])) {
+                                $item['sizes'] = $m['sizes'];
+                            }
                         }
                         $prods[] = $item;
                     }
