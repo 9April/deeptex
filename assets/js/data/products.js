@@ -1,6 +1,8 @@
 /**
  * Products Master Database
  * Fully data-driven, expandable apparel catalog.
+ * Supports multi-colorways, multi-sizes, variant-specific SKUs, inventory counts,
+ * multi-view photography, materials, sizing advice, and Moroccan pricing (MAD).
  */
 
 window.DEFAULT_STORE_PRODUCTS = [
@@ -405,13 +407,14 @@ window.DEFAULT_STORE_PRODUCTS = [
             }
         ],
         "tags": [
-            "regular fit",
-            "heritage",
-            "gris chine",
+            "t-shirt regular",
+            "gris chiné",
+            "heather grey",
             "180 gsm",
-            "coton doux",
+            "coton",
             "streetwear",
-            "indispensable"
+            "essentiel",
+            "basique premium"
         ]
     },
     {
@@ -428,7 +431,7 @@ window.DEFAULT_STORE_PRODUCTS = [
         "compareAtPrice": 780,
         "isNew": true,
         "isSale": true,
-        "isFeatured": true,
+        "isFeatured": false,
         "isBundle": true,
         "bundleSlotsCount": 3,
         "bundleIncludedProductIds": [
@@ -501,8 +504,8 @@ window.DEFAULT_STORE_PRODUCTS = [
         "isNew": true,
         "isSale": false,
         "isFeatured": true,
-        "rating": 4.9,
-        "reviewCount": 18,
+        "rating": 5,
+        "reviewCount": 24,
         "shortDescription": "Édition graphique avec logo coloré signature, taillée dans un jersey 100% coton lourd 260 GSM.",
         "description": "Inspiré par l'esthétique streetwear contemporaine. Ce t-shirt arbore un logo coloré signature au relief saisissant, sur un jersey de coton peigné haut de gamme 260 GSM pour un toucher velouté et une excellente tenue dans le temps.",
         "details": [
@@ -521,25 +524,33 @@ window.DEFAULT_STORE_PRODUCTS = [
                 "name": "Noir Onyx",
                 "code": "black",
                 "hex": "#121212",
-                "image": "assets/images/products/t-shirts/vintage-washed-charcoal-tee/front-main.png"
+                "image": "assets/images/products/t-shirts/graphic-tee-colored/black.png",
+                "productId": "graphic-tee-colored",
+                "linkUrl": "product.html?id=graphic-tee-colored&color=black"
             },
             {
                 "name": "Bleu Foncé",
                 "code": "dark-blue",
                 "hex": "#192231",
-                "image": "assets/images/products/t-shirts/graphic-tee-colored-blue-dark/front-main.png"
+                "image": "assets/images/products/t-shirts/graphic-tee-colored/lv-bm-f.png",
+                "productId": "graphic-tee-colored",
+                "linkUrl": "product.html?id=graphic-tee-colored&color=dark-blue"
             },
             {
                 "name": "Indigo",
                 "code": "indigo",
                 "hex": "#EADACB",
-                "image": "assets/images/products/t-shirts/essential-tee-indigo/front-main.png"
+                "image": "assets/images/products/t-shirts/graphic-tee-colored/beig.png",
+                "productId": "graphic-tee-colored",
+                "linkUrl": "product.html?id=graphic-tee-colored&color=indigo"
             },
             {
                 "name": "Baby Pink",
                 "code": "rose",
                 "hex": "#F6D9DC",
-                "image": "assets/images/products/t-shirts/essential-tee-rose/tshirt-pink-front.png"
+                "image": "assets/images/products/t-shirts/essential-tee-rose/tshirt-pink-front.png",
+                "productId": "graphic-tee-colored",
+                "linkUrl": "product.html?id=graphic-tee-colored&color=rose"
             }
         ],
         "sizes": [
@@ -550,18 +561,17 @@ window.DEFAULT_STORE_PRODUCTS = [
         ],
         "images": {
             "black": [
-                "assets/images/products/t-shirts/vintage-washed-charcoal-tee/front-main.png",
+                "assets/images/products/t-shirts/graphic-tee-colored/black.png",
                 "assets/images/products/t-shirts/vintage-washed-charcoal-tee/back-hover.png",
                 "assets/images/products/t-shirts/vintage-washed-charcoal-tee/firefly_gemini-flash_create-a-photorealistic-moroccan-streetwear-t-shirt-mockup-using-the-uploaded-referen-416025.png",
                 "assets/images/products/t-shirts/vintage-washed-charcoal-tee/firefly_gemini-flash_create-a-premium-realistic-flat-lay-product-mockup-using-the-uploaded-reference-image-416025.png",
                 "assets/images/products/t-shirts/vintage-washed-charcoal-tee/firefly_gemini-flash_create-a-premium-realistic-t-shirt-product-mockup-using-the-uploaded-reference-images-416025.png",
                 "assets/images/products/t-shirts/vintage-washed-charcoal-tee/firefly_gemini-flash_create-a-professional-fashion-campaign-image-featuring-the-exact-t-shirt-from-the-upl-416025.png",
                 "assets/images/products/t-shirts/vintage-washed-charcoal-tee/firefly_gemini-flash_create-a-realistic-ecommerce-mockup-of-the-exact-t-shirt-shown-in-the-uploaded-refere-416025.png",
-                "assets/images/products/t-shirts/vintage-washed-charcoal-tee/firefly_gemini-flash_create-a-realistic-lifestyle-t-shirt-mockup-using-the-uploaded-reference-images-as-th-416025.png",
-                "assets/images/products/t-shirts/vintage-washed-charcoal-tee/lookbook.jpg"
+                "assets/images/products/t-shirts/vintage-washed-charcoal-tee/firefly_gemini-flash_create-a-realistic-lifestyle-t-shirt-mockup-using-the-uploaded-reference-images-as-th-416025.png"
             ],
             "dark-blue": [
-                "assets/images/products/t-shirts/graphic-tee-colored-blue-dark/front-main.png",
+                "assets/images/products/t-shirts/graphic-tee-colored/lv-bm-f.png",
                 "assets/images/products/t-shirts/graphic-tee-colored-blue-dark/back-hover.png",
                 "assets/images/products/t-shirts/graphic-tee-colored-blue-dark/firefly_gemini-flash_create-a-clean-premium-ecommerce-mockup-using-the-uploaded-reference-images-as-the-ex-851006.png",
                 "assets/images/products/t-shirts/graphic-tee-colored-blue-dark/firefly_gemini-flash_create-a-photorealistic-moroccan-streetwear-t-shirt-mockup-using-the-uploaded-referen-851006.png",
@@ -569,20 +579,18 @@ window.DEFAULT_STORE_PRODUCTS = [
                 "assets/images/products/t-shirts/graphic-tee-colored-blue-dark/firefly_gemini-flash_create-a-professional-fashion-campaign-image-featuring-the-exact-t-shirt-from-the-upl-851006.png",
                 "assets/images/products/t-shirts/graphic-tee-colored-blue-dark/firefly_gemini-flash_create-a-realistic-ecommerce-mockup-of-the-exact-t-shirt-shown-in-the-uploaded-refere-851006.png",
                 "assets/images/products/t-shirts/graphic-tee-colored-blue-dark/firefly_gemini-flash_create-a-realistic-lifestyle-t-shirt-mockup-using-the-uploaded-reference-images-as-th-416025.png",
-                "assets/images/products/t-shirts/graphic-tee-colored-blue-dark/firefly_gemini-flash_create-a-realistic-lifestyle-t-shirt-mockup-using-the-uploaded-reference-images-as-th-851006.png",
-                "assets/images/products/t-shirts/graphic-tee-colored-blue-dark/lookbook.jpg"
+                "assets/images/products/t-shirts/graphic-tee-colored-blue-dark/firefly_gemini-flash_create-a-realistic-lifestyle-t-shirt-mockup-using-the-uploaded-reference-images-as-th-851006.png"
             ],
             "indigo": [
-                "assets/images/products/t-shirts/essential-tee-indigo/front-main.png",
-                "assets/images/products/t-shirts/essential-tee-indigo/back-hover.png",
-                "assets/images/products/t-shirts/essential-tee-indigo/firefly_gemini-flash_create-a-clean-premium-ecommerce-mockup-using-the-uploaded-reference-images-as-the-ex-570983.png",
+                "assets/images/products/t-shirts/graphic-tee-colored/beig.png",
+                "assets/images/products/t-shirts/graphic-tee-colored/b.png",
                 "assets/images/products/t-shirts/essential-tee-indigo/firefly_gemini-flash_create-a-photorealistic-moroccan-streetwear-t-shirt-mockup-using-the-uploaded-referen-990509.png",
                 "assets/images/products/t-shirts/essential-tee-indigo/firefly_gemini-flash_create-a-premium-realistic-flat-lay-product-mockup-using-the-uploaded-reference-image-990509.png",
-                "assets/images/products/t-shirts/essential-tee-indigo/firefly_gemini-flash_create-a-professional-fashion-campaign-image-featuring-the-exact-t-shirt-from-the-upl-990509.png",
                 "assets/images/products/t-shirts/essential-tee-indigo/firefly_gemini-flash_create-a-realistic-ecommerce-mockup-of-the-exact-t-shirt-shown-in-the-uploaded-refere-990509.png",
+                "assets/images/products/t-shirts/essential-tee-indigo/firefly_gemini-flash_create-a-clean-premium-ecommerce-mockup-using-the-uploaded-reference-images-as-the-ex-570983.png",
+                "assets/images/products/t-shirts/essential-tee-indigo/firefly_gemini-flash_create-a-professional-fashion-campaign-image-featuring-the-exact-t-shirt-from-the-upl-990509.png",
                 "assets/images/products/t-shirts/essential-tee-indigo/firefly_gemini-flash_create-a-realistic-lifestyle-t-shirt-mockup-using-the-uploaded-reference-images-as-th-990509.png",
-                "assets/images/products/t-shirts/essential-tee-indigo/firefly_gemini-flash_create-a-realistic-lifestyle-t-shirt-mockup-using-the-uploaded-reference-images-as-th-995731.png",
-                "assets/images/products/t-shirts/essential-tee-indigo/lookbook.jpg"
+                "assets/images/products/t-shirts/essential-tee-indigo/firefly_gemini-flash_create-a-realistic-lifestyle-t-shirt-mockup-using-the-uploaded-reference-images-as-th-995731.png"
             ],
             "rose": [
                 "assets/images/products/t-shirts/essential-tee-rose/tshirt-pink-front.png",
@@ -743,7 +751,8 @@ window.DEFAULT_STORE_PRODUCTS = [
             "streetwear",
             "coton lourd",
             "260 gsm"
-        ]
+        ],
+        "isBundle": false
     },
     {
         "id": "essential-oversized-tee",
@@ -787,7 +796,7 @@ window.DEFAULT_STORE_PRODUCTS = [
                 "name": "Bleu Marine",
                 "code": "navy",
                 "hex": "#1D2E4E",
-                "image": "assets/images/products/t-shirts/essential-oversized-tee/1.png",
+                "image": "assets/images/products/t-shirts/heavyweight-boxy-tee-300/front-main.png",
                 "productId": "essential-oversized-tee",
                 "linkUrl": "product.html?id=essential-oversized-tee&color=navy"
             },
@@ -795,7 +804,7 @@ window.DEFAULT_STORE_PRODUCTS = [
                 "name": "Blanc Craie",
                 "code": "white",
                 "hex": "#F4F4F0",
-                "image": "assets/images/products/t-shirts/oversized-tee-big-white/front-main.png",
+                "image": "assets/images/products/t-shirts/essential-oversized-tee/layer-4.png",
                 "productId": "essential-oversized-tee",
                 "linkUrl": "product.html?id=essential-oversized-tee&color=white"
             }
@@ -820,7 +829,7 @@ window.DEFAULT_STORE_PRODUCTS = [
                 "assets/images/products/t-shirts/essential-oversized-tee/lookbook.jpg"
             ],
             "navy": [
-                "assets/images/products/t-shirts/essential-oversized-tee/1.png",
+                "assets/images/products/t-shirts/heavyweight-boxy-tee-300/front-main.png",
                 "assets/images/products/t-shirts/heavyweight-boxy-tee-300/back-hover.png",
                 "assets/images/products/t-shirts/essential-oversized-tee/firefly_create-a-highly-realistic-close-up-fashion-product-photograph-of-the-t-shirt-from-the-55293.png",
                 "assets/images/products/t-shirts/essential-oversized-tee/firefly_create-a-photorealistic-moroccan-streetwear-t-shirt-mockup-using-the-uploaded-referen-55293--1-.png",
@@ -833,7 +842,7 @@ window.DEFAULT_STORE_PRODUCTS = [
                 "assets/images/products/t-shirts/essential-oversized-tee/firefly_gemini-flash_create-a-clean-premium-ecommerce-mockup-using-the-uploaded-reference-images-as-the-ex-55293.png"
             ],
             "white": [
-                "assets/images/products/t-shirts/oversized-tee-big-white/front-main.png",
+                "assets/images/products/t-shirts/essential-oversized-tee/layer-4.png",
                 "assets/images/products/t-shirts/oversized-tee-big-white/back-hover.png",
                 "assets/images/products/t-shirts/oversized-tee-big-white/firefly_gemini-flash_create-a-clean-premium-ecommerce-mockup-using-the-uploaded-reference-images-as-the-ex-522745.png",
                 "assets/images/products/t-shirts/oversized-tee-big-white/firefly_gemini-flash_create-a-photorealistic-moroccan-streetwear-t-shirt-mockup-using-the-uploaded-referen-570983.png",
@@ -966,12 +975,12 @@ window.DEFAULT_STORE_PRODUCTS = [
             "new-arrivals"
         ],
         "price": 259,
-        "compareAtPrice": null,
+        "compareAtPrice": 299,
         "isNew": true,
         "isSale": false,
         "isFeatured": true,
-        "rating": 4.9,
-        "reviewCount": 26,
+        "rating": 5,
+        "reviewCount": 24,
         "shortDescription": "Monogramme minimaliste discret sur la poitrine, taillé dans un jersey 100% coton lourd peigné 240-260 GSM.",
         "description": "La quintessence du basique streetwear épuré. Confectionné dans un coton peigné d'exception au tombé net et structuré, ce t-shirt arbore le monogramme discret de l'Atelier sur la poitrine. Décliné en 4 teintes essentielles et intemporelles.",
         "details": [
@@ -990,25 +999,33 @@ window.DEFAULT_STORE_PRODUCTS = [
                 "name": "Noir Onyx",
                 "code": "black",
                 "hex": "#121212",
-                "image": "assets/images/products/t-shirts/minimal-embroidered-logo-tee/front-main.png"
-            },
-            {
-                "name": "Bleu Royal",
-                "code": "blue-m",
-                "hex": "#254E70",
-                "image": "assets/images/products/t-shirts/essential-tee-blue-m/front-main.png"
+                "image": "assets/images/products/t-shirts/minimal-embroidered-logo-tee/lv-b-f.png",
+                "productId": "minimal-embroidered-logo-tee",
+                "linkUrl": "product.html?id=minimal-embroidered-logo-tee&color=black"
             },
             {
                 "name": "Blanc Craie",
                 "code": "white",
                 "hex": "#F4F4F0",
-                "image": "assets/images/products/t-shirts/atelier-studio-drop-tee/front-main.png"
+                "image": "assets/images/products/t-shirts/minimal-embroidered-logo-tee/layer-3.png",
+                "productId": "minimal-embroidered-logo-tee",
+                "linkUrl": "product.html?id=minimal-embroidered-logo-tee&color=white"
             },
             {
                 "name": "Beige Sable",
                 "code": "beige",
                 "hex": "#D9CEB2",
-                "image": "assets/images/products/t-shirts/relaxed-earth-tone-tee/front-main.png"
+                "image": "assets/images/products/t-shirts/minimal-embroidered-logo-tee/layer-5.png",
+                "productId": "minimal-embroidered-logo-tee",
+                "linkUrl": "product.html?id=minimal-embroidered-logo-tee&color=beige"
+            },
+            {
+                "name": "Bleu Royal",
+                "code": "blue-m",
+                "hex": "#254E70",
+                "image": "assets/images/products/t-shirts/minimal-embroidered-logo-tee/layer-6.png",
+                "productId": "minimal-embroidered-logo-tee",
+                "linkUrl": "product.html?id=minimal-embroidered-logo-tee&color=blue-m"
             }
         ],
         "sizes": [
@@ -1019,7 +1036,7 @@ window.DEFAULT_STORE_PRODUCTS = [
         ],
         "images": {
             "black": [
-                "assets/images/products/t-shirts/minimal-embroidered-logo-tee/front-main.png",
+                "assets/images/products/t-shirts/minimal-embroidered-logo-tee/lv-b-f.png",
                 "assets/images/products/t-shirts/minimal-embroidered-logo-tee/back-hover.png",
                 "assets/images/products/t-shirts/minimal-embroidered-logo-tee/firefly_gemini-flash_create-a-clean-premium-ecommerce-mockup-using-the-uploaded-reference-images-as-the-ex-306104.png",
                 "assets/images/products/t-shirts/minimal-embroidered-logo-tee/firefly_gemini-flash_create-a-photorealistic-moroccan-streetwear-t-shirt-mockup-using-the-uploaded-referen-844917.png",
@@ -1030,7 +1047,7 @@ window.DEFAULT_STORE_PRODUCTS = [
                 "assets/images/products/t-shirts/minimal-embroidered-logo-tee/firefly_gemini-flash_create-a-realistic-lifestyle-t-shirt-mockup-using-the-uploaded-reference-images-as-th-868874.png"
             ],
             "blue-m": [
-                "assets/images/products/t-shirts/essential-tee-blue-m/front-main.png",
+                "assets/images/products/t-shirts/minimal-embroidered-logo-tee/layer-6.png",
                 "assets/images/products/t-shirts/essential-tee-blue-m/back-hover.png",
                 "assets/images/products/t-shirts/essential-tee-blue-m/create-a-clean-premium-ecommerce-55293-xe3.png",
                 "assets/images/products/t-shirts/essential-tee-blue-m/create-a-highly-realistic-close--55293-ycs.png",
@@ -1042,7 +1059,7 @@ window.DEFAULT_STORE_PRODUCTS = [
                 "assets/images/products/t-shirts/essential-tee-blue-m/create-a-realistic-ecommerce-moc-55293-e4c.png"
             ],
             "white": [
-                "assets/images/products/t-shirts/atelier-studio-drop-tee/front-main.png",
+                "assets/images/products/t-shirts/minimal-embroidered-logo-tee/layer-3.png",
                 "assets/images/products/t-shirts/atelier-studio-drop-tee/back-hover.png",
                 "assets/images/products/t-shirts/atelier-studio-drop-tee/firefly_gemini-flash_create-a-clean-premium-ecommerce-mockup-using-the-uploaded-reference-images-as-the-ex-67590.png",
                 "assets/images/products/t-shirts/atelier-studio-drop-tee/firefly_gemini-flash_create-a-clean-premium-ecommerce-mockup-using-the-uploaded-reference-images-as-the-ex-234892.png",
@@ -1052,7 +1069,7 @@ window.DEFAULT_STORE_PRODUCTS = [
                 "assets/images/products/t-shirts/atelier-studio-drop-tee/firefly_gemini-flash_create-a-realistic-lifestyle-t-shirt-mockup-using-the-uploaded-reference-images-as-th-688777.png"
             ],
             "beige": [
-                "assets/images/products/t-shirts/relaxed-earth-tone-tee/front-main.png",
+                "assets/images/products/t-shirts/minimal-embroidered-logo-tee/layer-5.png",
                 "assets/images/products/t-shirts/relaxed-earth-tone-tee/back-hover.png",
                 "assets/images/products/t-shirts/relaxed-earth-tone-tee/firefly_gemini-flash_-create-a-premium-realistic-flat-lay-product-mockup-using-the-uploaded-reference-imag-851006.png",
                 "assets/images/products/t-shirts/relaxed-earth-tone-tee/firefly_gemini-flash_create-a-clean-premium-ecommerce-mockup-using-the-uploaded-reference-images-as-the-ex-851006.png",
@@ -1071,7 +1088,7 @@ window.DEFAULT_STORE_PRODUCTS = [
                 "size": "S",
                 "sku": "T-S-BLA-S",
                 "stock": 7,
-                "price": 249
+                "price": 259
             },
             {
                 "id": "mini-bla-m",
@@ -1079,7 +1096,7 @@ window.DEFAULT_STORE_PRODUCTS = [
                 "size": "M",
                 "sku": "T-S-BLA-M",
                 "stock": 15,
-                "price": 249
+                "price": 259
             },
             {
                 "id": "mini-bla-l",
@@ -1087,7 +1104,7 @@ window.DEFAULT_STORE_PRODUCTS = [
                 "size": "L",
                 "sku": "T-S-BLA-L",
                 "stock": 10,
-                "price": 249
+                "price": 259
             },
             {
                 "id": "mini-bla-xl",
@@ -1095,103 +1112,103 @@ window.DEFAULT_STORE_PRODUCTS = [
                 "size": "XL",
                 "sku": "T-S-BLA-XL",
                 "stock": 5,
-                "price": 249
+                "price": 259
             },
             {
-                "id": "esse-blu-s",
-                "color": "blue-m",
-                "size": "S",
-                "sku": "T-S-BLU-S",
-                "stock": 6,
-                "price": 249
-            },
-            {
-                "id": "esse-blu-m",
-                "color": "blue-m",
-                "size": "M",
-                "sku": "T-S-BLU-M",
-                "stock": 12,
-                "price": 249
-            },
-            {
-                "id": "esse-blu-l",
-                "color": "blue-m",
-                "size": "L",
-                "sku": "T-S-BLU-L",
-                "stock": 7,
-                "price": 249
-            },
-            {
-                "id": "esse-blu-xl",
-                "color": "blue-m",
-                "size": "XL",
-                "sku": "T-S-BLU-XL",
-                "stock": 4,
-                "price": 249
-            },
-            {
-                "id": "atel-whi-s",
+                "id": "mini-whi-s",
                 "color": "white",
                 "size": "S",
                 "sku": "T-S-WHI-S",
                 "stock": 9,
-                "price": 249
+                "price": 259
             },
             {
-                "id": "atel-whi-m",
+                "id": "mini-whi-m",
                 "color": "white",
                 "size": "M",
                 "sku": "T-S-WHI-M",
                 "stock": 16,
-                "price": 249
+                "price": 259
             },
             {
-                "id": "atel-whi-l",
+                "id": "mini-whi-l",
                 "color": "white",
                 "size": "L",
                 "sku": "T-S-WHI-L",
                 "stock": 11,
-                "price": 249
+                "price": 259
             },
             {
-                "id": "atel-whi-xl",
+                "id": "mini-whi-xl",
                 "color": "white",
                 "size": "XL",
                 "sku": "T-S-WHI-XL",
                 "stock": 5,
-                "price": 249
+                "price": 259
             },
             {
-                "id": "rela-bei-s",
+                "id": "mini-bei-s",
                 "color": "beige",
                 "size": "S",
                 "sku": "T-S-BEI-S",
                 "stock": 5,
-                "price": 249
+                "price": 259
             },
             {
-                "id": "rela-bei-m",
+                "id": "mini-bei-m",
                 "color": "beige",
                 "size": "M",
                 "sku": "T-S-BEI-M",
                 "stock": 14,
-                "price": 249
+                "price": 259
             },
             {
-                "id": "rela-bei-l",
+                "id": "mini-bei-l",
                 "color": "beige",
                 "size": "L",
                 "sku": "T-S-BEI-L",
                 "stock": 9,
-                "price": 249
+                "price": 259
             },
             {
-                "id": "rela-bei-xl",
+                "id": "mini-bei-xl",
                 "color": "beige",
                 "size": "XL",
                 "sku": "T-S-BEI-XL",
                 "stock": 6,
-                "price": 249
+                "price": 259
+            },
+            {
+                "id": "mini-blu-s",
+                "color": "blue-m",
+                "size": "S",
+                "sku": "T-S-BLU-S",
+                "stock": 6,
+                "price": 259
+            },
+            {
+                "id": "mini-blu-m",
+                "color": "blue-m",
+                "size": "M",
+                "sku": "T-S-BLU-M",
+                "stock": 12,
+                "price": 259
+            },
+            {
+                "id": "mini-blu-l",
+                "color": "blue-m",
+                "size": "L",
+                "sku": "T-S-BLU-L",
+                "stock": 7,
+                "price": 259
+            },
+            {
+                "id": "mini-blu-xl",
+                "color": "blue-m",
+                "size": "XL",
+                "sku": "T-S-BLU-XL",
+                "stock": 4,
+                "price": 259
             }
         ],
         "tags": [
@@ -1201,7 +1218,8 @@ window.DEFAULT_STORE_PRODUCTS = [
             "240 gsm",
             "260 gsm",
             "coton lourd"
-        ]
+        ],
+        "isBundle": false
     },
     {
         "id": "rodeo-bear-classic-fit-tee",
@@ -1244,10 +1262,18 @@ window.DEFAULT_STORE_PRODUCTS = [
                 "linkUrl": "product.html?id=rodeo-bear-classic-fit-tee&color=beig"
             },
             {
+                "name": "Bleu Canard",
+                "code": "teal",
+                "hex": "#276063",
+                "image": "assets/images/products/t-shirts/rodeo-bear-classic-fit-tee/layer-9.png",
+                "productId": "rodeo-bear-classic-fit-tee",
+                "linkUrl": "product.html?id=rodeo-bear-classic-fit-tee&color=teal"
+            },
+            {
                 "name": "Light Beige",
                 "code": "light-beige",
                 "hex": "#6B4E3D",
-                "image": "assets/images/products/t-shirts/rodeo-bear-classic-fit-tee/Variantes/Light Beige Front.png",
+                "image": "assets/images/products/t-shirts/rodeo-bear-classic-fit-tee/layer-7.png",
                 "productId": "rodeo-bear-classic-fit-tee",
                 "linkUrl": "product.html?id=rodeo-bear-classic-fit-tee&color=light-beige"
             },
@@ -1263,17 +1289,9 @@ window.DEFAULT_STORE_PRODUCTS = [
                 "name": "Tan",
                 "code": "tan",
                 "hex": "#E8E2D5",
-                "image": "assets/images/products/t-shirts/rodeo-bear-classic-fit-tee/Variantes/Tan Front.png",
+                "image": "assets/images/products/t-shirts/rodeo-bear-classic-fit-tee/layer-8.png",
                 "productId": "rodeo-bear-classic-fit-tee",
                 "linkUrl": "product.html?id=rodeo-bear-classic-fit-tee&color=tan"
-            },
-            {
-                "name": "Teal",
-                "code": "teal",
-                "hex": "#2B8E9B",
-                "image": "assets/images/products/t-shirts/rodeo-bear-classic-fit-tee/Variantes/Teal Front.png",
-                "productId": "rodeo-bear-classic-fit-tee",
-                "linkUrl": "product.html?id=rodeo-bear-classic-fit-tee&color=teal"
             }
         ],
         "sizes": [
@@ -1297,7 +1315,7 @@ window.DEFAULT_STORE_PRODUCTS = [
                 "assets/images/products/t-shirts/rodeo-bear-classic-fit-tee/create-a-realistic-lifestyle-t-shirt-mockup-using-the-uploaded-reference-images-as-the-exact-product.png"
             ],
             "light-beige": [
-                "assets/images/products/t-shirts/rodeo-bear-classic-fit-tee/Variantes/Light Beige Front.png",
+                "assets/images/products/t-shirts/rodeo-bear-classic-fit-tee/layer-7.png",
                 "assets/images/products/t-shirts/rodeo-bear-classic-fit-tee/Variantes/Light Beige Back.png"
             ],
             "olive-green": [
@@ -1305,11 +1323,11 @@ window.DEFAULT_STORE_PRODUCTS = [
                 "assets/images/products/t-shirts/rodeo-bear-classic-fit-tee/Variantes/Olive Green Back.png"
             ],
             "tan": [
-                "assets/images/products/t-shirts/rodeo-bear-classic-fit-tee/Variantes/Tan Front.png",
+                "assets/images/products/t-shirts/rodeo-bear-classic-fit-tee/layer-8.png",
                 "assets/images/products/t-shirts/rodeo-bear-classic-fit-tee/Variantes/Tan Back.png"
             ],
             "teal": [
-                "assets/images/products/t-shirts/rodeo-bear-classic-fit-tee/Variantes/Teal Front.png",
+                "assets/images/products/t-shirts/rodeo-bear-classic-fit-tee/layer-9.png",
                 "assets/images/products/t-shirts/rodeo-bear-classic-fit-tee/Variantes/Teal Back.png"
             ]
         },
@@ -1355,82 +1373,122 @@ window.DEFAULT_STORE_PRODUCTS = [
                 "price": 269
             },
             {
-                "id": "rode-lbei-s",
-                "color": "light-beige",
+                "id": "rode-tea-s",
+                "color": "teal",
                 "size": "S",
-                "sku": "T-S-LBEI-S",
+                "sku": "T-S-TEA-S",
                 "stock": 15,
                 "price": 269
             },
             {
-                "id": "rode-lbei-m",
-                "color": "light-beige",
+                "id": "rode-tea-m",
+                "color": "teal",
                 "size": "M",
-                "sku": "T-S-LBEI-M",
+                "sku": "T-S-TEA-M",
                 "stock": 18,
                 "price": 269
             },
             {
-                "id": "rode-lbei-l",
-                "color": "light-beige",
+                "id": "rode-tea-l",
+                "color": "teal",
                 "size": "L",
-                "sku": "T-S-LBEI-L",
+                "sku": "T-S-TEA-L",
                 "stock": 14,
                 "price": 269
             },
             {
-                "id": "rode-lbei-xl",
-                "color": "light-beige",
+                "id": "rode-tea-xl",
+                "color": "teal",
                 "size": "XL",
-                "sku": "T-S-LBEI-XL",
+                "sku": "T-S-TEA-XL",
                 "stock": 10,
                 "price": 269
             },
             {
-                "id": "rode-lbei-xxl",
-                "color": "light-beige",
+                "id": "rode-tea-xxl",
+                "color": "teal",
                 "size": "XXL",
-                "sku": "T-S-LBEI-XXL",
+                "sku": "T-S-TEA-XXL",
                 "stock": 10,
                 "price": 269
             },
             {
-                "id": "rode-olv-s",
-                "color": "olive-green",
+                "id": "rode-lig-s",
+                "color": "light-beige",
                 "size": "S",
-                "sku": "T-S-OLV-S",
+                "sku": "T-S-LIG-S",
                 "stock": 15,
                 "price": 269
             },
             {
-                "id": "rode-olv-m",
-                "color": "olive-green",
+                "id": "rode-lig-m",
+                "color": "light-beige",
                 "size": "M",
-                "sku": "T-S-OLV-M",
+                "sku": "T-S-LIG-M",
                 "stock": 18,
                 "price": 269
             },
             {
-                "id": "rode-olv-l",
-                "color": "olive-green",
+                "id": "rode-lig-l",
+                "color": "light-beige",
                 "size": "L",
-                "sku": "T-S-OLV-L",
+                "sku": "T-S-LIG-L",
                 "stock": 14,
                 "price": 269
             },
             {
-                "id": "rode-olv-xl",
-                "color": "olive-green",
+                "id": "rode-lig-xl",
+                "color": "light-beige",
                 "size": "XL",
-                "sku": "T-S-OLV-XL",
+                "sku": "T-S-LIG-XL",
                 "stock": 10,
                 "price": 269
             },
             {
-                "id": "rode-olv-xxl",
+                "id": "rode-lig-xxl",
+                "color": "light-beige",
+                "size": "XXL",
+                "sku": "T-S-LIG-XXL",
+                "stock": 10,
+                "price": 269
+            },
+            {
+                "id": "rode-oli-s",
+                "color": "olive-green",
+                "size": "S",
+                "sku": "T-S-OLI-S",
+                "stock": 15,
+                "price": 269
+            },
+            {
+                "id": "rode-oli-m",
+                "color": "olive-green",
+                "size": "M",
+                "sku": "T-S-OLI-M",
+                "stock": 18,
+                "price": 269
+            },
+            {
+                "id": "rode-oli-l",
+                "color": "olive-green",
+                "size": "L",
+                "sku": "T-S-OLI-L",
+                "stock": 14,
+                "price": 269
+            },
+            {
+                "id": "rode-oli-xl",
+                "color": "olive-green",
+                "size": "XL",
+                "sku": "T-S-OLI-XL",
+                "stock": 10,
+                "price": 269
+            },
+            {
+                "id": "rode-oli-xxl",
                 "color": "olive-green",
                 "size": "XXL",
-                "sku": "T-S-OLV-XXL",
+                "sku": "T-S-OLI-XXL",
                 "stock": 10,
                 "price": 269
             },
@@ -1473,46 +1531,6 @@ window.DEFAULT_STORE_PRODUCTS = [
                 "sku": "T-S-TAN-XXL",
                 "stock": 10,
                 "price": 269
-            },
-            {
-                "id": "rode-tel-s",
-                "color": "teal",
-                "size": "S",
-                "sku": "T-S-TEL-S",
-                "stock": 15,
-                "price": 269
-            },
-            {
-                "id": "rode-tel-m",
-                "color": "teal",
-                "size": "M",
-                "sku": "T-S-TEL-M",
-                "stock": 18,
-                "price": 269
-            },
-            {
-                "id": "rode-tel-l",
-                "color": "teal",
-                "size": "L",
-                "sku": "T-S-TEL-L",
-                "stock": 14,
-                "price": 269
-            },
-            {
-                "id": "rode-tel-xl",
-                "color": "teal",
-                "size": "XL",
-                "sku": "T-S-TEL-XL",
-                "stock": 10,
-                "price": 269
-            },
-            {
-                "id": "rode-tel-xxl",
-                "color": "teal",
-                "size": "XXL",
-                "sku": "T-S-TEL-XXL",
-                "stock": 10,
-                "price": 269
             }
         ],
         "tags": [
@@ -1522,10 +1540,6 @@ window.DEFAULT_STORE_PRODUCTS = [
             "streetwear",
             "polo",
             "beige",
-            "light beige",
-            "olive green",
-            "tan",
-            "teal",
             "240 gsm"
         ]
     },
@@ -1564,41 +1578,41 @@ window.DEFAULT_STORE_PRODUCTS = [
                 "name": "Noir Onyx",
                 "code": "black",
                 "hex": "#121212",
-                "image": "assets/images/products/t-shirts/Tank top/Tank top front black.jpeg",
+                "image": "assets/images/products/t-shirts/relaxed-tank-top-180gsm/bf.png",
                 "productId": "relaxed-tank-top-180gsm",
                 "linkUrl": "product.html?id=relaxed-tank-top-180gsm&color=black"
+            },
+            {
+                "name": "Polo beig",
+                "code": "beig",
+                "hex": "#C8B49B",
+                "image": "assets/images/products/t-shirts/relaxed-tank-top-180gsm/bef.png",
+                "productId": "relaxed-tank-top-180gsm",
+                "linkUrl": "product.html?id=relaxed-tank-top-180gsm&color=beig"
             },
             {
                 "name": "Blanc Crème",
                 "code": "white-creme",
                 "hex": "#F2EFE9",
-                "image": "assets/images/products/t-shirts/Tank top/Tank top front white creme.jpeg",
+                "image": "assets/images/products/t-shirts/relaxed-tank-top-180gsm/wcf.png",
                 "productId": "relaxed-tank-top-180gsm",
                 "linkUrl": "product.html?id=relaxed-tank-top-180gsm&color=white-creme"
-            },
-            {
-                "name": "Gris Chiné",
-                "code": "gris",
-                "hex": "#A8A9AD",
-                "image": "assets/images/products/t-shirts/Tank top/Tank top front Gris.png",
-                "productId": "relaxed-tank-top-180gsm",
-                "linkUrl": "product.html?id=relaxed-tank-top-180gsm&color=gris"
-            },
-            {
-                "name": "Beige Sable",
-                "code": "beig",
-                "hex": "#D6C7B2",
-                "image": "assets/images/products/t-shirts/Tank top/Tank top front beig.jpeg",
-                "productId": "relaxed-tank-top-180gsm",
-                "linkUrl": "product.html?id=relaxed-tank-top-180gsm&color=beig"
             },
             {
                 "name": "Vert Militaire",
                 "code": "green-army",
                 "hex": "#555D42",
-                "image": "assets/images/products/t-shirts/Tank top/Tank top front Green army.jpeg",
+                "image": "assets/images/products/t-shirts/relaxed-tank-top-180gsm/grf.png",
                 "productId": "relaxed-tank-top-180gsm",
                 "linkUrl": "product.html?id=relaxed-tank-top-180gsm&color=green-army"
+            },
+            {
+                "name": "Gris Chiné",
+                "code": "gris",
+                "hex": "#A8A9AD",
+                "image": "assets/images/products/t-shirts/relaxed-tank-top-180gsm/gf.png",
+                "productId": "relaxed-tank-top-180gsm",
+                "linkUrl": "product.html?id=relaxed-tank-top-180gsm&color=gris"
             }
         ],
         "sizes": [
@@ -1609,184 +1623,184 @@ window.DEFAULT_STORE_PRODUCTS = [
         ],
         "images": {
             "black": [
-                "assets/images/products/t-shirts/Tank top/Tank top front black.jpeg",
-                "assets/images/products/t-shirts/Tank top/Tank top back black.jpeg"
+                "assets/images/products/t-shirts/relaxed-tank-top-180gsm/bf.png",
+                "assets/images/products/t-shirts/relaxed-tank-top-180gsm/bb.png"
             ],
             "white-creme": [
-                "assets/images/products/t-shirts/Tank top/Tank top front white creme.jpeg",
-                "assets/images/products/t-shirts/Tank top/Tank top back white creme.jpeg"
+                "assets/images/products/t-shirts/relaxed-tank-top-180gsm/wcf.png",
+                "assets/images/products/t-shirts/relaxed-tank-top-180gsm/wcb.png"
             ],
             "gris": [
-                "assets/images/products/t-shirts/Tank top/Tank top front Gris.png",
-                "assets/images/products/t-shirts/Tank top/Tank top back Gris.png"
+                "assets/images/products/t-shirts/relaxed-tank-top-180gsm/gf.png",
+                "assets/images/products/t-shirts/relaxed-tank-top-180gsm/gb.png"
             ],
             "beig": [
-                "assets/images/products/t-shirts/Tank top/Tank top front beig.jpeg",
-                "assets/images/products/t-shirts/Tank top/Tank top back beig.jpeg"
+                "assets/images/products/t-shirts/relaxed-tank-top-180gsm/bef.png",
+                "assets/images/products/t-shirts/relaxed-tank-top-180gsm/beb.png"
             ],
             "green-army": [
-                "assets/images/products/t-shirts/Tank top/Tank top front Green army.jpeg",
-                "assets/images/products/t-shirts/Tank top/Tank top back Green army.jpeg"
+                "assets/images/products/t-shirts/relaxed-tank-top-180gsm/grf.png",
+                "assets/images/products/t-shirts/relaxed-tank-top-180gsm/grb.png"
             ]
         },
         "variants": [
             {
-                "id": "rtt-blk-s",
+                "id": "rela-bla-s",
                 "color": "black",
                 "size": "S",
-                "sku": "RTT-BLK-S",
+                "sku": "T-S-BLA-S",
                 "stock": 6,
                 "price": 179
             },
             {
-                "id": "rtt-blk-m",
+                "id": "rela-bla-m",
                 "color": "black",
                 "size": "M",
-                "sku": "RTT-BLK-M",
+                "sku": "T-S-BLA-M",
                 "stock": 10,
                 "price": 179
             },
             {
-                "id": "rtt-blk-l",
+                "id": "rela-bla-l",
                 "color": "black",
                 "size": "L",
-                "sku": "RTT-BLK-L",
+                "sku": "T-S-BLA-L",
                 "stock": 10,
                 "price": 179
             },
             {
-                "id": "rtt-blk-xl",
+                "id": "rela-bla-xl",
                 "color": "black",
                 "size": "XL",
-                "sku": "RTT-BLK-XL",
+                "sku": "T-S-BLA-XL",
                 "stock": 6,
                 "price": 179
             },
             {
-                "id": "rtt-wht-s",
-                "color": "white-creme",
-                "size": "S",
-                "sku": "RTT-WHT-S",
-                "stock": 6,
-                "price": 179
-            },
-            {
-                "id": "rtt-wht-m",
-                "color": "white-creme",
-                "size": "M",
-                "sku": "RTT-WHT-M",
-                "stock": 10,
-                "price": 179
-            },
-            {
-                "id": "rtt-wht-l",
-                "color": "white-creme",
-                "size": "L",
-                "sku": "RTT-WHT-L",
-                "stock": 10,
-                "price": 179
-            },
-            {
-                "id": "rtt-wht-xl",
-                "color": "white-creme",
-                "size": "XL",
-                "sku": "RTT-WHT-XL",
-                "stock": 6,
-                "price": 179
-            },
-            {
-                "id": "rtt-grs-s",
-                "color": "gris",
-                "size": "S",
-                "sku": "RTT-GRS-S",
-                "stock": 6,
-                "price": 179
-            },
-            {
-                "id": "rtt-grs-m",
-                "color": "gris",
-                "size": "M",
-                "sku": "RTT-GRS-M",
-                "stock": 10,
-                "price": 179
-            },
-            {
-                "id": "rtt-grs-l",
-                "color": "gris",
-                "size": "L",
-                "sku": "RTT-GRS-L",
-                "stock": 10,
-                "price": 179
-            },
-            {
-                "id": "rtt-grs-xl",
-                "color": "gris",
-                "size": "XL",
-                "sku": "RTT-GRS-XL",
-                "stock": 6,
-                "price": 179
-            },
-            {
-                "id": "rtt-bei-s",
+                "id": "rela-bei-s",
                 "color": "beig",
                 "size": "S",
-                "sku": "RTT-BEI-S",
+                "sku": "T-S-BEI-S",
                 "stock": 6,
                 "price": 179
             },
             {
-                "id": "rtt-bei-m",
+                "id": "rela-bei-m",
                 "color": "beig",
                 "size": "M",
-                "sku": "RTT-BEI-M",
+                "sku": "T-S-BEI-M",
                 "stock": 10,
                 "price": 179
             },
             {
-                "id": "rtt-bei-l",
+                "id": "rela-bei-l",
                 "color": "beig",
                 "size": "L",
-                "sku": "RTT-BEI-L",
+                "sku": "T-S-BEI-L",
                 "stock": 10,
                 "price": 179
             },
             {
-                "id": "rtt-bei-xl",
+                "id": "rela-bei-xl",
                 "color": "beig",
                 "size": "XL",
-                "sku": "RTT-BEI-XL",
+                "sku": "T-S-BEI-XL",
                 "stock": 6,
                 "price": 179
             },
             {
-                "id": "rtt-grn-s",
+                "id": "rela-whi-s",
+                "color": "white-creme",
+                "size": "S",
+                "sku": "T-S-WHI-S",
+                "stock": 6,
+                "price": 179
+            },
+            {
+                "id": "rela-whi-m",
+                "color": "white-creme",
+                "size": "M",
+                "sku": "T-S-WHI-M",
+                "stock": 10,
+                "price": 179
+            },
+            {
+                "id": "rela-whi-l",
+                "color": "white-creme",
+                "size": "L",
+                "sku": "T-S-WHI-L",
+                "stock": 10,
+                "price": 179
+            },
+            {
+                "id": "rela-whi-xl",
+                "color": "white-creme",
+                "size": "XL",
+                "sku": "T-S-WHI-XL",
+                "stock": 6,
+                "price": 179
+            },
+            {
+                "id": "rela-gre-s",
                 "color": "green-army",
                 "size": "S",
-                "sku": "RTT-GRN-S",
+                "sku": "T-S-GRE-S",
                 "stock": 6,
                 "price": 179
             },
             {
-                "id": "rtt-grn-m",
+                "id": "rela-gre-m",
                 "color": "green-army",
                 "size": "M",
-                "sku": "RTT-GRN-M",
+                "sku": "T-S-GRE-M",
                 "stock": 10,
                 "price": 179
             },
             {
-                "id": "rtt-grn-l",
+                "id": "rela-gre-l",
                 "color": "green-army",
                 "size": "L",
-                "sku": "RTT-GRN-L",
+                "sku": "T-S-GRE-L",
                 "stock": 10,
                 "price": 179
             },
             {
-                "id": "rtt-grn-xl",
+                "id": "rela-gre-xl",
                 "color": "green-army",
                 "size": "XL",
-                "sku": "RTT-GRN-XL",
+                "sku": "T-S-GRE-XL",
+                "stock": 6,
+                "price": 179
+            },
+            {
+                "id": "rela-gri-s",
+                "color": "gris",
+                "size": "S",
+                "sku": "T-S-GRI-S",
+                "stock": 6,
+                "price": 179
+            },
+            {
+                "id": "rela-gri-m",
+                "color": "gris",
+                "size": "M",
+                "sku": "T-S-GRI-M",
+                "stock": 10,
+                "price": 179
+            },
+            {
+                "id": "rela-gri-l",
+                "color": "gris",
+                "size": "L",
+                "sku": "T-S-GRI-L",
+                "stock": 10,
+                "price": 179
+            },
+            {
+                "id": "rela-gri-xl",
+                "color": "gris",
+                "size": "XL",
+                "sku": "T-S-GRI-XL",
                 "stock": 6,
                 "price": 179
             }
@@ -1820,7 +1834,7 @@ window.DEFAULT_STORE_PRODUCTS = [
         "isFeatured": true,
         "isBundle": false,
         "rating": 5,
-        "reviewCount": 18,
+        "reviewCount": 24,
         "shortDescription": "Muscle tee sans manches à coupe boxy ample, confectionné dans une maille légère et aérée de 180 GSM.",
         "description": "Une coupe boxy contemporaine aux épaules tombantes taillée dans un mélange coton 180 GSM particulièrement souple. Conçu pour le mouvement et les journées chaudes, il combine silhouette streetwear affirmée et confort poids plume. Série exclusive plafonnée à 150 unités au total.",
         "details": [
@@ -1852,7 +1866,6 @@ window.DEFAULT_STORE_PRODUCTS = [
             }
         ],
         "sizes": [
-            "S",
             "M",
             "L",
             "XL"
@@ -1869,6 +1882,54 @@ window.DEFAULT_STORE_PRODUCTS = [
         },
         "variants": [
             {
+                "id": "over-bla-m",
+                "color": "black",
+                "size": "M",
+                "sku": "T-S-BLA-M",
+                "stock": 25,
+                "price": 189
+            },
+            {
+                "id": "over-bla-l",
+                "color": "black",
+                "size": "L",
+                "sku": "T-S-BLA-L",
+                "stock": 25,
+                "price": 189
+            },
+            {
+                "id": "over-bla-xl",
+                "color": "black",
+                "size": "XL",
+                "sku": "T-S-BLA-XL",
+                "stock": 15,
+                "price": 189
+            },
+            {
+                "id": "over-whi-m",
+                "color": "white",
+                "size": "M",
+                "sku": "T-S-WHI-M",
+                "stock": 25,
+                "price": 189
+            },
+            {
+                "id": "over-whi-l",
+                "color": "white",
+                "size": "L",
+                "sku": "T-S-WHI-L",
+                "stock": 25,
+                "price": 189
+            },
+            {
+                "id": "over-whi-xl",
+                "color": "white",
+                "size": "XL",
+                "sku": "T-S-WHI-XL",
+                "stock": 15,
+                "price": 189
+            },
+            {
                 "id": "omt-blk-s",
                 "color": "black",
                 "size": "S",
@@ -1877,58 +1938,10 @@ window.DEFAULT_STORE_PRODUCTS = [
                 "price": 189
             },
             {
-                "id": "omt-blk-m",
-                "color": "black",
-                "size": "M",
-                "sku": "OMT-BLK-M",
-                "stock": 25,
-                "price": 189
-            },
-            {
-                "id": "omt-blk-l",
-                "color": "black",
-                "size": "L",
-                "sku": "OMT-BLK-L",
-                "stock": 25,
-                "price": 189
-            },
-            {
-                "id": "omt-blk-xl",
-                "color": "black",
-                "size": "XL",
-                "sku": "OMT-BLK-XL",
-                "stock": 15,
-                "price": 189
-            },
-            {
                 "id": "omt-wht-s",
                 "color": "white",
                 "size": "S",
                 "sku": "OMT-WHT-S",
-                "stock": 15,
-                "price": 189
-            },
-            {
-                "id": "omt-wht-m",
-                "color": "white",
-                "size": "M",
-                "sku": "OMT-WHT-M",
-                "stock": 25,
-                "price": 189
-            },
-            {
-                "id": "omt-wht-l",
-                "color": "white",
-                "size": "L",
-                "sku": "OMT-WHT-L",
-                "stock": 25,
-                "price": 189
-            },
-            {
-                "id": "omt-wht-xl",
-                "color": "white",
-                "size": "XL",
-                "sku": "OMT-WHT-XL",
                 "stock": 15,
                 "price": 189
             }
@@ -2460,11 +2473,12 @@ window.DEFAULT_STORE_PRODUCTS = [
     }
 ];
 
+// Deprecated single-colorway product IDs migrated to multi-color parent products
 window.DEPRECATED_PRODUCT_IDS = new Set([
-  "heavyweight-boxy-tee-300", 
-  "oversized-tee-big-white", 
-  "vintage-washed-charcoal-tee", 
-  "graphic-tee-colored-blue-dark", 
+  "heavyweight-boxy-tee-300",
+  "oversized-tee-big-white",
+  "vintage-washed-charcoal-tee",
+  "graphic-tee-colored-blue-dark",
   "essential-tee-rose",
   "essential-tee-indigo",
   "essential-tee-blue-m",
@@ -2502,8 +2516,9 @@ window.PRODUCT_ALIASES = {
         localStorage.removeItem("atelier_products_v1");
         localStorage.removeItem("atelier_products_v2");
         localStorage.removeItem("atelier_products_v3");
+        localStorage.removeItem("atelier_products_v4");
       } catch (e) {}
-      const saved = localStorage.getItem("atelier_products_v4");
+      const saved = localStorage.getItem("atelier_products_v5");
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
@@ -2524,7 +2539,7 @@ window.PRODUCT_ALIASES = {
 
             const merged = { ...def, ...item };
 
-            // Merge collections (ensure default collections like packs-bundles are preserved)
+            // Merge collections
             const defColls = Array.isArray(def.collections) ? def.collections : [];
             const itemColls = Array.isArray(item.collections) ? item.collections : [];
             const mergedColls = Array.from(new Set([...defColls, ...itemColls]));
@@ -2535,38 +2550,9 @@ window.PRODUCT_ALIASES = {
             }
             merged.collections = mergedColls;
 
-            // Merge colors
-            const existingCodes = new Set((item.colors || []).map(c => c.code));
-            const mergedColors = [...(item.colors || [])];
-            (def.colors || []).forEach(defColor => {
-              if (!existingCodes.has(defColor.code)) {
-                mergedColors.push(defColor);
-                existingCodes.add(defColor.code);
-              }
-            });
-            merged.colors = mergedColors;
-
-            // Merge images
-            merged.images = { ...(def.images || {}), ...(item.images || {}) };
-            (def.colors || []).forEach(defColor => {
-              if (!merged.images[defColor.code] || merged.images[defColor.code].length === 0) {
-                if (def.images && def.images[defColor.code]) {
-                  merged.images[defColor.code] = def.images[defColor.code];
-                }
-              }
-            });
-
-            // Merge variants
-            const existingVarKeys = new Set((item.variants || []).map(v => (v.color + '-' + v.size)));
-            const mergedVariants = [...(item.variants || [])];
-            (def.variants || []).forEach(defVar => {
-              const key = defVar.color + '-' + defVar.size;
-              if (!existingVarKeys.has(key)) {
-                mergedVariants.push(defVar);
-                existingVarKeys.add(key);
-              }
-            });
-            merged.variants = mergedVariants;
+            merged.colors = def.colors || item.colors || [];
+            merged.images = def.images || item.images || {};
+            merged.variants = def.variants || item.variants || [];
 
             finalProducts.push(merged);
           });
@@ -2579,7 +2565,7 @@ window.PRODUCT_ALIASES = {
             }
           });
 
-          localStorage.setItem("atelier_products_v4", JSON.stringify(finalProducts));
+          localStorage.setItem("atelier_products_v5", JSON.stringify(finalProducts));
           window.STORE_PRODUCTS = finalProducts;
           return;
         }

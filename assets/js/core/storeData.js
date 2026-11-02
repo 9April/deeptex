@@ -6,10 +6,10 @@
 
 window.StoreDataManager = {
   KEYS: {
-    PRODUCTS: "atelier_products_v4",
+    PRODUCTS: "atelier_products_v5",
     CATEGORIES: "atelier_categories_v1",
     COLORS: "atelier_colors_v1",
-    LAST_UPDATED: "atelier_catalog_updated_at_v4"
+    LAST_UPDATED: "atelier_catalog_updated_at_v5"
   },
 
   // Default color palette presets
@@ -245,7 +245,7 @@ window.StoreDataManager = {
   // --------------------------------------------------------------------------
   getProducts() {
     try {
-      try { localStorage.removeItem("atelier_products_v1"); localStorage.removeItem("atelier_products_v2"); localStorage.removeItem("atelier_products_v3"); } catch (e) {}
+      try { localStorage.removeItem("atelier_products_v1"); localStorage.removeItem("atelier_products_v2"); localStorage.removeItem("atelier_products_v3"); localStorage.removeItem("atelier_products_v4"); } catch (e) {}
       const stored = localStorage.getItem(this.KEYS.PRODUCTS);
       if (stored) {
         const parsed = JSON.parse(stored);
@@ -736,7 +736,7 @@ window.StoreDataManager = {
 
   resetToDefaults() {
     try {
-      try { localStorage.removeItem("atelier_products_v1"); localStorage.removeItem("atelier_products_v2"); localStorage.removeItem("atelier_products_v3"); } catch (e) {}
+      try { localStorage.removeItem("atelier_products_v1"); localStorage.removeItem("atelier_products_v2"); localStorage.removeItem("atelier_products_v3"); localStorage.removeItem("atelier_products_v4"); } catch (e) {}
       localStorage.removeItem(this.KEYS.PRODUCTS);
       localStorage.removeItem(this.KEYS.CATEGORIES);
       localStorage.removeItem(this.KEYS.COLORS);

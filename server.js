@@ -357,8 +357,8 @@ window.PRODUCT_ALIASES = {
 
   try {
     if (typeof localStorage !== 'undefined') {
-      try { localStorage.removeItem("atelier_products_v1"); localStorage.removeItem("atelier_products_v2"); localStorage.removeItem("atelier_products_v3"); } catch (e) {}
-      const saved = localStorage.getItem("atelier_products_v4");
+      try { localStorage.removeItem("atelier_products_v1"); localStorage.removeItem("atelier_products_v2"); localStorage.removeItem("atelier_products_v3"); localStorage.removeItem("atelier_products_v4"); } catch (e) {}
+      const saved = localStorage.getItem("atelier_products_v5");
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
@@ -430,7 +430,7 @@ window.PRODUCT_ALIASES = {
             }
           });
 
-          localStorage.setItem("atelier_products_v4", JSON.stringify(finalProducts));
+          localStorage.setItem("atelier_products_v5", JSON.stringify(finalProducts));
           window.STORE_PRODUCTS = finalProducts;
           return;
         }
@@ -562,8 +562,8 @@ window.PRODUCT_ALIASES = {
 
   try {
     if (typeof localStorage !== 'undefined') {
-      try { localStorage.removeItem("atelier_products_v1"); localStorage.removeItem("atelier_products_v2"); localStorage.removeItem("atelier_products_v3"); } catch (e) {}
-      const saved = localStorage.getItem("atelier_products_v4");
+      try { localStorage.removeItem("atelier_products_v1"); localStorage.removeItem("atelier_products_v2"); localStorage.removeItem("atelier_products_v3"); localStorage.removeItem("atelier_products_v4"); } catch (e) {}
+      const saved = localStorage.getItem("atelier_products_v5");
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
@@ -635,7 +635,7 @@ window.PRODUCT_ALIASES = {
             }
           });
 
-          localStorage.setItem("atelier_products_v4", JSON.stringify(finalProducts));
+          localStorage.setItem("atelier_products_v5", JSON.stringify(finalProducts));
           window.STORE_PRODUCTS = finalProducts;
           return;
         }

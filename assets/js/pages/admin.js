@@ -2473,6 +2473,7 @@ window.AdminDashboard = {
       localStorage.removeItem("atelier_products_v1");
       localStorage.removeItem("atelier_products_v2");
       localStorage.removeItem("atelier_products_v3");
+      localStorage.removeItem("atelier_products_v4");
       localStorage.removeItem("atelier_categories_v1");
       localStorage.removeItem("atelier_colors_v1");
       localStorage.removeItem("atelier_catalog_updated_at_v1");
