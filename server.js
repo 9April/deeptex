@@ -649,6 +649,10 @@ window.PRODUCT_ALIASES = {
 })();
 `;
           fs.writeFileSync(productsFilePath, jsContent, 'utf8');
+          try {
+            const canonicalPath = path.join(ROOT_DIR, 'assets', 'js', 'data', 'products_canonical.json');
+            fs.writeFileSync(canonicalPath, JSON.stringify(mergedProducts, null, 2), 'utf8');
+          } catch (e) {}
           synced.push(`products (${products.length})`);
         }
 

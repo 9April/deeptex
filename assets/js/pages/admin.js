@@ -1527,9 +1527,25 @@ window.AdminDashboard = {
     const colorContainer = document.getElementById("prod-form-color-checkboxes");
     if (!colorContainer) return;
 
-    const colors = window.StoreDataManager.getColors();
-    const allProducts = window.StoreDataManager.getProducts();
+    const baseColors = window.StoreDataManager.getColors();
     const activeColors = Array.isArray(existingColors) ? existingColors : [];
+    const colorCodes = new Set(baseColors.map(c => c.code));
+    const colors = [...baseColors];
+
+    // Guarantee that EVERY color already belonging to this product has a checkbox
+    activeColors.forEach(ac => {
+      if (ac && ac.code && !colorCodes.has(ac.code)) {
+        colors.push({
+          name: ac.name || ac.code,
+          code: ac.code,
+          hex: ac.hex || "#121212",
+          image: ac.image || ""
+        });
+        colorCodes.add(ac.code);
+      }
+    });
+
+    const allProducts = window.StoreDataManager.getProducts();
 
     colorContainer.innerHTML = colors.map(col => {
       const existingMatch = activeColors.find(c => c.code === col.code);
@@ -1541,12 +1557,12 @@ window.AdminDashboard = {
           <!-- Checkbox + Swatch + Name -->
           <label class="admin-color-link-label">
             <input type="checkbox" name="prod_color" value="${col.code}" 
-                   data-name="${col.name}" data-hex="${col.hex}" data-image="${(existingMatch && existingMatch.image) ? existingMatch.image : (col.image || '')}"
+                   data-name="${col.name}" data-hex="${col.hex || '#121212'}" data-image="${(existingMatch && existingMatch.image) ? existingMatch.image : (col.image || '')}"
                    ${isChecked ? 'checked' : ''} onchange="AdminDashboard.handleColorCheckboxChange()">
-            <span class="admin-color-link-dot" style="background-color: ${col.hex};"></span>
+            <span class="admin-color-link-dot" style="background-color: ${col.hex || '#121212'};"></span>
             <div class="admin-color-link-text">
               <span class="admin-color-link-name">${col.name}</span>
-              <span class="admin-color-link-hex">${col.hex}</span>
+              <span class="admin-color-link-hex">${col.hex || '#121212'}</span>
             </div>
           </label>
 
@@ -2139,14 +2155,6 @@ window.AdminDashboard = {
       });
     });
 
-    if (selectedColors.length === 0) {
-      this.toast("Veuillez cocher au moins un coloris pour ce produit", "danger");
-      return;
-    }
-
-    // Sizes (from interactive selector)
-    const sizes = this.getSelectedSizesFromForm();
-
     // Retain existing variant stock and metadata if editing, or create new
     let existingVariants = [];
     let oldProd = null;
@@ -2157,16 +2165,36 @@ window.AdminDashboard = {
       }
     }
 
+    if (selectedColors.length === 0) {
+      if (oldProd && Array.isArray(oldProd.colors) && oldProd.colors.length > 0) {
+        selectedColors = oldProd.colors.map(c => {
+          const colImgList = this.currentProductImages[c.code] || [];
+          return {
+            ...c,
+            image: colImgList[0] || c.image || "assets/images/hero/hero-banner.jpg"
+          };
+        });
+      } else {
+        this.toast("Veuillez cocher au moins un coloris pour ce produit", "danger");
+        return;
+      }
+    }
+
+    // Sizes (from interactive selector)
+    const sizes = this.getSelectedSizesFromForm();
+
     let variants = [];
     let images = {};
 
     selectedColors.forEach(col => {
       if (this.currentProductImages[col.code] && this.currentProductImages[col.code].length > 0) {
         images[col.code] = [...this.currentProductImages[col.code]];
+        col.image = this.currentProductImages[col.code][0];
       } else if (col.image) {
         images[col.code] = [col.image];
       } else if (this.currentGalleryImages && this.currentGalleryImages.length > 0) {
         images[col.code] = [...this.currentGalleryImages];
+        col.image = this.currentGalleryImages[0];
       } else {
         images[col.code] = ["assets/images/hero/hero-banner.jpg"];
       }
@@ -2187,6 +2215,15 @@ window.AdminDashboard = {
         });
       });
     });
+
+    // Retain images for other unselected colors from oldProd if present
+    if (oldProd && oldProd.images && typeof oldProd.images === 'object') {
+      Object.keys(oldProd.images).forEach(k => {
+        if (!images[k] && Array.isArray(oldProd.images[k])) {
+          images[k] = [...oldProd.images[k]];
+        }
+      });
+    }
 
     const existingCollections = (oldProd && Array.isArray(oldProd.collections) && oldProd.collections.length > 0)
       ? oldProd.collections

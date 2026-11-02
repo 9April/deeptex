@@ -78,7 +78,7 @@ window.StoreDataManager = {
           "name": "Baby Pink",
           "code": "rose",
           "hex": "#F6D9DC",
-          "image": ""
+          "image": "assets/images/products/t-shirts/essential-tee-rose/tshirt-pink-front.png"
       },
       {
           "name": "Rose Poudré",
@@ -91,6 +91,108 @@ window.StoreDataManager = {
           "code": "bundle",
           "hex": "#111111",
           "image": "assets/images/products/t-shirts/tshirt-Pack-3.jpg"
+      },
+      {
+          "name": "Empty Grey",
+          "code": "Gris",
+          "hex": "#A8A9AD",
+          "image": "assets/images/products/t-shirts/heritage-regular-tshirt-heather-grey/grey-front.png"
+      },
+      {
+          "name": "Brun Taupe",
+          "code": "taupe",
+          "hex": "#7B6252",
+          "image": "assets/images/products/t-shirts/heritage-regular-tshirt-heather-grey/Variantes/Brown _ Taupe.png"
+      },
+      {
+          "name": "Crème",
+          "code": "cream",
+          "hex": "#EFEAD8",
+          "image": "assets/images/products/t-shirts/heritage-regular-tshirt-heather-grey/Variantes/Cream.png"
+      },
+      {
+          "name": "Rose Poudré",
+          "code": "dusty-rose",
+          "hex": "#D6A5A3",
+          "image": "assets/images/products/t-shirts/heritage-regular-tshirt-heather-grey/Variantes/Dusty Rose _ Pink.png"
+      },
+      {
+          "name": "Bleu Ciel",
+          "code": "light-blue",
+          "hex": "#9EBCD4",
+          "image": "assets/images/products/t-shirts/heritage-regular-tshirt-heather-grey/Variantes/Light Blue.png"
+      },
+      {
+          "name": "Gris Moyen",
+          "code": "medium-grey",
+          "hex": "#8A8D90",
+          "image": "assets/images/products/t-shirts/heritage-regular-tshirt-heather-grey/Variantes/Medium Grey.png"
+      },
+      {
+          "name": "Bleu Intense",
+          "code": "strong-blue",
+          "hex": "#1E4870",
+          "image": "assets/images/products/t-shirts/heritage-regular-tshirt-heather-grey/Variantes/Strong Blue.png"
+      },
+      {
+          "name": "Bleu Canard",
+          "code": "teal",
+          "hex": "#276063",
+          "image": "assets/images/products/t-shirts/heritage-regular-tshirt-heather-grey/Variantes/Teal _ Blue-Green.png"
+      },
+      {
+          "name": "Polo beig",
+          "code": "beig",
+          "hex": "#C8B49B",
+          "image": "assets/images/products/t-shirts/rodeo-bear-classic-fit-tee/polo-front.png"
+      },
+      {
+          "name": "Light Beige",
+          "code": "light-beige",
+          "hex": "#6B4E3D",
+          "image": "assets/images/products/t-shirts/rodeo-bear-classic-fit-tee/layer-7.png"
+      },
+      {
+          "name": "Olive Green",
+          "code": "olive-green",
+          "hex": "#6E7358",
+          "image": "assets/images/products/t-shirts/rodeo-bear-classic-fit-tee/Variantes/Olive Green Front.png"
+      },
+      {
+          "name": "Tan",
+          "code": "tan",
+          "hex": "#E8E2D5",
+          "image": "assets/images/products/t-shirts/rodeo-bear-classic-fit-tee/layer-8.png"
+      },
+      {
+          "name": "Blanc Crème",
+          "code": "white-creme",
+          "hex": "#F2EFE9",
+          "image": "assets/images/products/t-shirts/relaxed-tank-top-180gsm/wcf.png"
+      },
+      {
+          "name": "Vert Militaire",
+          "code": "green-army",
+          "hex": "#555D42",
+          "image": "assets/images/products/t-shirts/relaxed-tank-top-180gsm/grf.png"
+      },
+      {
+          "name": "Gris Chiné",
+          "code": "gris",
+          "hex": "#A8A9AD",
+          "image": "assets/images/products/t-shirts/relaxed-tank-top-180gsm/gf.png"
+      },
+      {
+          "name": "Bleu Roi",
+          "code": "royal-blue",
+          "hex": "#1D4E89",
+          "image": "assets/images/products/t-shirts/Hoodie zipless/hoodie zipless front Blue roi.png"
+      },
+      {
+          "name": "Gris Anthracite",
+          "code": "grey",
+          "hex": "#3A3D40",
+          "image": "assets/images/products/t-shirts/lv front empty/lv empty front grey.png"
       }
   ],
 
