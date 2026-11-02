@@ -310,29 +310,56 @@ window.WholesaleController = {
           </button>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 24px;">
           ${products.map(p => {
+            p = this.enrichProductWithMasterColors(p);
             const firstColor = (p.colors && p.colors[0]) || {};
             const imgUrl = (p.images && firstColor.code && p.images[firstColor.code] && p.images[firstColor.code][0]) 
                         || firstColor.image 
                         || 'assets/images/categories/category-tshirts.jpg';
             const sizesCount = (p.sizes && p.sizes.length) || 4;
-            const colorsCount = (p.colors && p.colors.length) || 1;
+            const colors = p.colors || [];
+            const colorsCount = colors.length || 1;
             const moq = defaultMoqs[p.id] || (sizesCount * colorsCount);
 
             return `
-              <div style="border: 1px solid var(--color-border); background: #FFF; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+              <div style="border: 1px solid var(--color-border); background: #FFF; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
                 <div>
-                  <div style="position: relative; overflow: hidden; margin-bottom: 14px; background: #F8F8F8; border-radius: 2px;">
-                    <img src="${imgUrl}" alt="${p.name}" style="width: 100%; aspect-ratio: 1/1.1; object-fit: cover; display: block;">
+                  <div style="position: relative; overflow: hidden; margin-bottom: 14px; background: #F8FAFC; border-radius: 4px; height: 320px; display: flex; align-items: center; justify-content: center;">
+                    <img src="${imgUrl}" alt="${p.name}" id="public-img-${p.id}" style="width: 100%; height: 100%; object-fit: contain; padding: 12px; display: block;">
                     <span class="badge" style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.8); color: #FFF; font-size: 0.72rem; padding: 3px 8px;">
                       ${p.category ? p.category.toUpperCase() : 'APPAREL'}
                     </span>
                   </div>
                   <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; line-height: 1.3;">${p.name}</h3>
-                  <div style="font-size: 0.85rem; color: var(--color-text-secondary); margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+                  <div style="font-size: 0.85rem; color: var(--color-text-secondary); margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
                     <span>Prix public : <strong>${p.price} MAD</strong></span>
-                    <span style="font-size: 0.75rem; color: var(--color-text-muted);">${colorsCount} coloris</span>
+                    <span style="font-size: 0.75rem; color: #64748B; font-weight: 600;">${colorsCount} coloris</span>
+                  </div>
+
+                  <!-- Color Swatches on Public Card -->
+                  <div style="display: flex; align-items: center; gap: 5px; flex-wrap: wrap; margin-bottom: 14px;">
+                    ${colors.map((c, cIdx) => `
+                      <span class="public-color-chip-${p.id} ${cIdx === 0 ? 'active' : ''}"
+                            style="display: inline-flex; align-items: center; gap: 4px; background: ${cIdx === 0 ? '#0F172A' : '#FFFFFF'}; color: ${cIdx === 0 ? '#FFFFFF' : '#475569'}; border: 1px solid ${cIdx === 0 ? '#0F172A' : '#E2E8F0'}; padding: 2px 7px; border-radius: 12px; font-size: 0.68rem; cursor: pointer; transition: all 0.15s ease;"
+                            title="${c.name || c.code}"
+                            onclick="
+                              const img = document.getElementById('public-img-${p.id}');
+                              const targetImg = '${(p.images && p.images[c.code] && p.images[c.code][0]) || c.image || imgUrl}';
+                              if (img) img.src = targetImg;
+                              document.querySelectorAll('.public-color-chip-${p.id}').forEach(el => {
+                                el.style.background = '#FFFFFF';
+                                el.style.color = '#475569';
+                                el.style.borderColor = '#E2E8F0';
+                              });
+                              this.style.background = '#0F172A';
+                              this.style.color = '#FFFFFF';
+                              this.style.borderColor = '#0F172A';
+                            ">
+                        <span style="width: 8px; height: 8px; border-radius: 50%; background: ${c.hex || '#111'}; border: 1px solid rgba(0,0,0,0.15);"></span>
+                        ${c.name || c.code}
+                      </span>
+                    `).join('')}
                   </div>
                 </div>
                 <div>
@@ -544,7 +571,9 @@ window.WholesaleController = {
 
       this.catalogData = await res.json();
       if (this.catalogData && Array.isArray(this.catalogData.products)) {
-        this.catalogData.products = this.catalogData.products.filter(p => !p.isBundle && p.id !== 'pack-trio-tshirts');
+        this.catalogData.products = this.catalogData.products
+          .filter(p => !p.isBundle && p.id !== 'pack-trio-tshirts')
+          .map(p => this.enrichProductWithMasterColors(p));
       }
       this.renderApprovedPortalView();
     } catch (err) {
@@ -579,15 +608,59 @@ window.WholesaleController = {
     }
   },
 
+  enrichProductWithMasterColors(p) {
+    if (!p) return p;
+    const masterProds = (window.StoreDataManager ? window.StoreDataManager.getProducts() : (window.STORE_PRODUCTS || window.DEFAULT_STORE_PRODUCTS || []));
+    const master = masterProds.find(m => m.id === p.id);
+    if (!master) return p;
+
+    // Merge colors
+    if (Array.isArray(master.colors) && master.colors.length > 0) {
+      const existingCodes = new Set((p.colors || []).map(c => c.code));
+      const mergedColors = [...(p.colors || [])];
+      master.colors.forEach(mc => {
+        if (!existingCodes.has(mc.code)) {
+          mergedColors.push(mc);
+          existingCodes.add(mc.code);
+        }
+      });
+      p.colors = mergedColors;
+    }
+
+    // Merge images
+    p.images = { ...(master.images || {}), ...(p.images || {}) };
+
+    // Guarantee colorway swatch image
+    if (Array.isArray(p.colors)) {
+      p.colors.forEach(c => {
+        if (!c.image && p.images[c.code] && p.images[c.code][0]) {
+          c.image = p.images[c.code][0];
+        }
+      });
+    }
+
+    // Update sizes and counts
+    if (!p.sizes || !p.sizes.length) {
+      p.sizes = master.sizes || ['S', 'M', 'L', 'XL'];
+    }
+    p.colorsCount = (p.colors && p.colors.length) || 1;
+    p.sizesCount = (p.sizes && p.sizes.length) || 4;
+    p.gridMoq = p.gridMoq || (p.sizesCount * p.colorsCount);
+
+    return p;
+  },
+
   buildFallbackCatalogData() {
-    const rawProducts = (window.STORE_PRODUCTS || window.DEFAULT_STORE_PRODUCTS || []).filter(p => !p.isBundle && p.id !== 'pack-trio-tshirts');
+    const masterProds = (window.StoreDataManager ? window.StoreDataManager.getProducts() : (window.STORE_PRODUCTS || window.DEFAULT_STORE_PRODUCTS || []));
+    const rawProducts = masterProds.filter(p => !p.isBundle && p.id !== 'pack-trio-tshirts');
     const tiers = [
       { id: "tier_min", name: "MOQ", min_qty: 1, max_qty: 24, target_margin: 0.35, description: "Tarif de base dès le MOQ atteint" },
       { id: "tier_mid", name: "Palier 2 (MOQ-49)", min_qty: 25, max_qty: 49, target_margin: 0.30, description: "Tarif volume dès 25 pièces au total" },
       { id: "tier_high", name: "Palier 3 (50+)", min_qty: 50, max_qty: null, target_margin: 0.25, description: "Meilleur tarif dès 50 pièces au total" }
     ];
 
-    const wholesaleProducts = rawProducts.map(p => {
+    const wholesaleProducts = rawProducts.map(rawP => {
+      const p = this.enrichProductWithMasterColors(JSON.parse(JSON.stringify(rawP)));
       const retail = parseInt(p.price, 10) || 249;
       const cost = Math.max(1, Math.round(retail * 0.35));
       const tierMinPrice = Math.round(cost / (1 - 0.35));
@@ -772,14 +845,18 @@ window.WholesaleController = {
   },
 
   renderProductWholesaleCard(p) {
-    const selectedColor = this.activeColorPerProduct[p.id] || (p.colors[0] ? p.colors[0].code : '');
-    const activeColorObj = p.colors.find(c => c.code === selectedColor) || p.colors[0] || {};
+    p = this.enrichProductWithMasterColors(p);
+    const colors = p.colors && p.colors.length ? p.colors : [{ code: 'default', name: 'Standard' }];
+    const selectedColor = this.activeColorPerProduct[p.id] || (colors[0] ? colors[0].code : '');
+    const activeColorObj = colors.find(c => c.code === selectedColor) || colors[0] || {};
     
     // Resolve image
-    const imgUrl = (p.images && p.images[selectedColor] && p.images[selectedColor][0]) || activeColorObj.image || 'assets/images/categories/category-tshirts.jpg';
+    const imgUrl = (p.images && p.images[selectedColor] && p.images[selectedColor][0]) 
+                || activeColorObj.image 
+                || (p.images && Object.values(p.images)[0] && Object.values(p.images)[0][0])
+                || 'assets/images/categories/category-tshirts.jpg';
 
     // Starter Pack metrics: all colors must have all sizes (1 pc per size x colors count)
-    const colors = p.colors && p.colors.length ? p.colors : [{ code: 'default', name: 'Standard' }];
     const sizes = p.sizes && p.sizes.length ? p.sizes : ['S', 'M', 'L', 'XL'];
     const starterPackUnits = p.gridMoq || (colors.length * sizes.length);
 
@@ -862,7 +939,10 @@ window.WholesaleController = {
 
               <!-- Color Palette Swatches Preview -->
               <div class="wholesale-pack-colors-preview">
-                <span class="colors-preview-label">Coloris inclus :</span>
+                <div class="colors-preview-label">
+                  <span>Coloris inclus (${colors.length}) :</span>
+                  <span style="font-weight: 400; color: #64748B;">Cliquez pour changer de visuel</span>
+                </div>
                 <div class="colors-preview-list">
                   ${colors.map(c => `
                     <span class="wholesale-pack-color-chip ${c.code === selectedColor ? 'active' : ''}" 

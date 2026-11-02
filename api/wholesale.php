@@ -347,6 +347,14 @@ function dbSaveOrder($pdo, $order, $ordersFile) {
 }
 
 function dbGetProducts($pdo, $rootDir, $productsFile) {
+    $masterProducts = getMasterProductsList($rootDir, $productsFile);
+    $masterById = [];
+    foreach ($masterProducts as $mp) {
+        if (!empty($mp['id'])) {
+            $masterById[$mp['id']] = $mp;
+        }
+    }
+
     if ($pdo) {
         try {
             $stmt = $pdo->query("SELECT `data_json` FROM `catalog_products` ORDER BY `id` ASC");
@@ -356,6 +364,14 @@ function dbGetProducts($pdo, $rootDir, $productsFile) {
                 foreach ($rows as $r) {
                     $item = json_decode($r['data_json'], true);
                     if ($item && !empty($item['id'])) {
+                        // Merge with master if master has newer or more complete colors/images
+                        $m = $masterById[$item['id']] ?? null;
+                        if ($m) {
+                            if (!empty($m['colors']) && (empty($item['colors']) || count($m['colors']) > count($item['colors']))) {
+                                $item['colors'] = $m['colors'];
+                            }
+                            $item['images'] = array_merge($m['images'] ?? [], $item['images'] ?? []);
+                        }
                         $prods[] = $item;
                     }
                 }
@@ -365,7 +381,7 @@ function dbGetProducts($pdo, $rootDir, $productsFile) {
             error_log("dbGetProducts error: " . $e->getMessage());
         }
     }
-    return getMasterProductsList($rootDir, $productsFile);
+    return $masterProducts;
 }
 
 // Helper: Get master products list with JSON fallback
