@@ -1999,6 +1999,7 @@ window.AdminDashboard = {
 
   saveProductFromForm(e) {
     e.preventDefault();
+    try {
 
     if (this.isCurrentEditingBundle) {
       // ----------------------------------------------------------------------
@@ -2272,6 +2273,10 @@ window.AdminDashboard = {
     } catch (saveErr) {
       console.error("Error saving product:", saveErr);
       this.toast(`Erreur lors de l'enregistrement: ${saveErr.message}`, "danger");
+    }
+    } catch (outerErr) {
+      console.error("saveProductFromForm unexpected error:", outerErr);
+      this.toast(`Erreur inattendue: ${outerErr.message}`, "danger");
     }
   },
 

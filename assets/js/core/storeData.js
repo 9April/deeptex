@@ -319,8 +319,28 @@ window.StoreDataManager = {
       }
     });
 
+    // Strip base64 data URLs before sending to disk — they bloat the payload
+    // and exceed PHP post_max_size. Only server-side file paths should persist.
+    const sanitizedProducts = products.map(p => {
+      if (!p || !p.images || typeof p.images !== 'object') return p;
+      const cleanImages = {};
+      Object.keys(p.images).forEach(k => {
+        if (Array.isArray(p.images[k])) {
+          cleanImages[k] = p.images[k].filter(img => typeof img === 'string' && !img.startsWith('data:image/'));
+          if (cleanImages[k].length === 0) delete cleanImages[k];
+        }
+      });
+      const cleanColors = Array.isArray(p.colors) ? p.colors.map(c => {
+        if (c && c.image && typeof c.image === 'string' && c.image.startsWith('data:image/')) {
+          return { ...c, image: '' };
+        }
+        return c;
+      }) : p.colors;
+      return { ...p, images: cleanImages, colors: cleanColors };
+    });
+
     const payload = {
-      products: products,
+      products: sanitizedProducts,
       categories: this.getCategories(),
       colors: this.getColors(),
       deletedProductId: deletedProductId || undefined

@@ -796,7 +796,7 @@ window.DEFAULT_STORE_PRODUCTS = [
         "name": "Bleu Marine",
         "code": "navy",
         "hex": "#1D2E4E",
-        "image": "assets/images/products/t-shirts/heavyweight-boxy-tee-300/front-main.png",
+        "image": "assets/images/products/t-shirts/essential-oversized-tee/1.png",
         "productId": "essential-oversized-tee",
         "linkUrl": "product.html?id=essential-oversized-tee&color=navy"
       },
@@ -829,7 +829,7 @@ window.DEFAULT_STORE_PRODUCTS = [
         "assets/images/products/t-shirts/essential-oversized-tee/lookbook.jpg"
       ],
       "navy": [
-        "assets/images/products/t-shirts/heavyweight-boxy-tee-300/front-main.png",
+        "assets/images/products/t-shirts/essential-oversized-tee/1.png",
         "assets/images/products/t-shirts/heavyweight-boxy-tee-300/back-hover.png",
         "assets/images/products/t-shirts/essential-oversized-tee/firefly_create-a-highly-realistic-close-up-fashion-product-photograph-of-the-t-shirt-from-the-55293.png",
         "assets/images/products/t-shirts/essential-oversized-tee/firefly_create-a-photorealistic-moroccan-streetwear-t-shirt-mockup-using-the-uploaded-referen-55293--1-.png",
