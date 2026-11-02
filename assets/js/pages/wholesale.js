@@ -827,14 +827,12 @@ window.WholesaleController = {
           <table class="wholesale-pricing-table">
             <thead>
               <tr>
-                <th>MOQ</th>
-                <th>Palier 2 (MOQ-49)</th>
-                <th>Palier 3 (50+)</th>
+                <th>Palier 2 (Qte: -49)</th>
+                <th>Palier 3 (Qte: 50+)</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><strong>${StoreUtils.formatMoney(p.tierPrices.tier_min)}</strong></td>
                 <td><strong>${StoreUtils.formatMoney(p.tierPrices.tier_mid)}</strong></td>
                 <td><strong style="color: #166534;">${StoreUtils.formatMoney(p.tierPrices.tier_high)}</strong></td>
               </tr>

@@ -375,7 +375,7 @@
 
 .wholesale-pricing-table th,
 .wholesale-pricing-table td {
-  width: 33.333%;
+  width: 50%;
   box-sizing: border-box;
   padding: 8px 4px;
   border: 1px solid var(--color-border);
