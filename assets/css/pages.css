@@ -34,8 +34,10 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: brightness(0.88);
-  transform: scale(1.02);
+  filter: brightness(0.95) contrast(1.03);
+  transform: scale(1.01);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
   transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
